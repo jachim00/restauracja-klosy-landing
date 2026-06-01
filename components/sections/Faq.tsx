@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { faqItems } from "@/content/faq";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +22,10 @@ export function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                 >
                   <span className="font-medium text-forest">{item.q}</span>
-                  {isOpen ? <Minus size={18} className="shrink-0 text-olive" /> : <Plus size={18} className="shrink-0 text-olive" />}
+                  <ChevronDown
+                    size={18}
+                    className={cn("shrink-0 text-olive transition-transform duration-300", isOpen && "rotate-180")}
+                  />
                 </button>
                 <div className={cn("grid transition-all", isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
                   <div className="overflow-hidden">

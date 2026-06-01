@@ -7,20 +7,25 @@ import { navLinks } from "@/lib/constants";
 import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { WheatMark } from "@/components/ui/WheatMark";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b border-linen/60 bg-cream/90 backdrop-blur">
       <nav className="container-x flex h-16 items-center justify-between" aria-label="Główna nawigacja">
-        <Link href="/" className="font-serif text-xl font-semibold text-forest">
+        <Link href="/" className="inline-flex items-center gap-2 font-serif text-xl font-semibold text-forest">
+          <WheatMark className="h-5 w-5 text-wheat" />
           KŁOSY
         </Link>
 
         <ul className="hidden items-center gap-6 lg:flex">
           {navLinks.map((l) => (
             <li key={l.href}>
-              <Link href={l.href} className="text-sm text-ink/80 transition-colors hover:text-wheat">
+              <Link
+                href={l.href}
+                className="relative text-sm text-ink/80 transition-colors hover:text-wheat after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-wheat after:transition-transform after:duration-300 hover:after:scale-x-100"
+              >
                 {l.label}
               </Link>
             </li>

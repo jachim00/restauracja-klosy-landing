@@ -31,6 +31,29 @@
   .section-y {
     @apply py-16 sm:py-20 lg:py-28;
   }
+  /* Sygnatura „światło spod lampy" — miękka bursztynowa poświata za nagłówkiem/sceną. */
+  .glow-amber {
+    position: relative;
+    isolation: isolate;
+  }
+  .glow-amber::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -40%;
+    translate: -50% 0;
+    width: 115%;
+    height: 170%;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+      50% 50% at 50% 50%,
+      rgba(201, 154, 58, 0.22),
+      rgba(184, 121, 82, 0.08) 45%,
+      transparent 70%
+    );
+    filter: blur(8px);
+  }
 }
 
 /* Szanuj preferencję ograniczenia ruchu. */

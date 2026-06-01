@@ -6,39 +6,40 @@ import { Phone, CalendarCheck, ArrowDown } from "lucide-react";
 import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
 import { assetPath } from "@/lib/utils";
+import { WheatPattern } from "@/components/ui/WheatPattern";
 
-// Animacje wejścia na czystym CSS (animate-fade-up) — bez Framer Motion,
-// żeby nie obciążać wątku głównego na starcie (lepsze TBT/LCP).
-// prefers-reduced-motion jest respektowane globalnie w globals.css.
+// Animacje wejścia na czystym CSS (animate-fade-up) — bez Framer Motion.
+// prefers-reduced-motion respektowane globalnie w globals.css.
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-forest text-cream">
       <div aria-hidden className="absolute inset-0">
         <Image
-          src={assetPath("/assets/restauracja-klosy/hero/hero-caprese.jpg")}
+          src={assetPath("/assets/restauracja-klosy/hero/hero-wnetrze.jpg")}
           alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover"
+          className="object-cover object-[center_30%]"
         />
-        {/* Zielony tint wtapiający apetyczne zdjęcie w paletę (multiply) */}
+        {/* Wtopienie w zieleń + głębia */}
         <div className="absolute inset-0 bg-forest/35 mix-blend-multiply" />
-        {/* Gradient pod czytelność tekstu (lekko u góry, mocniej u dołu) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-forest/20 via-forest/30 to-forest/80" />
-        <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest/25 via-forest/35 to-forest/85" />
+        {/* Sygnatura: bursztynowe światło „spod lampy" (z góry, jak lampy na suficie) */}
+        <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_50%_8%,rgba(201,154,58,0.32),transparent_70%)]" />
+        <WheatPattern className="absolute -right-6 bottom-0 h-[125%] w-auto text-wheat/20" />
       </div>
 
       <div className="container-x relative z-10 flex min-h-[78vh] flex-col justify-center py-20">
-        <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 px-4 py-1 text-sm text-cream/80">
+        <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 bg-forest/20 px-4 py-1 text-sm text-cream/85 backdrop-blur-sm">
           Warszawa · Al. Jerozolimskie 123a
         </p>
 
         <h1
-          className="max-w-3xl animate-fade-up font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl"
+          className="max-w-3xl animate-fade-up font-serif text-4xl leading-[1.05] tracking-tight text-cream sm:text-5xl lg:text-6xl"
           style={{ animationDelay: "60ms" }}
         >
-          Domowa kuchnia i przyjęcia rodzinne w sercu Warszawy
+          Domowa <span className="text-wheat">kuchnia</span> i przyjęcia rodzinne w sercu Warszawy
         </h1>
 
         <p
@@ -56,7 +57,7 @@ export function Hero() {
           <Link
             href="/kontakt#formularz"
             onClick={() => track.ctaHero("zapytaj_o_termin")}
-            className="inline-flex items-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
+            className="inline-flex items-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-all hover:scale-[1.03] hover:shadow-[0_8px_30px_-6px_rgba(201,154,58,0.6)]"
           >
             <CalendarCheck size={18} /> Zapytaj o termin
           </Link>
@@ -81,21 +82,5 @@ export function Hero() {
         </a>
       </div>
     </section>
-  );
-}
-
-function WheatPattern({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 200 400" className={className} fill="none" aria-hidden>
-      <g className="origin-bottom animate-sway">
-        <path d="M100 400 V120" stroke="currentColor" strokeWidth="3" />
-        {Array.from({ length: 7 }).map((_, i) => (
-          <g key={i}>
-            <ellipse cx={92} cy={140 + i * 28} rx="9" ry="18" fill="currentColor" transform={`rotate(-30 92 ${140 + i * 28})`} />
-            <ellipse cx={108} cy={140 + i * 28} rx="9" ry="18" fill="currentColor" transform={`rotate(30 108 ${140 + i * 28})`} />
-          </g>
-        ))}
-      </g>
-    </svg>
   );
 }

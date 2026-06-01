@@ -4,6 +4,7 @@ import { OfferTabs } from "@/components/sections/OfferTabs";
 import { EventConfigurator } from "@/components/sections/EventConfigurator";
 import { Faq } from "@/components/sections/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { WheatPattern } from "@/components/ui/WheatPattern";
 import { faqSchema } from "@/lib/schema";
 import { restaurant } from "@/content/restaurant-data";
 
@@ -16,7 +17,7 @@ export default function HomePage() {
       <section className="section-y bg-white">
         <div className="container-x grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
-            <h2 className="text-3xl sm:text-4xl">Restauracja KŁOSY w kilku słowach</h2>
+            <h2 className="glow-amber text-3xl sm:text-4xl">Restauracja KŁOSY w kilku słowach</h2>
             <p className="mt-4 text-ink/75">
               Jesteśmy restauracją z domową kuchnią przy Al. Jerozolimskich 123a w Warszawie
               (Atlas Tower). Gotujemy obiady na miejscu, prowadzimy catering i organizujemy
@@ -75,14 +76,16 @@ export default function HomePage() {
 
       <Faq />
 
-      {/* CTA końcowe */}
-      <section className="bg-forest text-cream">
-        <div className="container-x flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">
+      {/* CTA końcowe — „wieczór": forest + światło lampy + kłos */}
+      <section className="relative overflow-hidden bg-forest text-cream">
+        <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_120%,rgba(201,154,58,0.30),transparent_70%)]" />
+        <WheatPattern className="pointer-events-none absolute -right-8 -bottom-10 h-[150%] w-auto text-wheat/10" />
+        <div className="container-x relative z-10 flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-3xl text-cream">Zaplanuj przyjęcie w KŁOSACH</h2>
             <p className="mt-2 text-cream/80">Napisz, co planujesz — odpowiemy z propozycją terminu i menu.</p>
           </div>
-          <Link href="/kontakt#formularz" className="rounded-full bg-wheat px-7 py-3 font-medium text-forest transition-transform hover:scale-[1.03]">
+          <Link href="/kontakt#formularz" className="rounded-full bg-wheat px-7 py-3 font-medium text-forest transition-all hover:scale-[1.03] hover:shadow-[0_8px_30px_-6px_rgba(201,154,58,0.6)]">
             Wyślij zapytanie
           </Link>
         </div>

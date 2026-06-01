@@ -6,6 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GtmScript, GtmNoScript } from "@/components/analytics/GtmScript";
+import { GrainOverlay } from "@/components/ui/GrainOverlay";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema, localBusinessSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/constants";
@@ -32,8 +33,8 @@ export const metadata: Metadata = {
       "Domowa kuchnia i przyjęcia rodzinne w centrum Warszawy. Zapytaj o termin komunii, chrzcin, wesela lub cateringu.",
     images: [
       {
-        url: "/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg",
-        alt: "Bufet w Restauracji KŁOSY w Warszawie — przekąski i dania na przyjęcia",
+        url: "/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg",
+        alt: "Ciepłe wnętrze Restauracji KŁOSY w Warszawie z bursztynowym światłem lamp",
       },
     ],
   },
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="pb-14 lg:pb-0">
         <GtmNoScript />
+        <GrainOverlay />
         <Navbar />
         <main>{children}</main>
         <Footer />
