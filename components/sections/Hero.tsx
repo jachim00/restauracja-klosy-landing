@@ -22,7 +22,10 @@ export function Hero() {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,40,23,0.84)_0%,rgba(38,53,31,0.78)_55%,rgba(28,40,23,0.92)_100%)]" />
+        {/* Zielony tint wtapiający zdjęcie w paletę (multiply) */}
+        <div className="absolute inset-0 bg-forest/45 mix-blend-multiply" />
+        {/* Gradient pod czytelność tekstu (lekko u góry, mocniej u dołu) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-forest/25 via-forest/35 to-forest/85" />
         <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" animate={!reduce} />
       </div>
 
