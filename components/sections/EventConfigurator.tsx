@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Sparkles,
   Baby,
@@ -49,7 +48,6 @@ const stepTitles = [
 
 export function EventConfigurator() {
   const router = useRouter();
-  const reduce = useReducedMotion();
 
   const [step, setStep] = useState(1);
   const [eventTypeId, setEventTypeId] = useState<string | null>(null);
@@ -99,15 +97,6 @@ export function EventConfigurator() {
     router.push(`/kontakt?${params.toString()}#formularz`);
   }
 
-  const motionProps = reduce
-    ? {}
-    : {
-        initial: { opacity: 0, x: 24 },
-        animate: { opacity: 1, x: 0 },
-        exit: { opacity: 0, x: -24 },
-        transition: { duration: 0.3 },
-      };
-
   const progressPct = (step / TOTAL_STEPS) * 100;
 
   return (
@@ -136,17 +125,14 @@ export function EventConfigurator() {
               aria-valuemax={TOTAL_STEPS}
               aria-label="Postęp konfiguratora przyjęcia"
             >
-              <motion.div
-                className="h-full rounded-full bg-olive"
-                initial={false}
-                animate={{ width: `${progressPct}%` }}
-                transition={reduce ? { duration: 0 } : { duration: 0.4 }}
+              <div
+                className="h-full rounded-full bg-olive transition-[width] duration-300 ease-out"
+                style={{ width: `${progressPct}%` }}
               />
             </div>
           </div>
 
-          <AnimatePresence mode="wait">
-            <motion.div key={step} {...motionProps}>
+          <div key={step} className="animate-fade-up">
               {/* KROK 1 — typ wydarzenia */}
               {step === 1 && (
                 <fieldset>
@@ -167,8 +153,7 @@ export function EventConfigurator() {
                             track.eventTypeSelect(t.id);
                           }}
                           className={cn(
-                            "group flex flex-col items-start gap-2 rounded-card border p-4 text-left transition-all",
-                            !reduce && "hover:-translate-y-0.5 hover:shadow-soft",
+                            "group flex flex-col items-start gap-2 rounded-card border p-4 text-left transition-all hover:-translate-y-0.5 hover:shadow-soft",
                             selected
                               ? "border-olive bg-olive/10 ring-2 ring-olive/40"
                               : "border-linen bg-white hover:border-olive/50"
@@ -212,8 +197,7 @@ export function EventConfigurator() {
                             track.guestCount(range);
                           }}
                           className={cn(
-                            "rounded-full border px-5 py-3 text-sm transition-all",
-                            !reduce && "hover:scale-[1.03]",
+                            "rounded-full border px-5 py-3 text-sm transition-all hover:scale-[1.03]",
                             selected
                               ? "border-olive bg-olive text-cream"
                               : "border-linen bg-white text-ink/80 hover:border-olive/50"
@@ -243,8 +227,7 @@ export function EventConfigurator() {
                           aria-pressed={selected}
                           onClick={() => setPlace(p)}
                           className={cn(
-                            "flex items-center justify-between rounded-card border px-4 py-4 text-left text-sm transition-all",
-                            !reduce && "hover:-translate-y-0.5 hover:shadow-soft",
+                            "flex items-center justify-between rounded-card border px-4 py-4 text-left text-sm transition-all hover:-translate-y-0.5 hover:shadow-soft",
                             selected
                               ? "border-olive bg-olive/10 ring-2 ring-olive/40"
                               : "border-linen bg-white hover:border-olive/50"
@@ -316,18 +299,14 @@ export function EventConfigurator() {
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    className={cn(
-                      "mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform sm:w-auto",
-                      !reduce && "hover:scale-[1.03]"
-                    )}
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03] sm:w-auto"
                   >
                     <Send size={18} aria-hidden="true" />
                     Wyślij zapytanie o przyjęcie
                   </button>
                 </div>
               )}
-            </motion.div>
-          </AnimatePresence>
+          </div>
 
           {/* Nawigacja wstecz/dalej (kroki 1–4) */}
           {step < TOTAL_STEPS && (

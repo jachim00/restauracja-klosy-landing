@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import { offerTabs } from "@/content/offer-tabs";
 import { track } from "@/lib/analytics";
@@ -11,7 +10,6 @@ import { cn, assetPath } from "@/lib/utils";
 
 export function OfferTabs() {
   const [active, setActive] = useState(offerTabs[0].id);
-  const reduce = useReducedMotion();
   const tab = offerTabs.find((t) => t.id === active)!;
 
   return (
@@ -23,7 +21,7 @@ export function OfferTabs() {
           i menu ustalamy indywidualnie po Twoim zapytaniu.
         </p>
 
-        {/* Zakładki: poziomy scroll na mobile, przyciski na desktop */}
+        {/* Zakładki: poziomy scroll na mobile */}
         <div
           role="tablist"
           aria-label="Oferta"
@@ -50,44 +48,40 @@ export function OfferTabs() {
           ))}
         </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab.id}
-            initial={reduce ? false : { opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -8 }}
-            transition={{ duration: 0.35 }}
-            className="mt-8 grid items-center gap-8 rounded-card bg-white p-6 shadow-soft md:grid-cols-2 md:p-8"
-          >
-            <div>
-              <h3 className="text-2xl">{tab.heading}</h3>
-              <p className="mt-3 text-ink/75">{tab.description}</p>
-              <ul className="mt-5 space-y-2">
-                {tab.benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-ink/85">
-                    <Check size={18} className="mt-0.5 shrink-0 text-olive" /> {b}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={tab.cta.href}
-                onClick={() => track.offerTab(`cta_${tab.id}`)}
-                className="mt-6 inline-flex rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
-              >
-                {tab.cta.label}
-              </Link>
-            </div>
-            <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-              <Image
-                src={assetPath(tab.image)}
-                alt={tab.imageAlt}
-                fill
-                sizes="(max-width:768px) 100vw, 50vw"
-                className="object-cover"
-              />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        {/* key={tab.id} -> remount = płynny fade (CSS) przy zmianie zakładki */}
+        <div
+          key={tab.id}
+          className="mt-8 grid animate-fade-up items-center gap-8 rounded-card bg-white p-6 shadow-soft md:grid-cols-2 md:p-8"
+        >
+          <div>
+            <h3 className="text-2xl">{tab.heading}</h3>
+            <p className="mt-3 text-ink/75">{tab.description}</p>
+            <ul className="mt-5 space-y-2">
+              {tab.benefits.map((b) => (
+                <li key={b} className="flex items-start gap-2 text-ink/85">
+                  <Check size={18} className="mt-0.5 shrink-0 text-olive" /> {b}
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={tab.cta.href}
+              onClick={() => track.offerTab(`cta_${tab.id}`)}
+              className="mt-6 inline-flex rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
+            >
+              {tab.cta.label}
+            </Link>
+          </div>
+
+          <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
+            <Image
+              src={assetPath(tab.image)}
+              alt={tab.imageAlt}
+              fill
+              sizes="(max-width:768px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );

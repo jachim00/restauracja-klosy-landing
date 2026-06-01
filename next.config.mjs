@@ -13,7 +13,7 @@ const nextConfig = {
   },
   experimental: {
     // Lepszy tree-shaking ciężkich pakietów -> mniej JS, niższy TBT.
-    optimizePackageImports: ["lucide-react", "framer-motion"],
+    optimizePackageImports: ["lucide-react"],
   },
 };
 
