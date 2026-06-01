@@ -30,7 +30,7 @@ export default function WeselaRocznicePage() {
   return (
     <>
       <PageHero
-        image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg"
+        image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp"
         alt="Sala rustykalna przygotowana na kameralne przyjęcie weselne w Restauracji KŁOSY"
         eyebrow="Wesela i rocznice"
         title="Kameralne wesela i rocznice w Warszawie"
@@ -63,7 +63,7 @@ export default function WeselaRocznicePage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/events/stol-bankietowy.jpg"
+        image="/assets/restauracja-klosy/events/stol-bankietowy.webp"
         alt="Nakryty stół bankietowy przygotowany na kameralne wesele w Restauracji KŁOSY"
         eyebrow="Wesele kameralne"
         title="Wesele kameralne — dla bliskiego grona"
@@ -107,7 +107,7 @@ export default function WeselaRocznicePage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.jpg"
+        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp"
         alt="Kameralna sala z dekoracją kwiatową na przyjęcie rocznicowe w Restauracji KŁOSY"
         eyebrow="Rocznice i jubileusze"
         title="Rocznice i jubileusze"
@@ -143,7 +143,7 @@ export default function WeselaRocznicePage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg"
+        image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp"
         alt="Słodki stół z ciastami i deserami przygotowany na przyjęcie w Restauracji KŁOSY"
         eyebrow="Menu i personalizacja"
         title="Indywidualne menu na wesele i rocznicę"
@@ -177,11 +177,11 @@ export default function WeselaRocznicePage() {
       <PhotoStrip
         heading="Zobacz nasze realizacje"
         images={[
-          { src: "/assets/restauracja-klosy/events/stol-bankietowy.jpg", alt: "Nakryty stół bankietowy na przyjęcie w Restauracji KŁOSY" },
-          { src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg", alt: "Sala rustykalna przygotowana na kameralne przyjęcie" },
-          { src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.jpg", alt: "Sala nakryta do uroczystego przyjęcia rodzinnego" },
-          { src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg", alt: "Słodki stół z ciastami i deserami" },
-          { src: "/assets/restauracja-klosy/food/tagliatelle-krewetki.jpg", alt: "Tagliatelle z krewetkami — danie z menu Restauracji KŁOSY" },
+          { src: "/assets/restauracja-klosy/events/stol-bankietowy.webp", alt: "Nakryty stół bankietowy na przyjęcie w Restauracji KŁOSY" },
+          { src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp", alt: "Sala rustykalna przygotowana na kameralne przyjęcie" },
+          { src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.webp", alt: "Sala nakryta do uroczystego przyjęcia rodzinnego" },
+          { src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp", alt: "Słodki stół z ciastami i deserami" },
+          { src: "/assets/restauracja-klosy/food/tagliatelle-krewetki.webp", alt: "Tagliatelle z krewetkami — danie z menu Restauracji KŁOSY" },
         ]}
       />
 

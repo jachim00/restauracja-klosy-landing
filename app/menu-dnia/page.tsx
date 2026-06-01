@@ -45,7 +45,7 @@ export default function MenuDniaPage() {
     <>
       {/* HERO */}
       <PageHero
-        image="/assets/restauracja-klosy/food/obiad-golonka.jpg"
+        image="/assets/restauracja-klosy/food/obiad-golonka.webp"
         alt="Domowy obiad w Restauracji KŁOSY: golonka, zupa i deser"
         eyebrow="Menu dnia • Warszawa, Ochota"
         title="Menu dnia i kuchnia polska w centrum Warszawy"
@@ -83,7 +83,7 @@ export default function MenuDniaPage() {
 
       {/* O MENU DNIA */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/food/pieczona-kaczka.jpg"
+        image="/assets/restauracja-klosy/food/pieczona-kaczka.webp"
         alt="Pieczona kaczka — danie główne z domowej kuchni Restauracji KŁOSY"
         eyebrow="Czym jest u nas menu dnia"
         title="Domowe obiady bez udziwnień"
@@ -114,7 +114,7 @@ export default function MenuDniaPage() {
 
       {/* OBIADY DLA GRUP */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/food/obiad-kurczak-makaron.jpg"
+        image="/assets/restauracja-klosy/food/obiad-kurczak-makaron.webp"
         alt="Obiad: kurczak z makaronem — propozycja dla grup w Restauracji KŁOSY"
         eyebrow="Obiady dla grup"
         title="Obiad dla zespołu, klasy i rodziny"
@@ -149,7 +149,7 @@ export default function MenuDniaPage() {
 
       {/* DOSTAWA */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/food/tagliatelle-krewetki.jpg"
+        image="/assets/restauracja-klosy/food/tagliatelle-krewetki.webp"
         alt="Tagliatelle z krewetkami — danie z karty Restauracji KŁOSY"
         eyebrow="Obiad z dostawą"
         title="Obiad z menu dnia z dowozem w Warszawie"
@@ -250,27 +250,27 @@ export default function MenuDniaPage() {
         heading="Zobacz nasze realizacje"
         images={[
           {
-            src: "/assets/restauracja-klosy/food/pierogi-z-jagodami.jpg",
+            src: "/assets/restauracja-klosy/food/pierogi-z-jagodami.webp",
             alt: "Pierogi z jagodami z domowej kuchni Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/obiad-pieczen-surowki.jpg",
+            src: "/assets/restauracja-klosy/food/obiad-pieczen-surowki.webp",
             alt: "Obiad: pieczeń z surówkami w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.jpg",
+            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp",
             alt: "Taca deserów owsianych w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/owsianka-truskawki.jpg",
+            src: "/assets/restauracja-klosy/food/owsianka-truskawki.webp",
             alt: "Owsianka z truskawkami w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/deser-czekolada-wisnie.jpg",
+            src: "/assets/restauracja-klosy/food/deser-czekolada-wisnie.webp",
             alt: "Deser czekoladowy z wiśniami w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/owsianki-dwa-kubki.jpg",
+            src: "/assets/restauracja-klosy/food/owsianki-dwa-kubki.webp",
             alt: "Dwa kubki owsianki w Restauracji KŁOSY",
           },
         ]}

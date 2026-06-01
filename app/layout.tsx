@@ -32,7 +32,7 @@ export const metadata: Metadata = {
       "Domowa kuchnia i przyjęcia rodzinne w centrum Warszawy. Zapytaj o termin komunii, chrzcin, wesela lub cateringu.",
     images: [
       {
-        url: "/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg",
+        url: "/assets/restauracja-klosy/interior/wnetrze-sala-lampy.webp",
         alt: "Ciepłe wnętrze Restauracji KŁOSY w Warszawie z bursztynowym światłem lamp",
       },
     ],

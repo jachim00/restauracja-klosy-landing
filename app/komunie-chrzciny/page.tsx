@@ -43,7 +43,7 @@ export default function KomunieChrzcinyPage() {
   return (
     <main className="bg-cream text-ink">
       <PageHero
-        image="/assets/restauracja-klosy/communions/stol-komunijny-girlanda.jpg"
+        image="/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp"
         alt="Nakryty stół przygotowany na kameralne przyjęcie komunijne w Restauracji KŁOSY"
         eyebrow="Przyjęcia rodzinne w Warszawie"
         title="Komunie i chrzciny w Restauracji KŁOSY"
@@ -61,7 +61,7 @@ export default function KomunieChrzcinyPage() {
       />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/communions/stol-komunijny-balony.jpg"
+        image="/assets/restauracja-klosy/communions/stol-komunijny-balony.webp"
         alt="Stół komunijny z dekoracją balonową w Restauracji KŁOSY"
         eyebrow="Charakter miejsca"
         title="Kameralne miejsce na rodzinną uroczystość"
@@ -90,7 +90,7 @@ export default function KomunieChrzcinyPage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/events/obsluga-kelnerska.jpg"
+        image="/assets/restauracja-klosy/events/obsluga-kelnerska.webp"
         alt="Obsługa kelnerska przy stole podczas przyjęcia w Restauracji KŁOSY"
         eyebrow="Komunie i chrzciny"
         title="Dwie różne uroczystości, jedno miejsce"
@@ -127,7 +127,7 @@ export default function KomunieChrzcinyPage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.jpg"
+        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp"
         alt="Kameralna sala restauracyjna z kwiatami w Restauracji KŁOSY"
         eyebrow="Menu"
         title="Menu dla dzieci i dla dorosłych"
@@ -176,23 +176,23 @@ export default function KomunieChrzcinyPage() {
         heading="Zobacz nasze realizacje"
         images={[
           {
-            src: "/assets/restauracja-klosy/communions/stol-komunijny-girlanda.jpg",
+            src: "/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp",
             alt: "Stół komunijny z girlandą kwiatową w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/communions/stol-komunijny-balony.jpg",
+            src: "/assets/restauracja-klosy/communions/stol-komunijny-balony.webp",
             alt: "Stół komunijny z dekoracją balonową w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.jpg",
+            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.webp",
             alt: "Obsługa kelnerska podczas przyjęcia w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg",
+            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
             alt: "Słodki stół z ciastami na przyjęcie rodzinne",
           },
           {
-            src: "/assets/restauracja-klosy/food/pieczona-kaczka.jpg",
+            src: "/assets/restauracja-klosy/food/pieczona-kaczka.webp",
             alt: "Pieczona kaczka — danie z domowej, polskiej kuchni",
           },
         ]}

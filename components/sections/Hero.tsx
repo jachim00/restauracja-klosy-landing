@@ -16,7 +16,7 @@ export function Hero() {
     <section className="relative overflow-hidden bg-forest text-cream">
       <div aria-hidden className="absolute inset-0">
         <Image
-          src={assetPath("/assets/restauracja-klosy/hero/hero-wnetrze.jpg")}
+          src={assetPath("/assets/restauracja-klosy/hero/hero-wnetrze.webp")}
           alt=""
           fill
           priority

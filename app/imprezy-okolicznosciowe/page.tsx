@@ -81,7 +81,7 @@ export default function ImprezyOkolicznosciowePage() {
   return (
     <>
       <PageHero
-        image="/assets/restauracja-klosy/events/stol-bankietowy.jpg"
+        image="/assets/restauracja-klosy/events/stol-bankietowy.webp"
         alt="Stół bankietowy nakryty na przyjęcie okolicznościowe w Restauracji KŁOSY"
         eyebrow="Restauracja KŁOSY · Warszawa, Ochota"
         title="Imprezy okolicznościowe w Warszawie"
@@ -99,7 +99,7 @@ export default function ImprezyOkolicznosciowePage() {
       />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg"
+        image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp"
         alt="Rustykalna sala Restauracji KŁOSY przygotowana na przyjęcie okolicznościowe"
         eyebrow="Jakie imprezy organizujemy"
         title="Okazje, które przygotowujemy w KŁOSACH"
@@ -120,7 +120,7 @@ export default function ImprezyOkolicznosciowePage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.jpg"
+        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp"
         alt="Kameralna sala Restauracji KŁOSY z kwiatami na stołach"
         eyebrow="Kameralnie i rodzinnie"
         title="Spokojny, rodzinny klimat zamiast wielkiej sali bankietowej"
@@ -163,7 +163,7 @@ export default function ImprezyOkolicznosciowePage() {
       <WheatDivider />
 
       <EditorialSplit
-        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg"
+        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.webp"
         alt="Bufet cateringowy Restauracji KŁOSY z sałatką caprese"
         eyebrow="Jak wygląda organizacja"
         title="Od zapytania do dnia wydarzenia"
@@ -198,23 +198,23 @@ export default function ImprezyOkolicznosciowePage() {
         heading="Zobacz nasze realizacje"
         images={[
           {
-            src: "/assets/restauracja-klosy/events/stol-bankietowy.jpg",
+            src: "/assets/restauracja-klosy/events/stol-bankietowy.webp",
             alt: "Stół bankietowy nakryty na przyjęcie w Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg",
+            src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp",
             alt: "Rustykalna sala przygotowana na przyjęcie okolicznościowe",
           },
           {
-            src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.jpg",
+            src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.webp",
             alt: "Sala Restauracji KŁOSY nakryta przed przyjęciem",
           },
           {
-            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.jpg",
+            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.webp",
             alt: "Obsługa kelnerska podczas przyjęcia w KŁOSACH",
           },
           {
-            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg",
+            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
             alt: "Słodki stół z ciastami przygotowany przez Restaurację KŁOSY",
           },
         ]}

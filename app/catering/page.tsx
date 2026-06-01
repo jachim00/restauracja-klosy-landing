@@ -180,7 +180,7 @@ export default function CateringPage() {
 
       {/* HERO */}
       <PageHero
-        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg"
+        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.webp"
         alt="Bufet cateringowy Restauracji KŁOSY — przekąski caprese przygotowane do podania na spotkaniu firmowym"
         eyebrow="Catering w Warszawie"
         title="Catering firmowy i prywatny — Restauracja KŁOSY"
@@ -200,7 +200,7 @@ export default function CateringPage() {
 
       {/* WSTĘP / KIM JESTEŚMY */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/catering/catering-desery-przekaski.jpg"
+        image="/assets/restauracja-klosy/catering/catering-desery-przekaski.webp"
         alt="Desery i przekąski cateringowe Restauracji KŁOSY ułożone na tacy"
         eyebrow="Catering z restauracji"
         title="Catering z restauracji, a nie z fabryki cateringowej"
@@ -271,7 +271,7 @@ export default function CateringPage() {
 
       {/* AKCENT B2B / FAKTURA VAT */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/catering/catering-croissanty.jpg"
+        image="/assets/restauracja-klosy/catering/catering-croissanty.webp"
         alt="Croissanty i drobne wypieki na przerwę kawową przygotowane przez Restaurację KŁOSY"
         eyebrow="Dla firm"
         title="Catering firmowy z fakturą VAT"
@@ -306,7 +306,7 @@ export default function CateringPage() {
 
       {/* OBIADY DLA GRUP SZKOLNYCH */}
       <EditorialSplit
-        image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg"
+        image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp"
         alt="Słodki stół z ciastami przygotowany przez Restaurację KŁOSY"
         eyebrow="Grupy zorganizowane"
         title="Obiady dla grup, w tym grup szkolnych"
@@ -425,23 +425,23 @@ export default function CateringPage() {
         heading="Zobacz nasze realizacje"
         images={[
           {
-            src: "/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg",
+            src: "/assets/restauracja-klosy/catering/catering-bufet-caprese.webp",
             alt: "Bufet cateringowy z przekąskami caprese przygotowany przez Restaurację KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/catering/catering-croissanty.jpg",
+            src: "/assets/restauracja-klosy/catering/catering-croissanty.webp",
             alt: "Croissanty i drobne wypieki na przerwę kawową",
           },
           {
-            src: "/assets/restauracja-klosy/catering/catering-desery-przekaski.jpg",
+            src: "/assets/restauracja-klosy/catering/catering-desery-przekaski.webp",
             alt: "Desery i przekąski cateringowe ułożone na tacy",
           },
           {
-            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg",
+            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
             alt: "Słodki stół z ciastami od Restauracji KŁOSY",
           },
           {
-            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.jpg",
+            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp",
             alt: "Desery owsiane podane na tacy",
           },
         ]}
