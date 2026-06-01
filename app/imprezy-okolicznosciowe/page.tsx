@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageHero } from "@/components/sections/PageHero";
+import { FactsBand } from "@/components/sections/FactsBand";
+import { EditorialSplit } from "@/components/sections/EditorialSplit";
+import { PhotoStrip } from "@/components/sections/PhotoStrip";
+import { WheatDivider } from "@/components/ui/WheatDivider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, serviceSchema, faqSchema } from "@/lib/schema";
 import { faqItems } from "@/content/faq";
@@ -75,133 +80,145 @@ const relatedLinks = [
 export default function ImprezyOkolicznosciowePage() {
   return (
     <>
-      {/* Nagłówek / wprowadzenie */}
-      <section className="section-y bg-cream">
-        <div className="container-x max-w-3xl">
-          <p className="font-medium text-clay">Restauracja KŁOSY · Warszawa, Ochota</p>
-          <h1 className="mt-2 text-4xl sm:text-5xl">Imprezy okolicznościowe w Warszawie</h1>
-          <p className="mt-5 text-lg text-ink/75">
-            Organizujemy kameralne imprezy okolicznościowe przy Al. Jerozolimskich 123a w Warszawie
-            (Atlas Tower). Urodziny, rocznice, spotkania rodzinne i firmowe przygotowujemy z domową
-            kuchnią i spokojną obsługą — bez hucznych imprez na setki osób.
-          </p>
-          <p className="mt-4 text-ink/75">
-            Restauracja działa przy {restaurant.foundation.name}, a zysk wspiera cele statutowe
-            Fundacji. Wybierając KŁOSY na swoje przyjęcie, jednocześnie wspierasz tę działalność.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href="/kontakt#formularz"
-              className="rounded-full bg-wheat px-7 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
-            >
-              Wyślij zapytanie
+      <PageHero
+        image="/assets/restauracja-klosy/events/stol-bankietowy.jpg"
+        alt="Stół bankietowy nakryty na przyjęcie okolicznościowe w Restauracji KŁOSY"
+        eyebrow="Restauracja KŁOSY · Warszawa, Ochota"
+        title="Imprezy okolicznościowe w Warszawie"
+        subtitle="Kameralne urodziny, rocznice oraz spotkania rodzinne i firmowe przy Al. Jerozolimskich 123a — z domową kuchnią i spokojną obsługą, bez hucznych imprez na setki osób."
+        cta={{ label: "Zapytaj o termin", href: "/kontakt#formularz" }}
+      />
+
+      <FactsBand
+        items={[
+          { value: "Przyjęcia rodzinne", label: "Urodziny, rocznice, spotkania" },
+          { value: "Spotkania firmowe", label: "Lunche i przerwy kawowe" },
+          { value: "Menu na życzenie", label: "Dopasowane do gości" },
+          { value: "Centrum Warszawy", label: "Ochota, Al. Jerozolimskie 123a" },
+        ]}
+      />
+
+      <EditorialSplit
+        image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg"
+        alt="Rustykalna sala Restauracji KŁOSY przygotowana na przyjęcie okolicznościowe"
+        eyebrow="Jakie imprezy organizujemy"
+        title="Okazje, które przygotowujemy w KŁOSACH"
+      >
+        <p>
+          Każde przyjęcie ustalamy indywidualnie — od liczby gości i terminu po menu. Najczęściej
+          organizujemy:
+        </p>
+        <ul className="space-y-3">
+          {occasions.map((o) => (
+            <li key={o.title}>
+              <span className="font-medium text-forest">{o.title}.</span> {o.desc}
+            </li>
+          ))}
+        </ul>
+      </EditorialSplit>
+
+      <WheatDivider />
+
+      <EditorialSplit
+        image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.jpg"
+        alt="Kameralna sala Restauracji KŁOSY z kwiatami na stołach"
+        eyebrow="Kameralnie i rodzinnie"
+        title="Spokojny, rodzinny klimat zamiast wielkiej sali bankietowej"
+        reverse
+      >
+        <p>
+          Nasza sala mieści się w budynku Atlas Tower przy Al. Jerozolimskich 123a. Dokładne piętro
+          i wskazówki dojazdu potwierdzamy w kontakcie. Postawiliśmy na spokojny, rodzinny klimat —
+          zamiast wielkiej sali bankietowej proponujemy przestrzeń, w której goście dobrze się
+          słyszą i czują się jak u siebie.
+        </p>
+        <p>
+          Menu układamy pod typ wydarzenia i preferencje gości — uwzględniamy dania wegetariańskie
+          oraz informacje o alergiach podane w zapytaniu.
+        </p>
+        <p>
+          Specjalizujemy się w przyjęciach kameralnych. Dokładną pojemność sali i maksymalną liczbę
+          gości potwierdzamy w kontakcie, bo zależą one od układu stołów i charakteru wydarzenia.
+        </p>
+        <ul className="space-y-2">
+          <li>
+            <span className="font-medium text-forest">Liczba miejsc na sali:</span>{" "}
+            {restaurant.capacity}
+          </li>
+          <li>
+            <span className="font-medium text-forest">Maksymalna liczba gości na przyjęciu:</span>{" "}
+            {TODO}
+          </li>
+          <li>
+            <span className="font-medium text-forest">Większe grupy:</span> dla większej liczby
+            osób proponujemy catering z dostawą —{" "}
+            <Link href="/catering" className="text-clay underline-offset-2 hover:underline">
+              zobacz ofertę cateringu
             </Link>
-            <a
-              href={`tel:+48${restaurant.contact.phone}`}
-              className="rounded-full border border-forest/30 px-7 py-3 font-medium text-forest transition-colors hover:bg-forest/5"
-            >
-              Zadzwoń: {restaurant.contact.phoneDisplay}
-            </a>
-          </div>
-        </div>
-      </section>
+            .
+          </li>
+        </ul>
+      </EditorialSplit>
 
-      {/* Rodzaje imprez */}
-      <section className="section-y bg-white">
-        <div className="container-x">
-          <h2 className="text-3xl sm:text-4xl">Jakie imprezy organizujemy?</h2>
-          <p className="mt-4 max-w-2xl text-ink/75">
-            Każde przyjęcie ustalamy indywidualnie — od liczby gości i terminu po menu. Poniżej
-            najczęstsze okazje, które przygotowujemy w KŁOSACH.
-          </p>
-          <div className="mt-8 grid gap-5 md:grid-cols-2">
-            {occasions.map((o) => (
-              <article key={o.title} className="rounded-card border border-linen bg-cream p-6">
-                <h3 className="font-serif text-2xl text-forest">{o.title}</h3>
-                <p className="mt-2 text-ink/75">{o.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <WheatDivider />
 
-      {/* Wizualizacja sali / placeholder zdjęcia */}
-      <section className="section-y bg-linen/40">
-        <div className="container-x grid gap-10 md:grid-cols-2 md:items-center">
-          <div
-            role="img"
-            aria-label="Zdjęcie sali Restauracji KŁOSY przygotowanej na przyjęcie okolicznościowe"
-            className="flex aspect-[4/3] items-center justify-center rounded-card bg-linen text-center text-sm text-ink/50 shadow-soft"
-          >
-            [DO UZUPEŁNIENIA: zdjęcie sali przygotowanej na przyjęcie]
-          </div>
-          <div>
-            <h2 className="text-3xl sm:text-4xl">Kameralnie, rodzinnie, konkretnie</h2>
-            <p className="mt-4 text-ink/75">
-              Nasza sala mieści się w budynku Atlas Tower przy Al. Jerozolimskich 123a. Dokładne
-              piętro i wskazówki dojazdu potwierdzamy w kontakcie. Postawiliśmy na spokojny,
-              rodzinny klimat — zamiast wielkiej sali bankietowej proponujemy przestrzeń, w której
-              goście dobrze się słyszą i czują się jak u siebie.
-            </p>
-            <p className="mt-4 text-ink/75">
-              Menu układamy pod typ wydarzenia i preferencje gości — uwzględniamy dania
-              wegetariańskie oraz informacje o alergiach podane w zapytaniu.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Dla ilu osób */}
-      <section className="section-y bg-white">
-        <div className="container-x max-w-3xl">
-          <h2 className="text-3xl sm:text-4xl">Dla ilu osób?</h2>
-          <p className="mt-4 text-ink/75">
-            Specjalizujemy się w przyjęciach kameralnych. Dokładną pojemność sali i maksymalną
-            liczbę gości potwierdzamy w kontakcie, bo zależą one od układu stołów i charakteru
-            wydarzenia.
-          </p>
-          <ul className="mt-6 space-y-2 text-ink/75">
-            <li>
-              <span className="font-medium text-forest">Liczba miejsc na sali:</span>{" "}
-              {restaurant.capacity}
+      <EditorialSplit
+        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg"
+        alt="Bufet cateringowy Restauracji KŁOSY z sałatką caprese"
+        eyebrow="Jak wygląda organizacja"
+        title="Od zapytania do dnia wydarzenia"
+      >
+        <p>
+          Organizacja przyjęcia w KŁOSACH przebiega w kilku prostych krokach — prowadzimy Cię przez
+          nie od pierwszego kontaktu aż po dzień wydarzenia:
+        </p>
+        <ol className="space-y-3">
+          {steps.map(([n, t, d]) => (
+            <li key={n} className="flex gap-3">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-wheat font-serif text-sm text-forest">
+                {n}
+              </span>
+              <span>
+                <span className="font-medium text-forest">{t}.</span> {d}
+              </span>
             </li>
-            <li>
-              <span className="font-medium text-forest">Maksymalna liczba gości na przyjęciu:</span>{" "}
-              {TODO}
-            </li>
-            <li>
-              <span className="font-medium text-forest">Większe grupy:</span> dla większej liczby
-              osób proponujemy catering z dostawą — {" "}
-              <Link href="/catering" className="text-clay underline-offset-2 hover:underline">
-                zobacz ofertę cateringu
-              </Link>
-              .
-            </li>
-          </ul>
-        </div>
-      </section>
+          ))}
+        </ol>
+        <p className="text-sm text-ink/60">
+          Po wysłaniu zapytania restauracja potwierdzi dostępność terminu i przygotuje propozycję
+          menu.
+        </p>
+        <p>
+          Restauracja działa przy {restaurant.foundation.name}, a zysk wspiera cele statutowe
+          Fundacji. Wybierając KŁOSY na swoje przyjęcie, jednocześnie wspierasz tę działalność.
+        </p>
+      </EditorialSplit>
 
-      {/* Jak wygląda organizacja — 5 kroków (jak na home) */}
-      <section className="section-y bg-linen/40">
-        <div className="container-x">
-          <h2 className="text-3xl sm:text-4xl">Jak wygląda organizacja imprezy?</h2>
-          <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {steps.map(([n, t, d]) => (
-              <li key={n} className="rounded-card bg-white p-5 shadow-soft">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-wheat font-serif text-forest">
-                  {n}
-                </span>
-                <p className="mt-3 font-medium text-forest">{t}</p>
-                <p className="mt-1 text-sm text-ink/70">{d}</p>
-              </li>
-            ))}
-          </ol>
-          <p className="mt-6 text-sm text-ink/60">
-            Po wysłaniu zapytania restauracja potwierdzi dostępność terminu i przygotuje propozycję
-            menu.
-          </p>
-        </div>
-      </section>
+      <PhotoStrip
+        heading="Zobacz nasze realizacje"
+        images={[
+          {
+            src: "/assets/restauracja-klosy/events/stol-bankietowy.jpg",
+            alt: "Stół bankietowy nakryty na przyjęcie w Restauracji KŁOSY",
+          },
+          {
+            src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.jpg",
+            alt: "Rustykalna sala przygotowana na przyjęcie okolicznościowe",
+          },
+          {
+            src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.jpg",
+            alt: "Sala Restauracji KŁOSY nakryta przed przyjęciem",
+          },
+          {
+            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.jpg",
+            alt: "Obsługa kelnerska podczas przyjęcia w KŁOSACH",
+          },
+          {
+            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg",
+            alt: "Słodki stół z ciastami przygotowany przez Restaurację KŁOSY",
+          },
+        ]}
+      />
 
       {/* Linki do pokrewnych podstron */}
       <section className="section-y bg-white">

@@ -18,6 +18,11 @@ import { restaurant, TODO } from "@/content/restaurant-data";
 import { faqItems } from "@/content/faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, serviceSchema, faqSchema } from "@/lib/schema";
+import { PageHero } from "@/components/sections/PageHero";
+import { FactsBand } from "@/components/sections/FactsBand";
+import { EditorialSplit } from "@/components/sections/EditorialSplit";
+import { PhotoStrip } from "@/components/sections/PhotoStrip";
+import { WheatDivider } from "@/components/ui/WheatDivider";
 
 const HREF = "/catering";
 
@@ -174,81 +179,53 @@ export default function CateringPage() {
       />
 
       {/* HERO */}
-      <section className="section-y border-b border-linen">
-        <div className="container-x grid items-center gap-10 lg:grid-cols-2">
-          <div className="animate-fade-up">
-            <p className="text-sm font-medium uppercase tracking-wide text-olive">
-              Catering w Warszawie
-            </p>
-            <h1 className="mt-3 font-serif text-4xl leading-tight text-forest sm:text-5xl">
-              Catering firmowy i prywatny — Restauracja KŁOSY
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-ink/75">
-              Domowa, polska kuchnia z restauracji na Ochocie — w Waszym biurze, na szkoleniu
-              albo na rodzinnym spotkaniu. Przygotowujemy catering firmowy i prywatny, w lokalu
-              lub z dostawą na terenie Warszawy: lunche biznesowe, przerwy kawowe, obsługę szkoleń
-              oraz obiady dla grup, w tym szkolnych. Zamówienia firmowe rozliczamy fakturą VAT.
-              Restaurację prowadzi Fundacja Pomocy Rodzinie „Człowiek w Potrzebie”, więc każde
-              zamówienie wspiera też jej cele statutowe.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/kontakt#formularz"
-                className="rounded-card bg-wheat px-6 py-3 font-medium text-forest shadow-soft transition hover:brightness-95"
-              >
-                Zapytaj o catering
-              </Link>
-              <a
-                href={phoneHref}
-                className="rounded-card border border-olive/40 px-6 py-3 font-medium text-forest transition hover:bg-linen"
-              >
-                Zadzwoń: {restaurant.contact.phoneDisplay}
-              </a>
-            </div>
-          </div>
+      <PageHero
+        image="/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg"
+        alt="Bufet cateringowy Restauracji KŁOSY — przekąski caprese przygotowane do podania na spotkaniu firmowym"
+        eyebrow="Catering w Warszawie"
+        title="Catering firmowy i prywatny — Restauracja KŁOSY"
+        subtitle="Domowa, polska kuchnia z restauracji na Ochocie — w Waszym biurze, na szkoleniu albo na rodzinnym spotkaniu. W lokalu lub z dostawą na terenie Warszawy. Zamówienia firmowe rozliczamy fakturą VAT."
+        cta={{ label: "Zapytaj o termin", href: "/kontakt#formularz" }}
+      />
 
-          <div
-            role="img"
-            aria-label="Catering od Restauracji KŁOSY — dania przygotowane do podania na spotkaniu firmowym"
-            className="flex aspect-[4/3] items-center justify-center rounded-card border border-linen bg-linen/60 shadow-soft"
-          >
-            <span className="px-6 text-center text-sm text-ink/40">
-              [DO UZUPEŁNIENIA: zdjęcie cateringu / stołu z daniami przygotowanymi do podania]
-            </span>
-          </div>
-        </div>
-      </section>
+      {/* FAKTY */}
+      <FactsBand
+        items={[
+          { value: "Catering z dostawą", label: "Na terenie Warszawy" },
+          { value: "Firmowy i prywatny", label: "Biuro, szkolenie, spotkanie rodzinne" },
+          { value: "Przerwy kawowe", label: "Kawa, herbata i poczęstunek" },
+          { value: "Faktura VAT", label: "Wygodne rozliczenie dla firm" },
+        ]}
+      />
 
       {/* WSTĘP / KIM JESTEŚMY */}
-      <section className="section-y">
-        <div className="container-x max-w-4xl">
-          <h2 className="font-serif text-3xl text-forest sm:text-4xl">
-            Catering z restauracji, a nie z fabryki cateringowej
-          </h2>
-          <div className="mt-6 space-y-4 text-lg text-ink/80">
-            <p>
-              KŁOSY to działająca restauracja przy Al. Jerozolimskich 123a w Warszawie, w dzielnicy
-              Ochota, w budynku Atlas Tower. Catering to przedłużenie naszej codziennej kuchni:
-              dania, które serwujemy gościom w lokalu, przygotowujemy też na wynos i z dostawą.
-              Dzięki temu na spotkanie firmowe czy rodzinne trafia ta sama domowa, polska kuchnia,
-              a nie anonimowe porcje z linii produkcyjnej.
-            </p>
-            <p>
-              Obsługujemy dwa główne kierunki. Pierwszy to catering firmowy (B2B): lunche dla
-              zespołów, przerwy kawowe, obsługa szkoleń i konferencji oraz cykliczne dostawy do
-              biur — wszystko z rozliczeniem na fakturę VAT. Drugi to catering prywatny: spotkania
-              rodzinne, urodziny, rocznice i kameralne uroczystości, na które dowozimy jedzenie lub
-              przygotowujemy je do odbioru.
-            </p>
-            <p>
-              Niezależnie od skali zamówienia menu układamy indywidualnie — pod liczbę osób, porę
-              dnia i charakter spotkania. Uwzględniamy dania wegetariańskie oraz alergie
-              i nietolerancje zgłoszone w zapytaniu. Nie publikujemy tu sztywnego cennika, bo
-              każde zamówienie wyceniamy osobno po poznaniu szczegółów.
-            </p>
-          </div>
-        </div>
-      </section>
+      <EditorialSplit
+        image="/assets/restauracja-klosy/catering/catering-desery-przekaski.jpg"
+        alt="Desery i przekąski cateringowe Restauracji KŁOSY ułożone na tacy"
+        eyebrow="Catering z restauracji"
+        title="Catering z restauracji, a nie z fabryki cateringowej"
+      >
+        <p>
+          KŁOSY to działająca restauracja przy Al. Jerozolimskich 123a w Warszawie, w dzielnicy
+          Ochota, w budynku Atlas Tower. Catering to przedłużenie naszej codziennej kuchni:
+          dania, które serwujemy gościom w lokalu, przygotowujemy też na wynos i z dostawą.
+          Dzięki temu na spotkanie firmowe czy rodzinne trafia ta sama domowa, polska kuchnia,
+          a nie anonimowe porcje z linii produkcyjnej.
+        </p>
+        <p>
+          Obsługujemy dwa główne kierunki. Pierwszy to catering firmowy (B2B): lunche dla
+          zespołów, przerwy kawowe, obsługa szkoleń i konferencji oraz cykliczne dostawy do
+          biur — wszystko z rozliczeniem na fakturę VAT. Drugi to catering prywatny: spotkania
+          rodzinne, urodziny, rocznice i kameralne uroczystości, na które dowozimy jedzenie lub
+          przygotowujemy je do odbioru.
+        </p>
+        <p>
+          Niezależnie od skali zamówienia menu układamy indywidualnie — pod liczbę osób, porę
+          dnia i charakter spotkania. Uwzględniamy dania wegetariańskie oraz alergie
+          i nietolerancje zgłoszone w zapytaniu. Nie publikujemy tu sztywnego cennika, bo
+          każde zamówienie wyceniamy osobno po poznaniu szczegółów.
+        </p>
+      </EditorialSplit>
 
       {/* RODZAJE CATERINGU */}
       <section className="section-y bg-white">
@@ -290,79 +267,66 @@ export default function CateringPage() {
         </div>
       </section>
 
+      <WheatDivider />
+
       {/* AKCENT B2B / FAKTURA VAT */}
-      <section className="section-y">
-        <div className="container-x">
-          <div className="max-w-3xl">
-            <h2 className="font-serif text-3xl text-forest sm:text-4xl">
-              Catering firmowy z fakturą VAT
-            </h2>
-            <p className="mt-4 text-lg text-ink/80">
-              Dla firm catering ma być przede wszystkim wygodny i przewidywalny. Dlatego zamówienia
-              biznesowe prowadzimy z jednym kontaktem po naszej stronie, rozliczamy fakturą VAT
-              i obsługujemy zarówno jednorazowe wydarzenia, jak i powtarzalne dostawy do biura.
-            </p>
-          </div>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {b2bPoints.map((b) => {
-              const Icon = b.icon;
-              return (
-                <div
-                  key={b.title}
-                  className="rounded-card border border-linen bg-white p-6 shadow-soft"
-                >
-                  <Icon className="text-olive" size={26} aria-hidden="true" />
-                  <h3 className="mt-4 font-serif text-xl text-forest">{b.title}</h3>
-                  <p className="mt-2 text-sm text-ink/75">{b.body}</p>
-                </div>
-              );
-            })}
-          </div>
-          <p className="mt-6 text-sm text-ink/55">
-            Dane do faktury (NIP, nazwa firmy, adres) zbieramy przy potwierdzeniu zamówienia.
-            Minimalne wartości zamówienia i obszar dostawy: [DO UZUPEŁNIENIA: minimalne zamówienie
-            cateringu firmowego / strefa dostawy] — ustalane przy zapytaniu.
-          </p>
-        </div>
-      </section>
+      <EditorialSplit
+        image="/assets/restauracja-klosy/catering/catering-croissanty.jpg"
+        alt="Croissanty i drobne wypieki na przerwę kawową przygotowane przez Restaurację KŁOSY"
+        eyebrow="Dla firm"
+        title="Catering firmowy z fakturą VAT"
+        reverse
+      >
+        <p className="text-lg">
+          Dla firm catering ma być przede wszystkim wygodny i przewidywalny. Dlatego zamówienia
+          biznesowe prowadzimy z jednym kontaktem po naszej stronie, rozliczamy fakturą VAT
+          i obsługujemy zarówno jednorazowe wydarzenia, jak i powtarzalne dostawy do biura.
+        </p>
+        <ul className="space-y-4">
+          {b2bPoints.map((b) => {
+            const Icon = b.icon;
+            return (
+              <li key={b.title} className="flex gap-3">
+                <Icon className="mt-1 shrink-0 text-olive" size={22} aria-hidden="true" />
+                <span>
+                  <span className="font-medium text-forest">{b.title}.</span> {b.body}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+        <p className="text-sm text-ink/55">
+          Dane do faktury (NIP, nazwa firmy, adres) zbieramy przy potwierdzeniu zamówienia.
+          Minimalne wartości zamówienia i obszar dostawy: [DO UZUPEŁNIENIA: minimalne zamówienie
+          cateringu firmowego / strefa dostawy] — ustalane przy zapytaniu.
+        </p>
+      </EditorialSplit>
+
+      <WheatDivider />
 
       {/* OBIADY DLA GRUP SZKOLNYCH */}
-      <section className="section-y bg-white">
-        <div className="container-x grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="font-serif text-3xl text-forest sm:text-4xl">
-              Obiady dla grup, w tym grup szkolnych
-            </h2>
-            <div className="mt-6 space-y-4 text-lg text-ink/80">
-              <p>
-                Przygotowujemy obiady dla grup zorganizowanych — wycieczek, grup szkolnych,
-                uczestników szkoleń i warsztatów. Liczbę porcji ustalamy z góry, dzięki czemu
-                każdy z uczestników dostaje ciepły, sycący posiłek bez kolejek i czekania.
-              </p>
-              <p>
-                Dla grup szkolnych dobieramy dania prostsze i pewne, a w razie potrzeby
-                przygotowujemy wersje wegetariańskie oraz uwzględniamy zgłoszone alergie. Catering
-                dla grup możemy zrealizować na miejscu w restauracji albo dowieźć w ustalone miejsce
-                na terenie Warszawy.
-              </p>
-            </div>
-            <p className="mt-6 text-sm text-ink/55">
-              Ceny zestawów dla grup: [DO UZUPEŁNIENIA: cennik obiadów dla grup / grup szkolnych] —
-              ustalane indywidualnie po podaniu liczby osób.
-            </p>
-          </div>
-
-          <div
-            role="img"
-            aria-label="Ciepły obiad dla grupy przygotowany przez Restaurację KŁOSY"
-            className="flex min-h-56 items-center justify-center rounded-card border border-linen bg-linen/60 shadow-soft"
-          >
-            <span className="px-6 text-center text-sm text-ink/40">
-              [DO UZUPEŁNIENIA: zdjęcie obiadu dla grupy / zestawu obiadowego]
-            </span>
-          </div>
-        </div>
-      </section>
+      <EditorialSplit
+        image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg"
+        alt="Słodki stół z ciastami przygotowany przez Restaurację KŁOSY"
+        eyebrow="Grupy zorganizowane"
+        title="Obiady dla grup, w tym grup szkolnych"
+      >
+        <p>
+          Przygotowujemy obiady dla grup zorganizowanych — wycieczek, grup szkolnych,
+          uczestników szkoleń i warsztatów. Liczbę porcji ustalamy z góry, dzięki czemu
+          każdy z uczestników dostaje ciepły, sycący posiłek bez kolejek i czekania.
+        </p>
+        <p>
+          Dla grup szkolnych dobieramy dania prostsze i pewne, a w razie potrzeby
+          przygotowujemy wersje wegetariańskie oraz uwzględniamy zgłoszone alergie. Catering
+          dla grup możemy zrealizować na miejscu w restauracji albo dowieźć w ustalone miejsce
+          na terenie Warszawy.
+        </p>
+        <p className="text-sm text-ink/55">
+          Ceny zestawów dla grup: [DO UZUPEŁNIENIA: cennik obiadów dla grup / grup szkolnych] —
+          ustalane indywidualnie po podaniu liczby osób.
+        </p>
+      </EditorialSplit>
 
       {/* MENU */}
       <section className="section-y">
@@ -456,53 +420,68 @@ export default function CateringPage() {
         </div>
       </section>
 
+      {/* GALERIA REALIZACJI */}
+      <PhotoStrip
+        heading="Zobacz nasze realizacje"
+        images={[
+          {
+            src: "/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg",
+            alt: "Bufet cateringowy z przekąskami caprese przygotowany przez Restaurację KŁOSY",
+          },
+          {
+            src: "/assets/restauracja-klosy/catering/catering-croissanty.jpg",
+            alt: "Croissanty i drobne wypieki na przerwę kawową",
+          },
+          {
+            src: "/assets/restauracja-klosy/catering/catering-desery-przekaski.jpg",
+            alt: "Desery i przekąski cateringowe ułożone na tacy",
+          },
+          {
+            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.jpg",
+            alt: "Słodki stół z ciastami od Restauracji KŁOSY",
+          },
+          {
+            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.jpg",
+            alt: "Desery owsiane podane na tacy",
+          },
+        ]}
+      />
+
       {/* LOKALIZACJA / NAP */}
       <section className="section-y bg-white">
-        <div className="container-x grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="font-serif text-3xl text-forest sm:text-4xl">Skąd dowozimy i kontakt</h2>
-            <p className="mt-4 text-ink/80">
-              Catering przygotowujemy w naszej restauracji na Ochocie i dowozimy na terenie
-              Warszawy. To dobrze skomunikowany punkt, blisko centrum — wygodny przy dostawach
-              do biur i na spotkania w różnych częściach miasta.
-            </p>
-            <ul className="mt-6 space-y-3 text-ink/80">
-              <li className="flex gap-3">
-                <MapPin size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
-                <span>
-                  {restaurant.address.street}, {restaurant.address.postalCode}{" "}
-                  {restaurant.address.city} ({restaurant.address.building} — do potwierdzenia)
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Phone size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
-                <a href={phoneHref} className="hover:text-forest">
-                  {restaurant.contact.phoneDisplay}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Mail size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
-                <a href={mailHref} className="hover:text-forest">
-                  {restaurant.contact.email}
-                </a>
-              </li>
-            </ul>
-            <p className="mt-4 text-sm text-ink/55">
-              Obszar i koszt dostawy: [DO UZUPEŁNIENIA: strefa dostawy cateringu / koszt dowozu] —
-              potwierdzamy przy zamówieniu.
-            </p>
-            <p className="mt-6 text-sm text-ink/55">{restaurant.legalNote}</p>
-          </div>
-
-          <div
-            role="img"
-            aria-label="Lokalizacja Restauracji KŁOSY przy Al. Jerozolimskich 123a w Warszawie — punkt startowy dostaw cateringu"
-            className="flex min-h-56 items-center justify-center rounded-card border border-linen bg-linen/60 shadow-soft"
-          >
-            <span className="px-6 text-center text-sm text-ink/40">
-              [DO UZUPEŁNIENIA: mapa obszaru dostawy / zdjęcie wejścia do budynku Atlas Tower]
-            </span>
-          </div>
+        <div className="container-x max-w-3xl">
+          <h2 className="font-serif text-3xl text-forest sm:text-4xl">Skąd dowozimy i kontakt</h2>
+          <p className="mt-4 text-ink/80">
+            Catering przygotowujemy w naszej restauracji na Ochocie i dowozimy na terenie
+            Warszawy. To dobrze skomunikowany punkt, blisko centrum — wygodny przy dostawach
+            do biur i na spotkania w różnych częściach miasta.
+          </p>
+          <ul className="mt-6 space-y-3 text-ink/80">
+            <li className="flex gap-3">
+              <MapPin size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
+              <span>
+                {restaurant.address.street}, {restaurant.address.postalCode}{" "}
+                {restaurant.address.city} ({restaurant.address.building} — do potwierdzenia)
+              </span>
+            </li>
+            <li className="flex gap-3">
+              <Phone size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
+              <a href={phoneHref} className="hover:text-forest">
+                {restaurant.contact.phoneDisplay}
+              </a>
+            </li>
+            <li className="flex gap-3">
+              <Mail size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
+              <a href={mailHref} className="hover:text-forest">
+                {restaurant.contact.email}
+              </a>
+            </li>
+          </ul>
+          <p className="mt-4 text-sm text-ink/55">
+            Obszar i koszt dostawy: [DO UZUPEŁNIENIA: strefa dostawy cateringu / koszt dowozu] —
+            potwierdzamy przy zamówieniu.
+          </p>
+          <p className="mt-6 text-sm text-ink/55">{restaurant.legalNote}</p>
         </div>
       </section>
 
