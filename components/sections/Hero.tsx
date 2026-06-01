@@ -7,6 +7,7 @@ import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
 import { assetPath } from "@/lib/utils";
 import { WheatPattern } from "@/components/ui/WheatPattern";
+import { SectionWave } from "@/components/ui/SectionWave";
 
 // Animacje wejścia na czystym CSS (animate-fade-up) — bez Framer Motion.
 // prefers-reduced-motion respektowane globalnie w globals.css.
@@ -29,6 +30,9 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_50%_8%,rgba(201,154,58,0.32),transparent_70%)]" />
         <WheatPattern className="absolute -right-6 bottom-0 h-[125%] w-auto text-wheat/20" />
       </div>
+
+      {/* Falowy dół hero — w kolorze sekcji poniżej; zdjęcie wypełnia obszar NAD falą */}
+      <SectionWave color="text-white" className="absolute inset-x-0 bottom-0 z-[2] rotate-180" />
 
       <div className="container-x relative z-10 flex min-h-[86vh] flex-col justify-center py-20">
         <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 bg-forest/20 px-4 py-1 text-sm text-cream/85 backdrop-blur-sm">
