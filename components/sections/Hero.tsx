@@ -20,7 +20,7 @@ export function Hero() {
           fill
           priority
           sizes="100vw"
-          className="object-cover object-[center_30%]"
+          className="object-cover object-[center_62%]"
         />
         {/* Wtopienie w zieleń + głębia */}
         <div className="absolute inset-0 bg-forest/35 mix-blend-multiply" />
@@ -30,7 +30,7 @@ export function Hero() {
         <WheatPattern className="absolute -right-6 bottom-0 h-[125%] w-auto text-wheat/20" />
       </div>
 
-      <div className="container-x relative z-10 flex min-h-[78vh] flex-col justify-center py-20">
+      <div className="container-x relative z-10 flex min-h-[86vh] flex-col justify-center py-20">
         <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 bg-forest/20 px-4 py-1 text-sm text-cream/85 backdrop-blur-sm">
           Warszawa · Al. Jerozolimskie 123a
         </p>
