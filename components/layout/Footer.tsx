@@ -4,7 +4,7 @@ import { navLinks } from "@/lib/constants";
 
 export function Footer() {
   return (
-    <footer className="mt-10 bg-forest text-cream/90">
+    <footer className="bg-forest text-cream/90">
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="font-serif text-2xl text-cream">Restauracja KŁOSY</p>
