@@ -99,30 +99,33 @@ export function Gallery() {
           ))}
         </div>
 
-        {/* Siatka kart */}
+        {/* Mozaika (masonry-lite) — rytm zamiast równej siatki; CSS grid + dense flow */}
         <div
           key={filter}
-          className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"
+          className="mt-8 grid grid-cols-2 gap-3 [grid-auto-flow:dense] [grid-auto-rows:9rem] sm:grid-cols-3 sm:[grid-auto-rows:11rem] lg:grid-cols-4"
         >
           {items.map((item, i) => (
             <button
               key={item.id}
               type="button"
               onClick={() => open(i)}
-              className="group relative block animate-fade-up overflow-hidden rounded-card border border-linen bg-white text-left shadow-soft transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-olive"
+              className={cn(
+                "tint-frame group relative block animate-fade-up overflow-hidden rounded-card shadow-soft ring-1 ring-linen transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-olive",
+                i % 6 === 0 && "row-span-2",
+                i % 8 === 5 && "col-span-2"
+              )}
               aria-label={`Powiększ zdjęcie: ${item.alt}`}
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={assetPath(item.src)}
-                  alt={item.alt}
-                  fill
-                  loading="lazy"
-                  sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
-                  className="img-warm object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <span className="block px-3 py-2 text-xs font-medium text-olive">
+              <Image
+                src={assetPath(item.src)}
+                alt={item.alt}
+                fill
+                loading="lazy"
+                sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                className="img-warm object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+              {/* podpis wjeżdżający od dołu na hover */}
+              <span className="absolute inset-x-0 bottom-0 z-10 translate-y-full bg-gradient-to-t from-forest/85 to-transparent px-3 pb-2 pt-6 text-xs font-medium text-cream transition-transform duration-300 group-hover:translate-y-0">
                 {item.category}
               </span>
             </button>

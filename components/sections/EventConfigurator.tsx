@@ -108,7 +108,7 @@ export function EventConfigurator() {
           przekażemy je do formularza kontaktowego — odezwiemy się z propozycją.
         </p>
 
-        <div className="mt-8 rounded-card bg-white p-6 shadow-soft sm:p-8">
+        <div className="mt-8 rounded-card bg-cream p-6 shadow-soft sm:p-8">
           {/* Pasek postępu */}
           <div className="mb-8">
             <div className="flex items-center justify-between text-sm text-ink/70">
@@ -118,17 +118,23 @@ export function EventConfigurator() {
               <span className="font-medium text-forest">{stepTitles[step - 1]}</span>
             </div>
             <div
-              className="mt-3 h-2 w-full overflow-hidden rounded-full bg-linen"
+              className="mt-3 h-2 w-full rounded-full bg-linen"
               role="progressbar"
               aria-valuenow={step}
               aria-valuemin={1}
               aria-valuemax={TOTAL_STEPS}
               aria-label="Postęp konfiguratora przyjęcia"
             >
+              {/* „rosnący kłos": gradient olive→wheat + ziarnista główka na końcu */}
               <div
-                className="h-full rounded-full bg-olive transition-[width] duration-300 ease-out"
+                className="relative h-full rounded-full bg-gradient-to-r from-olive to-wheat transition-[width] duration-500 ease-out"
                 style={{ width: `${progressPct}%` }}
-              />
+              >
+                <span
+                  aria-hidden
+                  className="absolute right-0 top-1/2 h-3.5 w-3.5 -translate-y-1/2 translate-x-1/2 rounded-full bg-wheat shadow-[0_0_0_3px_rgba(255,248,237,0.8)]"
+                />
+              </div>
             </div>
           </div>
 
@@ -155,7 +161,7 @@ export function EventConfigurator() {
                           className={cn(
                             "group flex flex-col items-start gap-2 rounded-card border p-4 text-left transition-all hover:-translate-y-0.5 hover:shadow-soft",
                             selected
-                              ? "border-olive bg-olive/10 ring-2 ring-olive/40"
+                              ? "border-wheat bg-wheat/15 shadow-[0_0_0_3px_rgba(201,154,58,0.25)]"
                               : "border-linen bg-white hover:border-olive/50"
                           )}
                         >
@@ -163,11 +169,11 @@ export function EventConfigurator() {
                             className={cn(
                               "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
                               selected
-                                ? "bg-olive text-cream"
+                                ? "bg-wheat text-forest"
                                 : "bg-linen/60 text-olive group-hover:bg-olive/15"
                             )}
                           >
-                            <Icon size={20} aria-hidden="true" />
+                            <Icon size={20} aria-hidden="true" className={cn(selected && "animate-sway")} />
                           </span>
                           <span className="font-medium text-ink">{t.label}</span>
                           <span className="text-xs text-ink/60">{t.blurb}</span>
@@ -199,7 +205,7 @@ export function EventConfigurator() {
                           className={cn(
                             "rounded-full border px-5 py-3 text-sm transition-all hover:scale-[1.03]",
                             selected
-                              ? "border-olive bg-olive text-cream"
+                              ? "border-wheat bg-wheat text-forest"
                               : "border-linen bg-white text-ink/80 hover:border-olive/50"
                           )}
                         >
@@ -229,7 +235,7 @@ export function EventConfigurator() {
                           className={cn(
                             "flex items-center justify-between rounded-card border px-4 py-4 text-left text-sm transition-all hover:-translate-y-0.5 hover:shadow-soft",
                             selected
-                              ? "border-olive bg-olive/10 ring-2 ring-olive/40"
+                              ? "border-wheat bg-wheat/15 shadow-[0_0_0_3px_rgba(201,154,58,0.25)]"
                               : "border-linen bg-white hover:border-olive/50"
                           )}
                         >
