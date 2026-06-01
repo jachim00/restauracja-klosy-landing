@@ -72,14 +72,17 @@ export function OfferTabs() {
             </Link>
           </div>
 
-          <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
-            <Image
-              src={assetPath(tab.image)}
-              alt={tab.imageAlt}
-              fill
-              sizes="(max-width:768px) 100vw, 50vw"
-              className="object-cover"
-            />
+          <div className="relative">
+            <span aria-hidden className="absolute -inset-2 -z-10 rounded-[1.6rem] bg-wheat/15" />
+            <div className="tint-frame relative aspect-[4/3] overflow-hidden rounded-card shadow-soft ring-1 ring-linen">
+              <Image
+                src={assetPath(tab.image)}
+                alt={tab.imageAlt}
+                fill
+                sizes="(max-width:768px) 100vw, 50vw"
+                className="img-warm object-cover"
+              />
+            </div>
           </div>
         </div>
       </div>

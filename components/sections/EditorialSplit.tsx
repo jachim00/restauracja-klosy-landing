@@ -16,18 +16,18 @@ export function EditorialSplit({ image, alt, eyebrow, title, reverse, children }
     <section className="section-y">
       <div className="container-x grid items-center gap-10 lg:grid-cols-2">
         <div className={cn("relative", reverse && "lg:order-2")}>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
+          {/* passe-partout: offsetowy podkład w kolorze pszenicy */}
+          <span aria-hidden className="absolute -inset-2 -z-10 rounded-[1.6rem] bg-wheat/15" />
+          <div className="tint-frame relative aspect-[4/3] overflow-hidden rounded-card shadow-soft ring-1 ring-linen">
             <Image
               src={assetPath(image)}
               alt={alt}
               fill
               loading="lazy"
               sizes="(max-width:1024px) 100vw, 50vw"
-              className="object-cover"
+              className="img-warm object-cover"
             />
           </div>
-          {/* dekoracyjny akcent w rogu */}
-          <span aria-hidden className="absolute -bottom-3 -right-3 h-16 w-16 rounded-full border-2 border-wheat/50 lg:h-20 lg:w-20" />
         </div>
         <div className={cn(reverse && "lg:order-1")}>
           {eyebrow ? (

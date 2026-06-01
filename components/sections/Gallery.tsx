@@ -119,7 +119,7 @@ export function Gallery() {
                   fill
                   loading="lazy"
                   sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="img-warm object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               <span className="block px-3 py-2 text-xs font-medium text-olive">

@@ -17,6 +17,7 @@
   h1, h2, h3, h4 {
     @apply font-serif text-forest;
     text-wrap: balance;
+    letter-spacing: -0.018em;
   }
   /* Widoczny focus dla dostępności (WCAG). */
   :focus-visible {
@@ -53,6 +54,23 @@
       transparent 70%
     );
     filter: blur(8px);
+  }
+  /* Ciepły, spójny tint zdjęć (ujednolica niespójną temperaturę foto). */
+  .img-warm {
+    filter: saturate(1.06) contrast(1.03) sepia(0.06);
+  }
+  /* Subtelne przyciemnienie dołu kadru — czytelność podpisów + głębia. */
+  .tint-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(38, 53, 31, 0.18));
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+  /* Liczby tabularne (FactsBand). */
+  .num {
+    font-feature-settings: "tnum", "lnum";
   }
 }
 

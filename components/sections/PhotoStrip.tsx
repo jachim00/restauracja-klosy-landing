@@ -18,7 +18,7 @@ export function PhotoStrip({
         {images.map((img) => (
           <div
             key={img.src}
-            className="relative aspect-[3/4] w-56 shrink-0 snap-start overflow-hidden rounded-card shadow-soft sm:w-64"
+            className="tint-frame relative aspect-[3/4] w-56 shrink-0 snap-start overflow-hidden rounded-card shadow-soft ring-1 ring-linen sm:w-64"
           >
             <Image
               src={assetPath(img.src)}
@@ -26,7 +26,7 @@ export function PhotoStrip({
               fill
               loading="lazy"
               sizes="256px"
-              className="object-cover"
+              className="img-warm object-cover"
             />
           </div>
         ))}
