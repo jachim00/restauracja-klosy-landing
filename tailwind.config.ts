@@ -20,8 +20,9 @@ const config: Config = {
         ink: "#231F18", // dark text
       },
       fontFamily: {
-        serif: ["var(--font-fraunces)", "Georgia", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        // Nowoczesna para: Sora (nagłówki) + Manrope (treść).
+        serif: ["var(--font-display)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         card: "1.25rem",

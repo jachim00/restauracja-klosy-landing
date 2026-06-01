@@ -7,7 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
 import { offerTabs } from "@/content/offer-tabs";
 import { track } from "@/lib/analytics";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 export function OfferTabs() {
   const [active, setActive] = useState(offerTabs[0].id);
@@ -79,7 +79,7 @@ export function OfferTabs() {
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
               <Image
-                src={tab.image}
+                src={assetPath(tab.image)}
                 alt={tab.imageAlt}
                 fill
                 sizes="(max-width:768px) 100vw, 50vw"

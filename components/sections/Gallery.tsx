@@ -6,7 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { galleryItems, galleryCategories, type GalleryItem } from "@/content/gallery";
 import { track } from "@/lib/analytics";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 export function Gallery() {
   const reduce = useReducedMotion();
@@ -117,7 +117,7 @@ export function Gallery() {
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src={item.src}
+                  src={assetPath(item.src)}
                   alt={item.alt}
                   fill
                   loading="lazy"
@@ -199,7 +199,7 @@ export function Gallery() {
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-ink/40">
                 <Image
-                  src={current.src}
+                  src={assetPath(current.src)}
                   alt={current.alt}
                   fill
                   sizes="(max-width:768px) 100vw, 768px"

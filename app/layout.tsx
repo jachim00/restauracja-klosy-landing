@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Sora, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -10,8 +10,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema, localBusinessSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/constants";
 
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const display = Sora({ subsets: ["latin", "latin-ext"], variable: "--font-display", display: "swap" });
+const sans = Manrope({ subsets: ["latin", "latin-ext"], variable: "--font-sans", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pl-PL" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="pl-PL" className={`${display.variable} ${sans.variable}`}>
       <head>
         <GtmScript />
         <JsonLd data={[organizationSchema(), websiteSchema(), localBusinessSchema()]} />

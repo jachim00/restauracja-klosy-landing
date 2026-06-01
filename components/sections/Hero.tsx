@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Phone, CalendarCheck, ArrowDown } from "lucide-react";
 import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
+import { assetPath } from "@/lib/utils";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -14,7 +15,7 @@ export function Hero() {
       {/* Tło: ciepły gradient + subtelny motyw kłosów (dekoracyjne, bez obciążenia CWV) */}
       <div aria-hidden className="absolute inset-0">
         <Image
-          src="/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg"
+          src={assetPath("/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg")}
           alt=""
           fill
           priority
