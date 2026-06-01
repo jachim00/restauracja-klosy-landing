@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #fff8ed;
+  --color-ink: #231f18;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-ink font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-serif text-forest;
+    text-wrap: balance;
+  }
+  /* Widoczny focus dla dostępności (WCAG). */
+  :focus-visible {
+    @apply outline-none ring-2 ring-wheat ring-offset-2 ring-offset-cream;
+  }
+}
+
+@layer utilities {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-28;
+  }
+}
+
+/* Szanuj preferencję ograniczenia ruchu. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
