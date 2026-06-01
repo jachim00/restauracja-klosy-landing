@@ -83,3 +83,15 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Scroll-reveal na czystym CSS (natywny scroll-timeline). Brak wsparcia => element
+   po prostu widoczny (graceful). Wyłączony przy prefers-reduced-motion. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}

@@ -5,6 +5,7 @@ import { EventConfigurator } from "@/components/sections/EventConfigurator";
 import { Faq } from "@/components/sections/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { WheatPattern } from "@/components/ui/WheatPattern";
+import { SectionWave } from "@/components/ui/SectionWave";
 import { faqSchema } from "@/lib/schema";
 import { restaurant } from "@/content/restaurant-data";
 
@@ -14,7 +15,8 @@ export default function HomePage() {
       <Hero />
 
       {/* Propozycja wartości — konkretnie, bez ogólników */}
-      <section className="section-y bg-white">
+      <section className="section-y relative overflow-hidden bg-white">
+        <SectionWave color="text-forest" className="absolute inset-x-0 top-0" />
         <div className="container-x grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
             <h2 className="glow-amber text-3xl sm:text-4xl">Restauracja KŁOSY w kilku słowach</h2>
@@ -53,7 +55,9 @@ export default function HomePage() {
       <section className="section-y bg-linen/40">
         <div className="container-x">
           <h2 className="text-3xl sm:text-4xl">Jak wygląda organizacja przyjęcia?</h2>
-          <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <ol className="relative mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {/* łodyga łącząca kroki (desktop) */}
+            <span aria-hidden className="absolute left-[10%] right-[10%] top-9 hidden h-px bg-wheat/40 lg:block" />
             {[
               ["1", "Kontakt", "Wysyłasz zapytanie przez formularz lub dzwonisz."],
               ["2", "Termin", "Potwierdzamy dostępność wybranej daty."],
@@ -61,7 +65,7 @@ export default function HomePage() {
               ["4", "Przygotowanie", "Przygotowujemy salę lub catering."],
               ["5", "Wydarzenie", "Obsługujemy przyjęcie w dniu wydarzenia."],
             ].map(([n, t, d]) => (
-              <li key={n} className="rounded-card bg-white p-5 shadow-soft">
+              <li key={n} className="reveal relative z-10 rounded-card bg-white p-5 shadow-soft">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-wheat font-serif text-forest">{n}</span>
                 <p className="mt-3 font-medium text-forest">{t}</p>
                 <p className="mt-1 text-sm text-ink/70">{d}</p>
@@ -78,6 +82,7 @@ export default function HomePage() {
 
       {/* CTA końcowe — „wieczór": forest + światło lampy + kłos */}
       <section className="relative overflow-hidden bg-forest text-cream">
+        <SectionWave color="text-cream" className="absolute inset-x-0 top-0 z-[1]" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_120%,rgba(201,154,58,0.30),transparent_70%)]" />
         <WheatPattern className="pointer-events-none absolute -right-8 -bottom-10 h-[150%] w-auto text-wheat/10" />
         <div className="container-x relative z-10 flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">
