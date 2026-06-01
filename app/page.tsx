@@ -15,8 +15,7 @@ export default function HomePage() {
       <Hero />
 
       {/* Propozycja wartości — konkretnie, bez ogólników */}
-      <section className="section-y relative overflow-hidden bg-white">
-        <SectionWave color="text-forest" className="absolute inset-x-0 top-0" />
+      <section className="section-y bg-white">
         <div className="container-x grid gap-10 md:grid-cols-[1.2fr_1fr] md:items-center">
           <div>
             <h2 className="glow-amber text-3xl sm:text-4xl">Restauracja KŁOSY w kilku słowach</h2>

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="section-y bg-linen/40">
+    <section id="faq" className="section-y bg-linen">
       <div className="container-x max-w-3xl">
         <h2 className="text-3xl sm:text-4xl">Najczęstsze pytania</h2>
         <div className="mt-8 divide-y divide-linen rounded-card border border-linen bg-white">

@@ -22,9 +22,9 @@ export function Hero() {
           sizes="100vw"
           className="object-cover object-[center_62%]"
         />
-        {/* Wtopienie w zieleń + głębia */}
-        <div className="absolute inset-0 bg-forest/35 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-b from-forest/25 via-forest/35 to-forest/85" />
+        {/* Wtopienie w zieleń + głębia — lżej, żeby było widać stoły i jedzenie */}
+        <div className="absolute inset-0 bg-forest/25 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest/30 via-forest/35 to-forest/45" />
         {/* Sygnatura: bursztynowe światło „spod lampy" (z góry, jak lampy na suficie) */}
         <div className="absolute inset-0 bg-[radial-gradient(60%_45%_at_50%_8%,rgba(201,154,58,0.32),transparent_70%)]" />
         <WheatPattern className="absolute -right-6 bottom-0 h-[125%] w-auto text-wheat/20" />
