@@ -6,7 +6,16 @@
 - Każde użyte zdjęcie → wpis w tabeli „Źródła" poniżej + potwierdzona zgoda.
 
 ## Status
-Na moment audytu (2026-06-01) brak pobranych zdjęć — Facebook za ścianą logowania, na stronie brak galerii o jasnym statusie praw. **Wymagane dostarczenie zdjęć przez właściciela** lub zgoda na pobranie z oficjalnych kanałów.
+2026-06-01: właściciel dostarczył **24 pliki** (23 zdjęcia restauracji + 1 grafika AI). 23 zdjęcia przeanalizowano wzrokowo, opisano pod SEO (alt) i wpięto na stronę (hero, zakładki ofertowe, galeria). Grafika AI (`ChatGPT Image...`) odrzucona — za niska rozdzielczość (~232 px).
+
+> ⚠️ **Do potwierdzenia z właścicielem:** prawa/zgody na publikację tych 23 zdjęć (zakładamy, że pochodzą z materiałów restauracji / jej profilu FB i klient ma do nich prawa). Oryginały w `_DO-ANALIZY/` (gitignored), wersje robocze (.jpg) w folderach kategorii. Docelowo warto przekonwertować do WebP/AVIF — obecnie serwuje je `next/image` (konwersja w locie na Vercel).
+
+## Mapowanie zdjęć na stronę (23 szt.)
+- **Hero (tło):** `interior/wnetrze-sala-lampy.jpg` (preload).
+- **Zakładki ofertowe:** obiady→`food/obiad-golonka`, komunie→`communions/stol-komunijny-girlanda`, wesela→`events/stol-bankietowy`, rodzinne→`interior/sala-kameralna-kwiaty`, catering→`catering/catering-bufet-caprese`, grupy→`food/obiad-kurczak-makaron`.
+- **Galeria (filtry):** Jedzenie (6: pierogi, kaczka, golonka, pieczeń, kurczak, tagliatelle), Sala (4), Komunie (3), Catering (4), Dekoracje (2), Na wynos (4: owsianki/desery).
+- **OG image:** `catering/catering-bufet-caprese.jpg`.
+- Pełne `alt`-y SEO: w `content/gallery.ts` i `content/offer-tabs.ts`.
 
 ## Struktura folderów
 ```
@@ -36,7 +45,8 @@ public/assets/restauracja-klosy/
 | events | zespół / obsługa | `events/zespol.webp` | o nas |
 | icons/detale | kłosy, kwiaty, świece, zastawa, drewno | `food/detale-*.webp` | dekoracyjne |
 
-## Źródła użytych zdjęć (do uzupełniania)
-| Plik | Źródło | Prawa / zgoda | Data |
-|------|--------|----------------|------|
-| — | — | — | — |
+## Źródła użytych zdjęć
+| Pliki | Źródło | Prawa / zgoda | Data |
+|-------|--------|----------------|------|
+| 23 zdjęcia (food/interior/events/communions/catering) | Materiały restauracji / profil FB Restauracji KŁOSY (dostarczone przez właściciela) | **[DO POTWIERDZENIA: zgoda/prawa do publikacji]** | 2026-06-01 |
+| `ChatGPT Image 24 maj 2026...png` | Grafika AI | Odrzucona (zbyt niska rozdzielczość) | 2026-06-01 |

@@ -30,6 +30,12 @@ export const metadata: Metadata = {
     title: "Restauracja KŁOSY Warszawa | Obiady, catering i przyjęcia rodzinne",
     description:
       "Domowa kuchnia i przyjęcia rodzinne w centrum Warszawy. Zapytaj o termin komunii, chrzcin, wesela lub cateringu.",
+    images: [
+      {
+        url: "/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg",
+        alt: "Bufet w Restauracji KŁOSY w Warszawie — przekąski i dania na przyjęcia",
+      },
+    ],
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true },

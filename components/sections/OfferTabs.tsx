@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Check } from "lucide-react";
@@ -76,13 +77,14 @@ export function OfferTabs() {
                 {tab.cta.label}
               </Link>
             </div>
-            {/* Placeholder zdjęcia — podmień na realne foto (patrz docs/PHOTO_REQUIREMENTS.md) */}
-            <div
-              className="flex aspect-[4/3] items-center justify-center rounded-card border border-dashed border-linen bg-linen/30 text-center text-sm text-ink/50"
-              role="img"
-              aria-label={tab.imageAlt}
-            >
-              [DO UZUPEŁNIENIA: zdjęcie]<br />{tab.image}
+            <div className="relative aspect-[4/3] overflow-hidden rounded-card shadow-soft">
+              <Image
+                src={tab.image}
+                alt={tab.imageAlt}
+                fill
+                sizes="(max-width:768px) 100vw, 50vw"
+                className="object-cover"
+              />
             </div>
           </motion.div>
         </AnimatePresence>

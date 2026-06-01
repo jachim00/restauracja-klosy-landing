@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
@@ -114,13 +115,15 @@ export function Gallery() {
               className="group relative block overflow-hidden rounded-card border border-linen bg-white text-left shadow-soft transition-transform hover:scale-[1.02] focus-visible:outline focus-visible:outline-2 focus-visible:outline-olive"
               aria-label={`Powiększ zdjęcie: ${item.alt}`}
             >
-              {/* Placeholder zdjęcia — podmień na <img src={item.src} loading="lazy" alt={item.alt} /> */}
-              <div
-                role="img"
-                aria-label={item.alt}
-                className="flex aspect-[4/3] items-center justify-center bg-linen/40 px-3 text-center text-xs text-ink/50"
-              >
-                [DO UZUPEŁNIENIA: zdjęcie]
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  fill
+                  loading="lazy"
+                  sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
               </div>
               <span className="block px-3 py-2 text-xs font-medium text-olive">
                 {item.category}
@@ -194,13 +197,14 @@ export function Gallery() {
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-3xl"
             >
-              {/* Placeholder — podmień na <img src={current.src} alt={current.alt} /> */}
-              <div
-                role="img"
-                aria-label={current.alt}
-                className="flex aspect-[4/3] w-full items-center justify-center rounded-card border border-dashed border-cream/40 bg-linen/20 px-4 text-center text-sm text-cream/70"
-              >
-                [DO UZUPEŁNIENIA: zdjęcie]
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-card bg-ink/40">
+                <Image
+                  src={current.src}
+                  alt={current.alt}
+                  fill
+                  sizes="(max-width:768px) 100vw, 768px"
+                  className="object-contain"
+                />
               </div>
               <p className="mt-3 text-center text-sm text-cream/85">{current.alt}</p>
             </motion.div>

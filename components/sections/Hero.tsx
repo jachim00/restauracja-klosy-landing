@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Phone, CalendarCheck, ArrowDown } from "lucide-react";
 import { restaurant } from "@/content/restaurant-data";
@@ -12,7 +13,15 @@ export function Hero() {
     <section className="relative overflow-hidden bg-forest text-cream">
       {/* Tło: ciepły gradient + subtelny motyw kłosów (dekoracyjne, bez obciążenia CWV) */}
       <div aria-hidden className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(120%_120%_at_50%_-10%,#3a4d2c_0%,#26351f_55%,#1c2817_100%)]" />
+        <Image
+          src="/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,40,23,0.84)_0%,rgba(38,53,31,0.78)_55%,rgba(28,40,23,0.92)_100%)]" />
         <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" animate={!reduce} />
       </div>
 
