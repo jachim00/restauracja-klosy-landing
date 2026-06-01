@@ -14,7 +14,7 @@ export function PhotoStrip({
       <div className="container-x">
         {heading ? <h2 className="mb-6 text-3xl text-forest sm:text-4xl">{heading}</h2> : null}
       </div>
-      <div className="flex snap-x gap-4 overflow-x-auto px-4 pb-4 sm:px-6 lg:px-8 [scrollbar-width:thin]">
+      <div className="flex snap-x gap-4 overflow-x-auto px-4 pb-4 [justify-content:safe_center] sm:px-6 lg:px-8 [scrollbar-width:thin]">
         {images.map((img) => (
           <div
             key={img.src}

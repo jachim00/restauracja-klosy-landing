@@ -90,26 +90,40 @@ export default function LeadForm({
     setErrorMessage("");
     pushDataLayerEvent("form_submit", { form_name: formName });
 
-    // Strona statyczna (GitHub Pages) — wysyłka przez zewnętrzny webhook
-    // (Make.com / Zapier / Formspree). Ustaw NEXT_PUBLIC_LEAD_WEBHOOK_URL.
+    // Strona statyczna (GitHub Pages) — wysyłka e-maila na marketing@restauracjadifferent.pl:
+    //  • Web3Forms (zalecane): ustaw NEXT_PUBLIC_WEB3FORMS_KEY (klucz zarejestrowany na ten e-mail),
+    //  • albo własny webhook (Make/Zapier): NEXT_PUBLIC_LEAD_WEBHOOK_URL.
+    const web3key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
     const webhook = process.env.NEXT_PUBLIC_LEAD_WEBHOOK_URL;
-    if (!webhook) {
+    if (!web3key && !webhook) {
       setStatus("error");
       setErrorMessage(
-        "Formularz nie jest jeszcze podłączony do odbioru zgłoszeń. Prosimy o kontakt telefoniczny lub e-mailowy. (Konfiguracja: NEXT_PUBLIC_LEAD_WEBHOOK_URL)"
+        "Formularz nie jest jeszcze podłączony do odbioru zgłoszeń. Prosimy o kontakt telefoniczny lub e-mailowy. (Konfiguracja: NEXT_PUBLIC_WEB3FORMS_KEY lub NEXT_PUBLIC_LEAD_WEBHOOK_URL)"
       );
-      track.formSubmitError("no_webhook");
+      track.formSubmitError("no_endpoint");
       return;
     }
 
     try {
       const payload: Partial<LeadFormValues> = { ...values };
       delete payload.hp;
-      const res = await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ form_name: formName, ...payload }),
-      });
+
+      const res = web3key
+        ? await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({
+              access_key: web3key,
+              subject: `Zapytanie ze strony KŁOSY — ${values.typWydarzenia}`,
+              from_name: `Restauracja KŁOSY — formularz (${values.imieNazwisko})`,
+              ...payload,
+            }),
+          })
+        : await fetch(webhook as string, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ form_name: formName, ...payload }),
+          });
 
       if (!res.ok) {
         setStatus("error");

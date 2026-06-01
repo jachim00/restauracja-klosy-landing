@@ -52,9 +52,20 @@ export function Footer() {
 
       <div className="border-t border-cream/15">
         <div className="container-x flex flex-col items-center justify-between gap-2 py-4 text-xs text-cream/60 sm:flex-row">
-          <p>© {restaurant.name}. Wszelkie prawa zastrzeżone.</p>
+          <p>
+            © {new Date().getFullYear()} Copyright by{" "}
+            <a
+              href="https://www.pflgroup.pl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cream/80 underline decoration-wheat/60 underline-offset-2 transition-colors hover:text-wheat"
+            >
+              PFL Group
+            </a>
+            . Wszelkie prawa zastrzeżone.
+          </p>
           <Link href={restaurant.privacyPolicyUrl} className="hover:text-wheat">
-            Polityka prywatności [DO UZUPEŁNIENIA]
+            Polityka prywatności
           </Link>
         </div>
       </div>
