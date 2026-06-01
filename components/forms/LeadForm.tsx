@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
@@ -35,6 +35,7 @@ export default function LeadForm({
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<LeadFormValues>({
     resolver: zodResolver(leadSchema),
@@ -52,6 +53,24 @@ export default function LeadForm({
     },
   });
 
+  // Prefill z parametrów URL (handoff z mini-konfiguratora) — po stronie klienta,
+  // bo strona jest statyczna (GitHub Pages, brak serwerowych searchParams).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const sp = new URLSearchParams(window.location.search);
+    const typ = sp.get("typ");
+    const goscie = sp.get("goscie");
+    const miejsce = sp.get("miejsce");
+    const data = sp.get("data");
+    if (typ && (eventTypes.some((e) => e.id === typ) || typ === "inne"))
+      setValue("typWydarzenia", typ as LeadFormValues["typWydarzenia"]);
+    if (goscie && (guestRanges as readonly string[]).includes(goscie))
+      setValue("liczbaGosci", goscie as LeadFormValues["liczbaGosci"]);
+    if (miejsce && (eventPlaces as readonly string[]).includes(miejsce))
+      setValue("miejsce", miejsce as LeadFormValues["miejsce"]);
+    if (data && /^\d{4}-\d{2}-\d{2}$/.test(data)) setValue("data", data);
+  }, [setValue]);
+
   // Pierwszy focus w obrębie formularza -> form_start (jednorazowo).
   function handleFirstFocus() {
     if (startedRef.current) return;
@@ -60,30 +79,44 @@ export default function LeadForm({
   }
 
   async function onSubmit(values: LeadFormValues) {
+    // Honeypot wypełniony -> traktuj jak sukces, nic nie wysyłaj (anty-spam).
+    if (values.hp) {
+      setStatus("success");
+      reset();
+      return;
+    }
+
     setStatus("loading");
     setErrorMessage("");
     pushDataLayerEvent("form_submit", { form_name: formName });
 
+    // Strona statyczna (GitHub Pages) — wysyłka przez zewnętrzny webhook
+    // (Make.com / Zapier / Formspree). Ustaw NEXT_PUBLIC_LEAD_WEBHOOK_URL.
+    const webhook = process.env.NEXT_PUBLIC_LEAD_WEBHOOK_URL;
+    if (!webhook) {
+      setStatus("error");
+      setErrorMessage(
+        "Formularz nie jest jeszcze podłączony do odbioru zgłoszeń. Prosimy o kontakt telefoniczny lub e-mailowy. (Konfiguracja: NEXT_PUBLIC_LEAD_WEBHOOK_URL)"
+      );
+      track.formSubmitError("no_webhook");
+      return;
+    }
+
     try {
-      const res = await fetch("/api/lead", {
+      const payload: Partial<LeadFormValues> = { ...values };
+      delete payload.hp;
+      const res = await fetch(webhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ form_name: formName, ...payload }),
       });
 
       if (!res.ok) {
-        let reason = `http_${res.status}`;
-        let message =
-          "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub zadzwoń do nas.";
-        try {
-          const body = (await res.json()) as { message?: string };
-          if (body?.message) message = body.message;
-        } catch {
-          // brak treści JSON — zostawiamy domyślny komunikat
-        }
         setStatus("error");
-        setErrorMessage(message);
-        track.formSubmitError(reason);
+        setErrorMessage(
+          "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub zadzwoń do nas."
+        );
+        track.formSubmitError(`http_${res.status}`);
         return;
       }
 

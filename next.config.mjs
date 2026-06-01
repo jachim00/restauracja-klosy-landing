@@ -1,25 +1,15 @@
 /** @type {import('next').NextConfig} */
+// Statyczny eksport pod GitHub Pages (jak pozostałe landingi).
+// basePath/URL ustawiane przez env w GitHub Actions; lokalnie puste (działa na /).
 const nextConfig = {
+  output: "export",
   reactStrictMode: true,
   poweredByHeader: false,
+  trailingSlash: true,
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
   images: {
-    formats: ["image/avif", "image/webp"],
-    remotePatterns: [],
-  },
-  async headers() {
-    // Nagłówki bezpieczeństwa (Best Practices w Lighthouse). CSP celowo minimalna —
-    // dopracować po wpięciu GTM/GA4 (patrz docs/DEPLOYMENT.md).
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        ],
-      },
-    ];
+    // GitHub Pages nie ma serwera optymalizacji obrazów — serwujemy bez niej.
+    unoptimized: true,
   },
 };
 

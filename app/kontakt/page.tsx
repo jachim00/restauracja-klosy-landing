@@ -12,8 +12,6 @@ import {
 } from "lucide-react";
 import { restaurant, TODO } from "@/content/restaurant-data";
 import { faqItems } from "@/content/faq";
-import { eventTypes, guestRanges, eventPlaces } from "@/content/event-types";
-import type { LeadFormValues } from "@/components/forms/lead-schema";
 import LeadForm from "@/components/forms/LeadForm";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
@@ -37,43 +35,7 @@ const faqSubset = faqItems.filter((f) =>
   ),
 );
 
-// Dozwolone wartości enumów z content/event-types.ts — używane do walidacji
-// parametrów URL (np. z mini-konfiguratora) zanim trafią do formularza.
-const eventTypeIds = new Set<string>([...eventTypes.map((e) => e.id), "inne"]);
-const guestRangeSet = new Set<string>([...guestRanges]);
-const eventPlaceSet = new Set<string>([...eventPlaces]);
-
-/**
- * Buduje defaultValues dla LeadForm tylko z prawidłowych, istniejących wartości
- * w query string. Nieznane / brakujące parametry są pomijane (typowo czyste).
- */
-function buildDefaults(sp: Record<string, string | undefined>): Partial<LeadFormValues> {
-  const dv: Partial<LeadFormValues> = {};
-
-  if (sp.typ && eventTypeIds.has(sp.typ)) {
-    dv.typWydarzenia = sp.typ as LeadFormValues["typWydarzenia"];
-  }
-  if (sp.goscie && guestRangeSet.has(sp.goscie)) {
-    dv.liczbaGosci = sp.goscie as LeadFormValues["liczbaGosci"];
-  }
-  if (sp.miejsce && eventPlaceSet.has(sp.miejsce)) {
-    dv.miejsce = sp.miejsce as LeadFormValues["miejsce"];
-  }
-  if (sp.data && /^\d{4}-\d{2}-\d{2}$/.test(sp.data)) {
-    dv.data = sp.data;
-  }
-
-  return dv;
-}
-
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | undefined>>;
-}) {
-  const sp = await searchParams;
-  const defaultValues = buildDefaults(sp);
-
+export default function Page() {
   const buildingNote = restaurant.address.building.includes(TODO)
     ? null
     : `${restaurant.address.building} — do potwierdzenia`;
@@ -310,7 +272,7 @@ export default async function Page({
             Pola opcjonalne (budżet, preferencje menu, alergie) pomagają nam, ale nie są wymagane.
           </p>
           <div className="mt-8 rounded-card border border-linen bg-cream p-6 shadow-soft sm:p-8">
-            <LeadForm formName="event_inquiry" defaultValues={defaultValues} />
+            <LeadForm formName="event_inquiry" />
           </div>
         </div>
       </section>
