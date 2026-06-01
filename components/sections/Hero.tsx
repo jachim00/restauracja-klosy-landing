@@ -15,17 +15,17 @@ export function Hero() {
       {/* Tło: ciepły gradient + subtelny motyw kłosów (dekoracyjne, bez obciążenia CWV) */}
       <div aria-hidden className="absolute inset-0">
         <Image
-          src={assetPath("/assets/restauracja-klosy/interior/wnetrze-sala-lampy.jpg")}
+          src={assetPath("/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg")}
           alt=""
           fill
           priority
           sizes="100vw"
           className="object-cover"
         />
-        {/* Zielony tint wtapiający zdjęcie w paletę (multiply) */}
-        <div className="absolute inset-0 bg-forest/45 mix-blend-multiply" />
+        {/* Zielony tint wtapiający apetyczne zdjęcie w paletę (multiply) */}
+        <div className="absolute inset-0 bg-forest/35 mix-blend-multiply" />
         {/* Gradient pod czytelność tekstu (lekko u góry, mocniej u dołu) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-forest/25 via-forest/35 to-forest/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-forest/20 via-forest/30 to-forest/80" />
         <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" animate={!reduce} />
       </div>
 
