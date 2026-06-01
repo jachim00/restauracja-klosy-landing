@@ -2,20 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
 import { Phone, CalendarCheck, ArrowDown } from "lucide-react";
 import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
 import { assetPath } from "@/lib/utils";
 
+// Animacje wejścia na czystym CSS (animate-fade-up) — bez Framer Motion,
+// żeby nie obciążać wątku głównego na starcie (lepsze TBT/LCP).
+// prefers-reduced-motion jest respektowane globalnie w globals.css.
 export function Hero() {
-  const reduce = useReducedMotion();
   return (
     <section className="relative overflow-hidden bg-forest text-cream">
-      {/* Tło: ciepły gradient + subtelny motyw kłosów (dekoracyjne, bez obciążenia CWV) */}
       <div aria-hidden className="absolute inset-0">
         <Image
-          src={assetPath("/assets/restauracja-klosy/catering/catering-bufet-caprese.jpg")}
+          src={assetPath("/assets/restauracja-klosy/hero/hero-caprese.jpg")}
           alt=""
           fill
           priority
@@ -26,43 +26,32 @@ export function Hero() {
         <div className="absolute inset-0 bg-forest/35 mix-blend-multiply" />
         {/* Gradient pod czytelność tekstu (lekko u góry, mocniej u dołu) */}
         <div className="absolute inset-0 bg-gradient-to-b from-forest/20 via-forest/30 to-forest/80" />
-        <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" animate={!reduce} />
+        <WheatPattern className="absolute -right-10 bottom-0 h-[120%] w-auto text-wheat/15" />
       </div>
 
       <div className="container-x relative z-10 flex min-h-[78vh] flex-col justify-center py-20">
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="mb-4 inline-flex w-fit items-center rounded-full border border-cream/20 px-4 py-1 text-sm text-cream/80"
-        >
+        <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 px-4 py-1 text-sm text-cream/80">
           Warszawa · Al. Jerozolimskie 123a
-        </motion.p>
+        </p>
 
-        <motion.h1
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05 }}
-          className="max-w-3xl font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl"
+        <h1
+          className="max-w-3xl animate-fade-up font-serif text-4xl leading-tight text-cream sm:text-5xl lg:text-6xl"
+          style={{ animationDelay: "60ms" }}
         >
           Domowa kuchnia i przyjęcia rodzinne w sercu Warszawy
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.12 }}
-          className="mt-5 max-w-xl text-lg text-cream/85"
+        <p
+          className="mt-5 max-w-xl animate-fade-up text-lg text-cream/85"
+          style={{ animationDelay: "120ms" }}
         >
           Obiady, catering i kameralne przyjęcia — komunie, chrzciny, wesela, rocznice
           i spotkania firmowe. Powiedz, co planujesz, a przygotujemy propozycję menu.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={reduce ? false : { opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.18 }}
-          className="mt-8 flex flex-wrap gap-3"
+        <div
+          className="mt-8 flex animate-fade-up flex-wrap gap-3"
+          style={{ animationDelay: "180ms" }}
         >
           <Link
             href="/kontakt#formularz"
@@ -85,20 +74,20 @@ export function Hero() {
           >
             <Phone size={18} /> {restaurant.contact.phoneDisplay}
           </a>
-        </motion.div>
+        </div>
 
         <a href="#oferta" aria-label="Przewiń do oferty" className="mt-14 inline-flex w-fit text-cream/60">
-          <ArrowDown className={reduce ? "" : "animate-bounce"} />
+          <ArrowDown className="animate-bounce" />
         </a>
       </div>
     </section>
   );
 }
 
-function WheatPattern({ className, animate }: { className?: string; animate?: boolean }) {
+function WheatPattern({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 200 400" className={className} fill="none" aria-hidden>
-      <g className={animate ? "origin-bottom animate-sway" : ""}>
+      <g className="origin-bottom animate-sway">
         <path d="M100 400 V120" stroke="currentColor" strokeWidth="3" />
         {Array.from({ length: 7 }).map((_, i) => (
           <g key={i}>

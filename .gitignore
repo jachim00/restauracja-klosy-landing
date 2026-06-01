@@ -16,3 +16,4 @@ public/robots.txt
 # Skrzynka wejsciowa na surowe zdjecia (nie commitujemy)
 public/assets/restauracja-klosy/_DO-ANALIZY/*
 !public/assets/restauracja-klosy/_DO-ANALIZY/.gitkeep
+lh.json

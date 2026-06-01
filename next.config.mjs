@@ -11,6 +11,10 @@ const nextConfig = {
     // GitHub Pages nie ma serwera optymalizacji obrazów — serwujemy bez niej.
     unoptimized: true,
   },
+  experimental: {
+    // Lepszy tree-shaking ciężkich pakietów -> mniej JS, niższy TBT.
+    optimizePackageImports: ["lucide-react", "framer-motion"],
+  },
 };
 
 export default nextConfig;
