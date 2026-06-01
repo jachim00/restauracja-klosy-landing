@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GtmScript, GtmNoScript } from "@/components/analytics/GtmScript";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema, localBusinessSchema } from "@/lib/schema";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <MobileCtaBar />
+        <CookieBanner />
       </body>
     </html>
   );

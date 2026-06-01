@@ -11,3 +11,8 @@ build/
 next-env.d.ts
 public/sitemap*.xml
 public/robots.txt
+*.tsbuildinfo
+
+# Skrzynka wejsciowa na surowe zdjecia (nie commitujemy)
+public/assets/restauracja-klosy/_DO-ANALIZY/*
+!public/assets/restauracja-klosy/_DO-ANALIZY/.gitkeep

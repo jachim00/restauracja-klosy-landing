@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
 import { OfferTabs } from "@/components/sections/OfferTabs";
+import { EventConfigurator } from "@/components/sections/EventConfigurator";
 import { Faq } from "@/components/sections/Faq";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { faqSchema } from "@/lib/schema";
@@ -44,6 +45,8 @@ export default function HomePage() {
       </section>
 
       <OfferTabs />
+
+      <EventConfigurator />
 
       {/* „Jak wygląda organizacja przyjęcia" */}
       <section className="section-y bg-linen/40">
