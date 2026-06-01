@@ -52,7 +52,7 @@ export default function HomePage() {
       <EventConfigurator />
 
       {/* „Jak wygląda organizacja przyjęcia" */}
-      <section className="section-y bg-linen/40">
+      <section className="section-y bg-white">
         <div className="container-x">
           <h2 className="text-3xl sm:text-4xl">Jak wygląda organizacja przyjęcia?</h2>
           <ol className="relative mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
@@ -82,7 +82,7 @@ export default function HomePage() {
 
       {/* CTA końcowe — „wieczór": forest + światło lampy + kłos */}
       <section className="relative overflow-hidden bg-forest text-cream">
-        <SectionWave color="text-cream" className="absolute inset-x-0 top-0 z-[1]" />
+        <SectionWave color="text-linen" className="absolute inset-x-0 top-0 z-[1]" />
         <div aria-hidden className="absolute inset-0 bg-[radial-gradient(70%_60%_at_50%_120%,rgba(201,154,58,0.30),transparent_70%)]" />
         <WheatPattern className="pointer-events-none absolute -right-8 -bottom-10 h-[150%] w-auto text-wheat/10" />
         <div className="container-x relative z-10 flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">

@@ -19,20 +19,21 @@ export function Navbar() {
           KŁOSY
         </Link>
 
-        <ul className="hidden items-center gap-6 lg:flex">
+        <ul className="hidden items-center gap-1 lg:flex">
           {navLinks.map((l) => (
             <li key={l.href}>
               <Link
                 href={l.href}
-                className="relative text-sm text-ink/80 transition-colors hover:text-wheat after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-wheat after:transition-transform after:duration-300 hover:after:scale-x-100"
+                className="whitespace-nowrap rounded-full px-3 py-1.5 text-sm text-ink/80 transition-colors hover:bg-linen/60 hover:text-forest"
               >
-                {l.label}
+                {l.short}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <span aria-hidden className="hidden h-6 w-px bg-linen lg:block" />
           <a
             href={`tel:+48${restaurant.contact.phone}`}
             onClick={() => track.phoneClick("header", restaurant.contact.phone)}

@@ -3,7 +3,6 @@ import { Sora, Manrope } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { MobileCtaBar } from "@/components/layout/MobileCtaBar";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GtmScript, GtmNoScript } from "@/components/analytics/GtmScript";
 import { GrainOverlay } from "@/components/ui/GrainOverlay";
@@ -49,13 +48,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GtmScript />
         <JsonLd data={[organizationSchema(), websiteSchema(), localBusinessSchema()]} />
       </head>
-      <body className="pb-14 lg:pb-0">
+      <body>
         <GtmNoScript />
         <GrainOverlay />
         <Navbar />
         <main>{children}</main>
         <Footer />
-        <MobileCtaBar />
         <CookieBanner />
       </body>
     </html>
