@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { makeLeadSchema, type LeadFormValues } from "@/components/forms/lead-schema";
-import { eventTypes, guestRanges, eventPlaces } from "@/content/event-types";
 import { restaurant } from "@/content/restaurant-data";
 import { pushDataLayerEvent, track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
@@ -64,8 +63,8 @@ export function LeadForm({
 
   // Prefill z parametrów URL (handoff z mini-konfiguratora) — po stronie klienta,
   // bo strona jest statyczna (GitHub Pages, brak serwerowych searchParams).
-  // Klucze query (typ / goscie / miejsce / data) muszą pozostać niezmienione —
-  // używa ich EventConfigurator do przekazania wyboru.
+  // Klucze query: typ = stabilne id typu wydarzenia; goscie/miejsce = INDEKS
+  // w tablicy opcji (niezależny od języka); data = YYYY-MM-DD.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const sp = new URLSearchParams(window.location.search);
@@ -73,14 +72,18 @@ export function LeadForm({
     const goscie = sp.get("goscie");
     const miejsce = sp.get("miejsce");
     const data = sp.get("data");
-    if (typ && (eventTypes.some((e) => e.id === typ) || typ === "inne"))
+    if (typ && t.eventTypeOptions.some((o) => o.value === typ))
       setValue("typWydarzenia", typ as LeadFormValues["typWydarzenia"]);
-    if (goscie && (guestRanges as readonly string[]).includes(goscie))
-      setValue("liczbaGosci", goscie as LeadFormValues["liczbaGosci"]);
-    if (miejsce && (eventPlaces as readonly string[]).includes(miejsce))
-      setValue("miejsce", miejsce as LeadFormValues["miejsce"]);
+    if (goscie && /^\d+$/.test(goscie)) {
+      const opt = t.guestRangeOptions[Number(goscie)];
+      if (opt) setValue("liczbaGosci", opt.value as LeadFormValues["liczbaGosci"]);
+    }
+    if (miejsce && /^\d+$/.test(miejsce)) {
+      const opt = t.placeOptions[Number(miejsce)];
+      if (opt) setValue("miejsce", opt.value as LeadFormValues["miejsce"]);
+    }
     if (data && /^\d{4}-\d{2}-\d{2}$/.test(data)) setValue("data", data);
-  }, [setValue]);
+  }, [setValue, t]);
 
   // Pierwszy focus w obrębie formularza -> form_start (jednorazowo).
   function handleFirstFocus() {

@@ -195,7 +195,7 @@ export const hu: Dictionary = {
         ctaLabel: "Napi menü megtekintése",
         href: "/menu-dnia",
         image: "/assets/restauracja-klosy/food/obiad-golonka.webp",
-        imageAlt: "Domowy obiad w Restauracji KŁOSY w Warszawie: pieczona golonka, zupa i deser",
+        imageAlt: "Házias ebéd a varsói KŁOSY étteremben: sült csülök, leves és desszert",
       },
       {
         id: "komunie-chrzciny",
@@ -207,7 +207,7 @@ export const hu: Dictionary = {
         ctaLabel: "Érdeklődés elsőáldozásról / keresztelőről",
         href: "/komunie-chrzciny",
         image: "/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp",
-        imageAlt: "Aranżacja stołu na komunię z przekąskami w Restauracji KŁOSY w Warszawie",
+        imageAlt: "Elsőáldozási asztal terítéke harapnivalókkal a varsói KŁOSY étteremben",
       },
       {
         id: "wesela",
@@ -219,7 +219,7 @@ export const hu: Dictionary = {
         ctaLabel: "Érdeklődés esküvőről / évfordulóról",
         href: "/wesela-rocznice",
         image: "/assets/restauracja-klosy/events/stol-bankietowy.webp",
-        imageAlt: "Stół bankietowy nakryty na kameralne przyjęcie w Restauracji KŁOSY w Warszawie",
+        imageAlt: "Meghitt rendezvényre terített bankettasztal a varsói KŁOSY étteremben",
       },
       {
         id: "rodzinne",
@@ -231,7 +231,7 @@ export const hu: Dictionary = {
         ctaLabel: "Összejövetel megtervezése",
         href: "/imprezy-okolicznosciowe",
         image: "/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp",
-        imageAlt: "Kameralna sala Restauracji KŁOSY w Warszawie nakryta do rodzinnego spotkania",
+        imageAlt: "A varsói KŁOSY étterem meghitt terme családi összejövetelre terítve",
       },
       {
         id: "catering",
@@ -243,7 +243,7 @@ export const hu: Dictionary = {
         ctaLabel: "Érdeklődés cateringről",
         href: "/catering",
         image: "/assets/restauracja-klosy/catering/catering-bufet-caprese.webp",
-        imageAlt: "Bufet cateringowy KŁOSY w Warszawie z przekąskami caprese, tartinkami i deserami",
+        imageAlt: "A varsói KŁOSY cateringbüféje caprese harapnivalókkal, szendvicsfalatkákkal és desszertekkel",
       },
       {
         id: "grupy",
@@ -255,7 +255,7 @@ export const hu: Dictionary = {
         ctaLabel: "Érdeklődés csoportos ebédről",
         href: "/catering",
         image: "/assets/restauracja-klosy/food/obiad-kurczak-makaron.webp",
-        imageAlt: "Obiady domowe dla grup w Restauracji KŁOSY w Warszawie — kurczak i makaron w sosie",
+        imageAlt: "Házias ebédek csoportoknak a varsói KŁOSY étteremben — csirke és tészta szószban",
       },
     ],
   },
@@ -527,7 +527,7 @@ export const hu: Dictionary = {
       intro:
         "Varsó jól megközelíthető pontján vagyunk, az Al. Jerozolimskie mentén. A pontos bejáratot és emeletet az Atlas Tower épületében a kapcsolatfelvételkor egyeztetjük.",
       imgAlt:
-        "Lokalizacja Restauracji KŁOSY przy Al. Jerozolimskich 123a w Warszawie",
+        "A KŁOSY étterem elhelyezkedése az Al. Jerozolimskie 123a alatt, Varsóban",
       placeholder:
         "[DO UZUPEŁNIENIA: mapa dojazdu (Google Maps) — wymaga linku/embedu]",
       directions: "Útvonal tervezése a Google Maps-en",
@@ -563,7 +563,7 @@ export const hu: Dictionary = {
 
   menuDnia: {
     hero: {
-      alt: "Domowy obiad w Restauracji KŁOSY: golonka, zupa i deser",
+      alt: "Házias ebéd a KŁOSY étteremben: csülök, leves és desszert",
       eyebrow: "Napi menü • Varsó, Ochota",
       title: "Napi menü és lengyel konyha Varsó szívében",
       subtitle:
@@ -585,7 +585,7 @@ export const hu: Dictionary = {
     ],
 
     about: {
-      alt: "Pieczona kaczka — danie główne z domowej kuchni Restauracji KŁOSY",
+      alt: "Sült kacsa — főétel a KŁOSY étterem házias konyhájából",
       eyebrow: "Mit jelent nálunk a napi menü",
       title: "Házias ebédek mesterkéltség nélkül",
       p1: "A napi menü egy frissen, folyamatosan készülő ebédmenü — házias konyha mesterkéltség nélkül: melengető leves, laktató főétel és vegetáriánus opció. Az egyszerű, jó ételre helyezzük a hangsúlyt, arra, amit otthonról ismerünk, nyugodtan és kapkodás nélkül tálalva. A menü pontos összetétele naponta változik.",
@@ -601,7 +601,7 @@ export const hu: Dictionary = {
     },
 
     groups: {
-      alt: "Obiad: kurczak z makaronem — propozycja dla grup w Restauracji KŁOSY",
+      alt: "Ebéd: csirke tésztával — ajánlat csoportoknak a KŁOSY étteremben",
       eyebrow: "Ebédek csoportoknak",
       title: "Ebéd csapatnak, osztálynak és családnak",
       p1: "Ebédeket készítünk csoportoknak — köztük iskolai csoportoknak, céges csapatoknak és családi összejöveteleknek. A menüt a létszámhoz és az igényekhez igazítjuk, figyelembe vesszük a vegetáriánus fogásokat és az érdeklődésben előzetesen megadott allergiákra vonatkozó információkat.",
@@ -615,7 +615,7 @@ export const hu: Dictionary = {
     },
 
     delivery: {
-      alt: "Tagliatelle z krewetkami — danie z karty Restauracji KŁOSY",
+      alt: "Tagliatelle garnélával — fogás a KŁOSY étterem étlapjáról",
       eyebrow: "Ebéd házhozszállítással",
       title: "Napi menüs ebéd házhozszállítással Varsóban",
       lead: "A napi menüs ebédet házhozszállítással is megrendelheti — népszerű ételfutár-platformokon keresztül. A fogások elérhetőségét, az időpontokat és a szállítási területet közvetlenül erősítjük meg; alább az online rendelési linkek.",
@@ -639,12 +639,12 @@ export const hu: Dictionary = {
     realizacje: {
       heading: "Tekintse meg munkáinkat",
       images: [
-        { src: "/assets/restauracja-klosy/food/pierogi-z-jagodami.webp", alt: "Pierogi z jagodami z domowej kuchni Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/food/obiad-pieczen-surowki.webp", alt: "Obiad: pieczeń z surówkami w Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp", alt: "Taca deserów owsianych w Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/food/owsianka-truskawki.webp", alt: "Owsianka z truskawkami w Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/food/deser-czekolada-wisnie.webp", alt: "Deser czekoladowy z wiśniami w Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/food/owsianki-dwa-kubki.webp", alt: "Dwa kubki owsianki w Restauracji KŁOSY" },
+        { src: "/assets/restauracja-klosy/food/pierogi-z-jagodami.webp", alt: "Áfonyás derelye a KŁOSY étterem házias konyhájából" },
+        { src: "/assets/restauracja-klosy/food/obiad-pieczen-surowki.webp", alt: "Ebéd: sült hús nyers salátákkal a KŁOSY étteremben" },
+        { src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp", alt: "Zabpehelyből készült desszertek tálcán a KŁOSY étteremben" },
+        { src: "/assets/restauracja-klosy/food/owsianka-truskawki.webp", alt: "Zabkása eperrel a KŁOSY étteremben" },
+        { src: "/assets/restauracja-klosy/food/deser-czekolada-wisnie.webp", alt: "Csokoládés desszert meggyel a KŁOSY étteremben" },
+        { src: "/assets/restauracja-klosy/food/owsianki-dwa-kubki.webp", alt: "Két pohár zabkása a KŁOSY étteremben" },
       ],
     },
 
@@ -799,7 +799,7 @@ export const hu: Dictionary = {
       title: "Elsőáldozás és keresztelő a KŁOSY étteremben",
       subtitle:
         "Meghitt terem Ochotán, néhány percre Varsó belvárosától. Rendezvények az elsőáldozás és a keresztelő után — menüvel gyerekeknek és felnőtteknek, valamint helyszíni kiszolgálással.",
-      alt: "Nakryty stół przygotowany na kameralne przyjęcie komunijne w Restauracji KŁOSY",
+      alt: "Meghitt elsőáldozási rendezvényre megterített asztal a KŁOSY étteremben",
       ctaLabel: "Időpont egyeztetése",
     },
 
@@ -813,7 +813,7 @@ export const hu: Dictionary = {
     charakter: {
       eyebrow: "A helyszín jellege",
       title: "Meghitt helyszín egy családi ünnepséghez",
-      alt: "Stół komunijny z dekoracją balonową w Restauracji KŁOSY",
+      alt: "Elsőáldozási asztal lufidekorációval a KŁOSY étteremben",
       p1: "Az elsőáldozás és a keresztelő családi ünnepség, nem nagyszabású esemény — és pontosan így is állunk hozzájuk. A KŁOSY egy nyugodt, meghitt étterem, ahol könnyű asztal mellett beszélgetni, a gyerekeknek pedig van helyük a felnőttek mellett. A házias, lengyel konyhára és az egyszerű, meleg hangulatra helyezzük a hangsúlyt egy zajos bankett-terem helyett.",
       p2Before: "Az Al. Jerozolimskie 123a alatt vagyunk, a varsói Ochota kerületben, az Atlas Tower épületében. Ez egy jól megközelíthető helyszín a belváros közelében — kényelmes a Varsó különböző részeiből és a városon kívülről érkező vendégek számára. A pontos megközelítést és emeletet a kapcsolatfelvételkor egyeztetjük (",
       p2After: ").",
@@ -824,7 +824,7 @@ export const hu: Dictionary = {
     uroczystosci: {
       eyebrow: "Elsőáldozás és keresztelő",
       title: "Két különböző ünnepség, egy helyszín",
-      alt: "Obsługa kelnerska przy stole podczas przyjęcia w Restauracji KŁOSY",
+      alt: "Pincérszolgálat az asztalnál a KŁOSY étteremben tartott rendezvényen",
       p1: "Az első szentáldozás a gyermek és az egész család napja. Elsőáldozási ebédet készítünk olyan menüvel, amely a gyerekeknek és a felnőtteknek egyaránt ízlik, helyet biztosítunk a tortának, a mise után pedig elég egyenesen hozzánk érkezni. Az elsőáldozási szezon (általában május) zsúfolt szokott lenni, ezért az időpontokról érdemes előre érdeklődni.",
       p2: "A keresztelőt egész évben szervezzük, általában a legközelebbiek társaságában — keresztszülők, nagyszülők, család. Ez gyakran nyugodtabb, még meghittebb összejövetel. Gondoskodunk egy csendes, kényelmes helyről, ahol a kicsi és a szülők jól érzik magukat, valamint egy nyugodt, családi ebédhez illő menüről.",
       bullets: [
@@ -837,7 +837,7 @@ export const hu: Dictionary = {
     menu: {
       eyebrow: "Menü",
       title: "Menü gyerekeknek és felnőtteknek",
-      alt: "Kameralna sala restauracyjna z kwiatami w Restauracji KŁOSY",
+      alt: "Meghitt éttermi terem virágokkal a KŁOSY étteremben",
       p1: "Egy elsőáldozási vagy keresztelői rendezvényen egy asztalnál ülnek a nagyszülők és a kisgyerekek — ezért állítjuk össze a menüt kétféleképpen. A felnőtteknek házias, lengyel konyhát kínálunk ebédváltozatban; a gyerekeknek egyszerűbb és biztos fogásokat választunk, olyanokat, amelyeket valóban megesznek. Figyelembe vesszük a vegetáriánus fogásokat, valamint az érdeklődésben előzetesen jelzett allergiákat és intoleranciákat.",
       p2: "A konkrét menüpontokat és az árajánlatot egyénileg készítjük el, miután megismertük a vendéglétszámot és az ünnepség jellegét — nem teszünk közzé itt kötött árlistát vagy kész csomagokat, mert minden rendezvényt külön állítunk össze. Az aktuális étlapot alább is letöltheti.",
       seeMenu: "Napi menü megtekintése",
@@ -852,23 +852,23 @@ export const hu: Dictionary = {
       images: [
         {
           src: "/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp",
-          alt: "Stół komunijny z girlandą kwiatową w Restauracji KŁOSY",
+          alt: "Elsőáldozási asztal virággirlanddal a KŁOSY étteremben",
         },
         {
           src: "/assets/restauracja-klosy/communions/stol-komunijny-balony.webp",
-          alt: "Stół komunijny z dekoracją balonową w Restauracji KŁOSY",
+          alt: "Elsőáldozási asztal lufidekorációval a KŁOSY étteremben",
         },
         {
           src: "/assets/restauracja-klosy/events/obsluga-kelnerska.webp",
-          alt: "Obsługa kelnerska podczas przyjęcia w Restauracji KŁOSY",
+          alt: "Pincérszolgálat egy rendezvényen a KŁOSY étteremben",
         },
         {
           src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
-          alt: "Słodki stół z ciastami na przyjęcie rodzinne",
+          alt: "Édes asztal süteményekkel egy családi rendezvényre",
         },
         {
           src: "/assets/restauracja-klosy/food/pieczona-kaczka.webp",
-          alt: "Pieczona kaczka — danie z domowej, polskiej kuchni",
+          alt: "Sült kacsa — fogás a házias, lengyel konyhából",
         },
       ],
     },
@@ -923,7 +923,7 @@ export const hu: Dictionary = {
 
   wesela: {
     hero: {
-      alt: "Sala rustykalna przygotowana na kameralne przyjęcie weselne w Restauracji KŁOSY",
+      alt: "Rusztikus terem meghitt esküvői rendezvényre előkészítve a KŁOSY étteremben",
       eyebrow: "Esküvők és évfordulók",
       title: "Meghitt esküvők és évfordulók Varsóban",
       subtitle:
@@ -949,7 +949,7 @@ export const hu: Dictionary = {
     },
 
     wesele: {
-      alt: "Nakryty stół bankietowy przygotowany na kameralne wesele w Restauracji KŁOSY",
+      alt: "Meghitt esküvőre megterített bankettasztal a KŁOSY étteremben",
       eyebrow: "Meghitt esküvő",
       title: "Meghitt esküvő — szűk kör számára",
       p1: "Nem minden esküvőnek kell nagyszabású rendezvénynek lennie. Egyre több pár választja a meghitt formát: a legközelebbi család és barátok, egyetlen terem, nyugodt napirend és menü, amely valóban ízlik. Ez a forma illik a KŁOSY-hoz — helyben főzünk, minden asztalt név szerint ismerünk, és nem osztjuk meg a figyelmünket több rendezvény között.",
@@ -966,7 +966,7 @@ export const hu: Dictionary = {
     },
 
     rocznice: {
-      alt: "Kameralna sala z dekoracją kwiatową na przyjęcie rocznicowe w Restauracji KŁOSY",
+      alt: "Meghitt terem virágdekorációval egy évfordulós rendezvényre a KŁOSY étteremben",
       eyebrow: "Évfordulók és jubileumok",
       title: "Évfordulók és jubileumok",
       p1: "Kerek házassági évforduló, egy pár jubileuma, a család egyik idős tagjának születésnapja vagy egy találkozó évek után — az évfordulóknál a legfontosabb az asztalnál ülő emberek. Ezért úgy szervezzük meg őket, hogy senkinek se kelljen pultok között rohangálnia: Önök leülnek, a többiről pedig mi gondoskodunk.",
@@ -983,7 +983,7 @@ export const hu: Dictionary = {
     },
 
     menu: {
-      alt: "Słodki stół z ciastami i deserami przygotowany na przyjęcie w Restauracji KŁOSY",
+      alt: "Édes asztal süteményekkel és desszertekkel egy rendezvényre a KŁOSY étteremben",
       eyebrow: "Menü és személyre szabás",
       title: "Egyedi menü esküvőre és évfordulóra",
       p1: "Nem egyetlen, kötött menüsort kínálunk. A menüt a rendezvény jellegéhez, a napszakhoz és a vendégek igényeihez igazítjuk. Elég, ha az érdeklődésben megírják, hány főt terveznek és mire vágynak — a többit közösen finomítjuk.",
@@ -1000,11 +1000,11 @@ export const hu: Dictionary = {
     realizacje: {
       heading: "Tekintse meg munkáinkat",
       images: [
-        { src: "/assets/restauracja-klosy/events/stol-bankietowy.webp", alt: "Nakryty stół bankietowy na przyjęcie w Restauracji KŁOSY" },
-        { src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp", alt: "Sala rustykalna przygotowana na kameralne przyjęcie" },
-        { src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.webp", alt: "Sala nakryta do uroczystego przyjęcia rodzinnego" },
-        { src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp", alt: "Słodki stół z ciastami i deserami" },
-        { src: "/assets/restauracja-klosy/food/tagliatelle-krewetki.webp", alt: "Tagliatelle z krewetkami — danie z menu Restauracji KŁOSY" },
+        { src: "/assets/restauracja-klosy/events/stol-bankietowy.webp", alt: "Rendezvényre megterített bankettasztal a KŁOSY étteremben" },
+        { src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp", alt: "Rusztikus terem meghitt rendezvényre előkészítve" },
+        { src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.webp", alt: "Ünnepi családi rendezvényre megterített terem" },
+        { src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp", alt: "Édes asztal süteményekkel és desszertekkel" },
+        { src: "/assets/restauracja-klosy/food/tagliatelle-krewetki.webp", alt: "Tagliatelle garnélával — fogás a KŁOSY étterem étlapjáról" },
       ],
     },
 
@@ -1060,7 +1060,7 @@ export const hu: Dictionary = {
 
   catering: {
     hero: {
-      alt: "Bufet cateringowy Restauracji KŁOSY — przekąski caprese przygotowane do podania na spotkaniu firmowym",
+      alt: "A KŁOSY étterem cateringbüféje — caprese harapnivalók egy céges összejövetelen tálalásra előkészítve",
       eyebrow: "Catering Varsóban",
       title: "Céges és magán catering — Restauracja KŁOSY",
       subtitle:
@@ -1076,7 +1076,7 @@ export const hu: Dictionary = {
     ],
 
     intro: {
-      alt: "Desery i przekąski cateringowe Restauracji KŁOSY ułożone na tacy",
+      alt: "A KŁOSY étterem cateringes desszertjei és harapnivalói tálcán elrendezve",
       eyebrow: "Catering az étteremből",
       title: "Catering étteremből, nem cateringgyárból",
       paragraphs: [
@@ -1149,7 +1149,7 @@ export const hu: Dictionary = {
     },
 
     b2bSection: {
-      alt: "Croissanty i drobne wypieki na przerwę kawową przygotowane przez Restaurację KŁOSY",
+      alt: "Croissant-ok és apró sütemények kávészünetre, a KŁOSY étterem kínálatából",
       eyebrow: "Cégeknek",
       title: "Céges catering ÁFÁ-s számlával",
       lead:
@@ -1177,7 +1177,7 @@ export const hu: Dictionary = {
     },
 
     groupsSection: {
-      alt: "Słodki stół z ciastami przygotowany przez Restaurację KŁOSY",
+      alt: "Édes asztal süteményekkel a KŁOSY étterem kínálatából",
       eyebrow: "Szervezett csoportok",
       title: "Ebédek csoportoknak, köztük iskolai csoportoknak",
       paragraphs: [
@@ -1241,23 +1241,23 @@ export const hu: Dictionary = {
       images: [
         {
           src: "/assets/restauracja-klosy/catering/catering-bufet-caprese.webp",
-          alt: "Bufet cateringowy z przekąskami caprese przygotowany przez Restaurację KŁOSY",
+          alt: "Cateringbüfé caprese harapnivalókkal a KŁOSY étterem kínálatából",
         },
         {
           src: "/assets/restauracja-klosy/catering/catering-croissanty.webp",
-          alt: "Croissanty i drobne wypieki na przerwę kawową",
+          alt: "Croissant-ok és apró sütemények kávészünetre",
         },
         {
           src: "/assets/restauracja-klosy/catering/catering-desery-przekaski.webp",
-          alt: "Desery i przekąski cateringowe ułożone na tacy",
+          alt: "Cateringes desszertek és harapnivalók tálcán elrendezve",
         },
         {
           src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
-          alt: "Słodki stół z ciastami od Restauracji KŁOSY",
+          alt: "Édes asztal süteményekkel a KŁOSY étteremtől",
         },
         {
           src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp",
-          alt: "Desery owsiane podane na tacy",
+          alt: "Zabpehelyből készült desszertek tálcán tálalva",
         },
       ],
     },
@@ -1335,51 +1335,51 @@ export const hu: Dictionary = {
 
     alts: {
       "jedzenie-pierogi":
-        "Pierogi z jagodami ze śmietaną w Restauracji KŁOSY w Warszawie, kuchnia polska",
+        "Áfonyás derelye tejföllel a varsói KŁOSY étteremben, lengyel konyha",
       "jedzenie-kaczka":
-        "Pieczona kaczka z czerwoną kapustą — kuchnia polska w Restauracji KŁOSY w Warszawie",
+        "Sült kacsa vörös káposztával — lengyel konyha a varsói KŁOSY étteremben",
       "jedzenie-golonka":
-        "Obiad domowy w KŁOSY Warszawa: pieczona golonka, zupa i deser",
+        "Házias ebéd a varsói KŁOSY étteremben: sült csülök, leves és desszert",
       "jedzenie-pieczen":
-        "Domowy obiad — pieczeń z jajkiem, ziemniaki i surówki w Restauracji KŁOSY w Warszawie",
+        "Házias ebéd — sült hús tojással, burgonya és nyers saláták a varsói KŁOSY étteremben",
       "jedzenie-kurczak":
-        "Obiady domowe w Restauracji KŁOSY w Warszawie — kurczak i makaron w sosie",
+        "Házias ebédek a varsói KŁOSY étteremben — csirke és tészta szószban",
       "jedzenie-tagliatelle":
-        "Tagliatelle z krewetkami w Restauracji KŁOSY w Warszawie, danie sezonowe",
+        "Tagliatelle garnélával a varsói KŁOSY étteremben, szezonális fogás",
       "sala-bufet":
-        "Sala jadalna Restauracji KŁOSY w Warszawie z bufetem obiadowym i białymi stolikami",
+        "A varsói KŁOSY étterem étkezőterme ebédbüfével és fehér asztalokkal",
       "sala-nakryta":
-        "Kameralna sala Restauracji KŁOSY w Warszawie nakryta do przyjęcia rodzinnego",
+        "A varsói KŁOSY étterem meghitt terme családi rendezvényre terítve",
       "sala-kameralna":
-        "Kameralna sala Restauracji KŁOSY w Warszawie nakryta do rodzinnego obiadu",
+        "A varsói KŁOSY étterem meghitt terme családi ebédre terítve",
       "sala-lampy":
-        "Wnętrze Restauracji KŁOSY w Warszawie — sala z bufetem i klimatycznym oświetleniem",
+        "A varsói KŁOSY étterem belső tere — terem büfével és hangulatos világítással",
       "komunie-balony":
-        "Stół nakryty na przyjęcie komunijne w Restauracji KŁOSY w Warszawie",
+        "Elsőáldozási rendezvényre megterített asztal a varsói KŁOSY étteremben",
       "komunie-girlanda":
-        "Aranżacja stołu na komunię z przekąskami w Restauracji KŁOSY w Warszawie",
+        "Elsőáldozási asztal terítéke harapnivalókkal a varsói KŁOSY étteremben",
       "komunie-obsluga":
-        "Obsługa kelnerska przy stole komunijnym w Restauracji KŁOSY w Warszawie",
+        "Pincérszolgálat az elsőáldozási asztalnál a varsói KŁOSY étteremben",
       "catering-caprese":
-        "Bufet cateringowy KŁOSY Warszawa z przekąskami caprese, tartinkami i deserami",
+        "A varsói KŁOSY cateringbüféje caprese harapnivalókkal, szendvicsfalatkákkal és desszertekkel",
       "catering-croissanty":
-        "Stół cateringowy KŁOSY w Warszawie z mini croissantami i przekąskami",
+        "A varsói KŁOSY cateringasztala mini croissant-okkal és harapnivalókkal",
       "catering-desery":
-        "Słodki i przekąskowy stół cateringowy Restauracji KŁOSY w Warszawie",
+        "A varsói KŁOSY étterem édes és sós harapnivalókat kínáló cateringasztala",
       "catering-ciasta":
-        "Słodki stół cateringowy — ciasta z truskawkami w Restauracji KŁOSY w Warszawie",
+        "Édes cateringasztal — epres sütemények a varsói KŁOSY étteremben",
       "dekoracje-bankiet":
-        "Stół bankietowy nakryty na przyjęcie rodzinne w Restauracji KŁOSY w Warszawie",
+        "Családi rendezvényre megterített bankettasztal a varsói KŁOSY étteremben",
       "dekoracje-rustykalna":
-        "Rustykalna sala na komunie i przyjęcia w Restauracji KŁOSY w Warszawie",
+        "Rusztikus terem elsőáldozásokra és rendezvényekre a varsói KŁOSY étteremben",
       "wynos-desery-taca":
-        "Desery owsiane z owocami na wynos w Restauracji KŁOSY w Warszawie",
+        "Zabpehelyből készült desszertek gyümölccsel elvitelre a varsói KŁOSY étteremben",
       "wynos-owsianka":
-        "Owsianka z truskawkami w kubku na wynos, Restauracja KŁOSY Warszawa",
+        "Zabkása eperrel pohárban, elvitelre — KŁOSY étterem, Varsó",
       "wynos-czekolada":
-        "Deser warstwowy z czekoladą i wiśniami na wynos, KŁOSY Warszawa",
+        "Rétegelt desszert csokoládéval és meggyel elvitelre — KŁOSY, Varsó",
       "wynos-dwa-kubki":
-        "Owsianki deserowe na wynos w przytulnym wnętrzu Restauracji KŁOSY w Warszawie",
+        "Desszert zabkása elvitelre a varsói KŁOSY étterem barátságos belső terében",
     },
   },
 

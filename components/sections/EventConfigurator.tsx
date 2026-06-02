@@ -83,10 +83,19 @@ export function EventConfigurator({ lang, dict }: { lang: LocaleCode; dict: Dict
     pushDataLayerEvent("form_step_complete", { step: TOTAL_STEPS });
     pushDataLayerEvent("cta_click_event", {});
 
+    // Handoff do formularza: typ = stabilne id; goscie/miejsce = INDEKS w tablicy
+    // (tablice są równoległe między językami i wobec opcji formularza), więc
+    // prefill działa niezależnie od języka (etykiety są tłumaczone, indeks nie).
     const params = new URLSearchParams();
     params.set("typ", eventTypeId);
-    if (guests) params.set("goscie", guests);
-    if (place) params.set("miejsce", place);
+    if (guests) {
+      const gi = dict.guestRanges.indexOf(guests);
+      if (gi >= 0) params.set("goscie", String(gi));
+    }
+    if (place) {
+      const pi = dict.places.indexOf(place);
+      if (pi >= 0) params.set("miejsce", String(pi));
+    }
     if (eventDate) params.set("data", eventDate);
 
     router.push(`${localizedPath(lang, "/kontakt")}?${params.toString()}#formularz`);
