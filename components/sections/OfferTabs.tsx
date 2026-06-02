@@ -4,30 +4,28 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Check } from "lucide-react";
-import { offerTabs } from "@/content/offer-tabs";
 import { track } from "@/lib/analytics";
 import { cn, assetPath } from "@/lib/utils";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
-export function OfferTabs() {
-  const [active, setActive] = useState(offerTabs[0].id);
-  const tab = offerTabs.find((t) => t.id === active)!;
+export function OfferTabs({ lang, dict }: { lang: LocaleCode; dict: Dictionary["offers"] }) {
+  const [active, setActive] = useState(dict.tabs[0].id);
+  const tab = dict.tabs.find((t) => t.id === active)!;
 
   return (
     <section id="oferta" className="section-y bg-cream">
       <div className="container-x">
-        <h2 className="text-3xl sm:text-4xl">Co możemy dla Ciebie zorganizować?</h2>
-        <p className="mt-3 max-w-2xl text-ink/70">
-          Wybierz rodzaj wydarzenia — pokażemy zakres, korzyści i kolejny krok. Szczegóły
-          i menu ustalamy indywidualnie po Twoim zapytaniu.
-        </p>
+        <h2 className="text-3xl sm:text-4xl">{dict.heading}</h2>
+        <p className="mt-3 max-w-2xl text-ink/70">{dict.intro}</p>
 
         {/* Zakładki: poziomy scroll na mobile */}
         <div
           role="tablist"
-          aria-label="Oferta"
+          aria-label={dict.tablistAria}
           className="mt-8 flex gap-2 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {offerTabs.map((t) => (
+          {dict.tabs.map((t) => (
             <button
               key={t.id}
               role="tab"
@@ -64,11 +62,11 @@ export function OfferTabs() {
               ))}
             </ul>
             <Link
-              href={tab.cta.href}
+              href={localizedPath(lang, tab.href)}
               onClick={() => track.offerTab(`cta_${tab.id}`)}
               className="mt-6 inline-flex rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
             >
-              {tab.cta.label}
+              {tab.ctaLabel}
             </Link>
           </div>
 

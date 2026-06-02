@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { faqItems } from "@/content/faq";
 import { cn } from "@/lib/utils";
+import type { Dictionary } from "@/content/i18n";
 
-export function Faq() {
+export function Faq({ dict }: { dict: Dictionary["faq"] }) {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <section id="faq" className="section-y bg-linen">
       <div className="container-x max-w-3xl">
-        <h2 className="text-3xl sm:text-4xl">Najczęstsze pytania</h2>
+        <h2 className="text-3xl sm:text-4xl">{dict.heading}</h2>
         <div className="mt-8 divide-y divide-linen rounded-card border border-linen bg-white">
-          {faqItems.map((item, i) => {
+          {dict.items.map((item, i) => {
             const isOpen = open === i;
             return (
               <div key={item.q}>

@@ -11,13 +11,24 @@ import { FactsBand } from "@/components/sections/FactsBand";
 import { EditorialSplit } from "@/components/sections/EditorialSplit";
 import { PhotoStrip } from "@/components/sections/PhotoStrip";
 import { WheatDivider } from "@/components/ui/WheatDivider";
+import { getDictionary } from "@/content/i18n";
+import { isLocale, DEFAULT_LOCALE, localizedPath, type LocaleCode } from "@/content/i18n/locales";
 
-export const metadata: Metadata = {
-  title: "Menu dnia Warszawa | Restauracja KŁOSY",
-  description:
-    "Menu dnia i obiady domowe w centrum Warszawy (Al. Jerozolimskie 123a, Ochota). Polska kuchnia, obiady dla grup, catering i dostawa. Restauracja KŁOSY przy Fundacji „Człowiek w Potrzebie”.",
-  alternates: { canonical: "/menu-dnia" },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const m = getDictionary(lang).meta.menuDnia;
+  return {
+    title: m.title,
+    description: m.description,
+    alternates: { canonical: localizedPath(lang, "/menu-dnia") },
+    openGraph: {
+      title: m.title,
+      description: m.ogDescription,
+      url: localizedPath(lang, "/menu-dnia"),
+    },
+  };
+}
 
 // FAQ tematyczny — podzbiór pasujący do menu dnia / obiadów / dostawy / grup.
 const faqForMenu = faqItems.filter((f) =>
@@ -35,8 +46,13 @@ const categoryIcon: Record<string, React.ComponentType<{ size?: number; classNam
 
 const isPlaceholder = (s: string) => s.includes("[DO");
 
-export default function MenuDniaPage() {
-  const href = "/menu-dnia";
+export default async function MenuDniaPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(lang);
+  const t = dict.menuDnia;
+
+  const inquiryHref = `${localizedPath(lang, "/kontakt")}#formularz`;
   const pyszneReady = !isPlaceholder(restaurant.delivery.pyszne);
   const glovoReady = !isPlaceholder(restaurant.delivery.glovo);
   const pdfReady = !isPlaceholder(restaurant.menuPdf);
@@ -46,21 +62,21 @@ export default function MenuDniaPage() {
       {/* HERO */}
       <PageHero
         image="/assets/restauracja-klosy/food/obiad-golonka.webp"
-        alt="Domowy obiad w Restauracji KŁOSY: golonka, zupa i deser"
-        eyebrow="Menu dnia • Warszawa, Ochota"
-        title="Menu dnia i kuchnia polska w centrum Warszawy"
-        subtitle="Codzienne obiady domowe — zupy, dania główne i propozycje wegetariańskie — przy Al. Jerozolimskich 123a w Warszawie (Atlas Tower, Ochota). Na zwykły obiad w pracy, lunch ze znajomymi i większe zamówienia dla grup."
-        cta={{ label: "Zapytaj o termin", href: "/kontakt#formularz" }}
+        alt={t.hero.alt}
+        eyebrow={t.hero.eyebrow}
+        title={t.hero.title}
+        subtitle={t.hero.subtitle}
+        cta={{ label: t.hero.ctaLabel, href: inquiryHref }}
       />
 
       {/* Okruszki + kontakt */}
       <section className="border-b border-linen bg-cream">
         <div className="container-x flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <nav aria-label="Okruszki" className="text-sm text-ink/60">
-            <Link href="/" className="hover:text-olive">
-              Strona główna
+          <nav aria-label={t.breadcrumbs.ariaLabel} className="text-sm text-ink/60">
+            <Link href={localizedPath(lang, "/")} className="hover:text-olive">
+              {t.breadcrumbs.home}
             </Link>{" "}
-            <span aria-hidden>/</span> <span className="text-ink/80">Menu dnia</span>
+            <span aria-hidden>/</span> <span className="text-ink/80">{t.breadcrumbs.current}</span>
           </nav>
           <a
             href={`tel:+48${restaurant.contact.phone}`}
@@ -72,39 +88,25 @@ export default function MenuDniaPage() {
       </section>
 
       {/* FAKTY */}
-      <FactsBand
-        items={[
-          { value: "Menu dnia", label: "codziennie świeżo" },
-          { value: "Kuchnia polska", label: "domowe obiady" },
-          { value: "Obiady dla grup", label: "na miejscu lub z dostawą" },
-          { value: "Dostawa", label: "na terenie Warszawy" },
-        ]}
-      />
+      <FactsBand items={t.facts} />
 
       {/* O MENU DNIA */}
       <EditorialSplit
         image="/assets/restauracja-klosy/food/pieczona-kaczka.webp"
-        alt="Pieczona kaczka — danie główne z domowej kuchni Restauracji KŁOSY"
-        eyebrow="Czym jest u nas menu dnia"
-        title="Domowe obiady bez udziwnień"
+        alt={t.about.alt}
+        eyebrow={t.about.eyebrow}
+        title={t.about.title}
       >
+        <p>{t.about.p1}</p>
         <p>
-          Menu dnia to zestaw obiadowy przygotowywany świeżo na bieżąco — domowa kuchnia bez
-          udziwnień: rozgrzewająca zupa, sycące danie główne i opcja wegetariańska. Stawiamy na
-          proste, dobre jedzenie, jakie zna się z domu, podane spokojnie i bez pośpiechu. Dokładny
-          skład zestawu zmienia się każdego dnia.
-        </p>
-        <p>
-          Aktualną kartę i bieżące menu dnia potwierdzamy telefonicznie lub w lokalu — ceny oraz
-          konkretne pozycje podajemy w kontakcie, żeby informacja była zawsze zgodna z tym, co
-          realnie gotujemy danego dnia. Restauracja działa przy {restaurant.foundation.name}, a zysk
-          wspiera jej cele statutowe.
+          {t.about.p2Before}
+          {restaurant.foundation.name}
+          {t.about.p2After}
         </p>
         <ul className="mt-2 grid gap-2 text-sm text-ink/75 sm:grid-cols-2">
-          <li>Obiad w przerwie w pracy (okolice Atlas Tower)</li>
-          <li>Lunch ze znajomymi lub rodziną</li>
-          <li>Codzienny ciepły posiłek na miejscu</li>
-          <li>Większe zamówienia obiadowe dla grup</li>
+          {t.about.points.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
         </ul>
       </EditorialSplit>
 
@@ -115,31 +117,23 @@ export default function MenuDniaPage() {
       {/* OBIADY DLA GRUP */}
       <EditorialSplit
         image="/assets/restauracja-klosy/food/obiad-kurczak-makaron.webp"
-        alt="Obiad: kurczak z makaronem — propozycja dla grup w Restauracji KŁOSY"
-        eyebrow="Obiady dla grup"
-        title="Obiad dla zespołu, klasy i rodziny"
+        alt={t.groups.alt}
+        eyebrow={t.groups.eyebrow}
+        title={t.groups.title}
         reverse
       >
-        <p>
-          Przygotowujemy obiady dla grup — również grup szkolnych, zespołów firmowych i spotkań
-          rodzinnych. Menu dobieramy pod liczbę osób i preferencje, uwzględniamy dania wegetariańskie
-          oraz informacje o alergiach podane wcześniej w zapytaniu.
-        </p>
-        <p>
-          Liczbę porcji, formę wydania (na miejscu lub z dostawą) i termin ustalamy indywidualnie.
-          Wystarczy napisać, ilu jest gości i na kiedy potrzebny jest obiad — odeślemy propozycję menu
-          i potwierdzimy dostępność.
-        </p>
+        <p>{t.groups.p1}</p>
+        <p>{t.groups.p2}</p>
         <ul className="mt-2 grid gap-2 text-sm text-ink/75">
-          <li>• Menu dopasowane do grupy (w tym opcje wegetariańskie)</li>
-          <li>• Obiady dla grup szkolnych i zespołów firmowych</li>
-          <li>• Wydanie na miejscu lub z dostawą na terenie Warszawy</li>
+          {t.groups.points.map((p) => (
+            <li key={p}>{p}</li>
+          ))}
         </ul>
         <Link
-          href="/kontakt#formularz"
+          href={inquiryHref}
           className="mt-4 inline-flex rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
         >
-          Zapytaj o obiady dla grupy
+          {t.groups.ctaLabel}
         </Link>
       </EditorialSplit>
 
@@ -150,14 +144,11 @@ export default function MenuDniaPage() {
       {/* DOSTAWA */}
       <EditorialSplit
         image="/assets/restauracja-klosy/food/tagliatelle-krewetki.webp"
-        alt="Tagliatelle z krewetkami — danie z karty Restauracji KŁOSY"
-        eyebrow="Obiad z dostawą"
-        title="Obiad z menu dnia z dowozem w Warszawie"
+        alt={t.delivery.alt}
+        eyebrow={t.delivery.eyebrow}
+        title={t.delivery.title}
       >
-        <p>
-          Obiad z menu dnia możesz zamówić z dostawą — przez popularne platformy dowozowe. Dostępność
-          dań, godziny i obszar dowozu potwierdzamy bezpośrednio; poniżej linki do zamówienia online.
-        </p>
+        <p>{t.delivery.lead}</p>
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Pyszne.pl */}
           {pyszneReady ? (
@@ -165,12 +156,12 @@ export default function MenuDniaPage() {
               href={restaurant.delivery.pyszne}
               className="flex items-center justify-between rounded-card border border-linen bg-white px-5 py-4 font-medium text-forest transition-colors hover:border-olive"
             >
-              Zamów na Pyszne.pl
+              {t.delivery.pyszneLabel}
               <Truck size={18} className="text-olive" />
             </a>
           ) : (
             <div className="flex items-center justify-between rounded-card border border-dashed border-linen bg-white px-5 py-4 text-sm text-ink/50">
-              Pyszne.pl — [DO UZUPEŁNIENIA: link]
+              {t.delivery.pysznePlaceholder}
               <Truck size={18} className="text-olive/50" />
             </div>
           )}
@@ -181,33 +172,30 @@ export default function MenuDniaPage() {
               href={restaurant.delivery.glovo}
               className="flex items-center justify-between rounded-card border border-linen bg-white px-5 py-4 font-medium text-forest transition-colors hover:border-olive"
             >
-              Zamów na Glovo
+              {t.delivery.glovoLabel}
               <Truck size={18} className="text-olive" />
             </a>
           ) : (
             <div className="flex items-center justify-between rounded-card border border-dashed border-linen bg-white px-5 py-4 text-sm text-ink/50">
-              Glovo — [DO UZUPEŁNIENIA: link]
+              {t.delivery.glovoPlaceholder}
               <Truck size={18} className="text-olive/50" />
             </div>
           )}
         </div>
         <p className="text-sm text-ink/60">
-          Wolisz większe, indywidualne zamówienie? Sprawdź{" "}
-          <Link href="/catering" className="text-olive underline-offset-2 hover:underline">
-            ofertę cateringową
-          </Link>{" "}
-          — catering firmowy i prywatny przygotowujemy na podstawie zapytania.
+          {t.delivery.cateringBefore}
+          <Link href={localizedPath(lang, "/catering")} className="text-olive underline-offset-2 hover:underline">
+            {t.delivery.cateringLink}
+          </Link>
+          {t.delivery.cateringAfter}
         </p>
       </EditorialSplit>
 
       {/* KATEGORIE MENU */}
       <section id="menu" className="section-y bg-linen/40">
         <div className="container-x">
-          <h2 className="text-3xl text-forest sm:text-4xl">Co znajdziesz w karcie</h2>
-          <p className="mt-3 max-w-2xl text-ink/70">
-            Poniżej kategorie naszej karty. Konkretne pozycje i ceny uzupełniamy na podstawie
-            aktualnego menu restauracji — do tego czasu podajemy je telefonicznie lub w lokalu.
-          </p>
+          <h2 className="text-3xl text-forest sm:text-4xl">{t.menu.title}</h2>
+          <p className="mt-3 max-w-2xl text-ink/70">{t.menu.intro}</p>
 
           <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {menuCategories.map((cat) => {
@@ -233,12 +221,11 @@ export default function MenuDniaPage() {
                 href={restaurant.menuPdf}
                 className="inline-flex items-center gap-2 rounded-full bg-forest px-6 py-3 font-medium text-cream transition-transform hover:scale-[1.03]"
               >
-                <FileDown size={18} /> Pobierz menu (PDF)
+                <FileDown size={18} /> {t.menu.pdfLabel}
               </a>
             ) : (
               <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-olive/50 px-6 py-3 text-sm text-ink/50">
-                <FileDown size={18} className="text-olive/60" /> [DO UZUPEŁNIENIA: link do menu
-                PDF]
+                <FileDown size={18} className="text-olive/60" /> {t.menu.pdfPlaceholder}
               </span>
             )}
           </div>
@@ -246,41 +233,13 @@ export default function MenuDniaPage() {
       </section>
 
       {/* TAŚMA ZDJĘĆ */}
-      <PhotoStrip
-        heading="Zobacz nasze realizacje"
-        images={[
-          {
-            src: "/assets/restauracja-klosy/food/pierogi-z-jagodami.webp",
-            alt: "Pierogi z jagodami z domowej kuchni Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/obiad-pieczen-surowki.webp",
-            alt: "Obiad: pieczeń z surówkami w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/desery-owsiane-taca.webp",
-            alt: "Taca deserów owsianych w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/owsianka-truskawki.webp",
-            alt: "Owsianka z truskawkami w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/deser-czekolada-wisnie.webp",
-            alt: "Deser czekoladowy z wiśniami w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/owsianki-dwa-kubki.webp",
-            alt: "Dwa kubki owsianki w Restauracji KŁOSY",
-          },
-        ]}
-      />
+      <PhotoStrip heading={t.realizacje.heading} images={t.realizacje.images} />
 
       {/* FAQ */}
       {faqForMenu.length > 0 && (
         <section className="section-y bg-white">
           <div className="container-x max-w-3xl">
-            <h2 className="text-3xl text-forest sm:text-4xl">Najczęstsze pytania o obiady</h2>
+            <h2 className="text-3xl text-forest sm:text-4xl">{t.faq.heading}</h2>
             <dl className="mt-8 divide-y divide-linen rounded-card border border-linen">
               {faqForMenu.map((item) => (
                 <div key={item.q} className="px-5 py-4">
@@ -296,16 +255,12 @@ export default function MenuDniaPage() {
       {/* PRZEJDŹ DALEJ */}
       <section className="section-y bg-linen/40">
         <div className="container-x">
-          <h2 className="text-3xl text-forest sm:text-4xl">Zobacz też</h2>
+          <h2 className="text-3xl text-forest sm:text-4xl">{t.next.heading}</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {[
-              { href: "/catering", label: "Catering", desc: "Firmowy i prywatny, w lokalu lub z dostawą." },
-              { href: "/imprezy-okolicznosciowe", label: "Imprezy okolicznościowe", desc: "Kameralne przyjęcia i spotkania." },
-              { href: "/kontakt", label: "Kontakt", desc: "Zapytaj o termin, menu i obiady dla grup." },
-            ].map((c) => (
+            {t.next.cards.map((c) => (
               <Link
                 key={c.href}
-                href={c.href}
+                href={localizedPath(lang, c.href)}
                 className="rounded-card bg-white p-5 shadow-soft transition-transform hover:scale-[1.02]"
               >
                 <p className="font-serif text-xl text-forest">{c.label}</p>
@@ -320,16 +275,14 @@ export default function MenuDniaPage() {
       <section className="bg-forest text-cream">
         <div className="container-x flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-3xl text-cream">Zamów obiady lub zapytaj o menu dnia</h2>
-            <p className="mt-2 text-cream/80">
-              Napisz, ilu jest gości i na kiedy — przygotujemy propozycję i potwierdzimy termin.
-            </p>
+            <h2 className="text-3xl text-cream">{t.cta.title}</h2>
+            <p className="mt-2 text-cream/80">{t.cta.text}</p>
           </div>
           <Link
-            href="/kontakt#formularz"
+            href={inquiryHref}
             className="rounded-full bg-wheat px-7 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
           >
-            Wyślij zapytanie
+            {t.cta.button}
           </Link>
         </div>
       </section>
@@ -337,13 +290,10 @@ export default function MenuDniaPage() {
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: "Strona główna", url: "/" },
-            { name: "Menu dnia", url: href },
+            { name: t.breadcrumbs.home, url: localizedPath(lang, "/") },
+            { name: t.breadcrumbs.current, url: localizedPath(lang, "/menu-dnia") },
           ]),
-          serviceSchema(
-            "Menu dnia i obiady domowe — Warszawa",
-            "Codzienne obiady domowe (menu dnia), kuchnia polska, obiady dla grup oraz dostawa w Warszawie. Restauracja KŁOSY, Al. Jerozolimskie 123a."
-          ),
+          serviceSchema(t.schema.serviceName, t.schema.serviceDescription),
           faqSchema(faqForMenu),
         ]}
       />

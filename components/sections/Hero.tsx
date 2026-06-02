@@ -8,10 +8,12 @@ import { track } from "@/lib/analytics";
 import { assetPath } from "@/lib/utils";
 import { WheatPattern } from "@/components/ui/WheatPattern";
 import { SectionWave } from "@/components/ui/SectionWave";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
 // Animacje wejścia na czystym CSS (animate-fade-up) — bez Framer Motion.
 // prefers-reduced-motion respektowane globalnie w globals.css.
-export function Hero() {
+export function Hero({ lang, dict }: { lang: LocaleCode; dict: Dictionary["home"]["hero"] }) {
   return (
     <section className="relative overflow-hidden bg-forest text-cream">
       <div aria-hidden className="absolute inset-0">
@@ -36,22 +38,23 @@ export function Hero() {
 
       <div className="container-x relative z-10 flex min-h-[86vh] flex-col justify-center py-20">
         <p className="mb-4 inline-flex w-fit animate-fade-up items-center rounded-full border border-cream/20 bg-forest/20 px-4 py-1 text-sm text-cream/85 backdrop-blur-sm">
-          Warszawa · Al. Jerozolimskie 123a
+          {dict.badge}
         </p>
 
         <h1
           className="max-w-3xl animate-fade-up font-serif text-4xl leading-[1.05] tracking-tight text-cream sm:text-5xl lg:text-6xl"
           style={{ animationDelay: "60ms" }}
         >
-          Domowa <span className="text-wheat">kuchnia</span> i przyjęcia rodzinne w sercu Warszawy
+          {dict.titleBefore}
+          <span className="text-wheat">{dict.titleHighlight}</span>
+          {dict.titleAfter}
         </h1>
 
         <p
           className="mt-5 max-w-xl animate-fade-up text-lg text-cream/85"
           style={{ animationDelay: "120ms" }}
         >
-          Obiady, catering i kameralne przyjęcia — komunie, chrzciny, wesela, rocznice
-          i spotkania firmowe. Powiedz, co planujesz, a przygotujemy propozycję menu.
+          {dict.subtitle}
         </p>
 
         <div
@@ -59,18 +62,18 @@ export function Hero() {
           style={{ animationDelay: "180ms" }}
         >
           <Link
-            href="/kontakt#formularz"
+            href={localizedPath(lang, "/kontakt") + "#formularz"}
             onClick={() => track.ctaHero("zapytaj_o_termin")}
             className="inline-flex items-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-all hover:scale-[1.03] hover:shadow-[0_8px_30px_-6px_rgba(201,154,58,0.6)]"
           >
-            <CalendarCheck size={18} /> Zapytaj o termin
+            <CalendarCheck size={18} /> {dict.ctaAsk}
           </Link>
           <Link
             href="#oferta"
             onClick={() => track.ctaHero("zobacz_oferte")}
             className="inline-flex items-center gap-2 rounded-full border border-cream/30 px-6 py-3 font-medium text-cream hover:bg-cream/10"
           >
-            Zobacz ofertę
+            {dict.ctaSeeOffer}
           </Link>
           <a
             href={`tel:+48${restaurant.contact.phone}`}
@@ -81,7 +84,7 @@ export function Hero() {
           </a>
         </div>
 
-        <a href="#oferta" aria-label="Przewiń do oferty" className="mt-14 inline-flex w-fit text-cream/60">
+        <a href="#oferta" aria-label={dict.scrollAria} className="mt-14 inline-flex w-fit text-cream/60">
           <ArrowDown className="animate-bounce" />
         </a>
       </div>

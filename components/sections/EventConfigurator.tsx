@@ -19,11 +19,12 @@ import {
   Send,
   type LucideIcon,
 } from "lucide-react";
-import { eventTypes, guestRanges, eventPlaces } from "@/content/event-types";
 import { pushDataLayerEvent, track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
-/** Mapowanie nazwy ikony z content/event-types.ts na komponent lucide-react. */
+/** Mapowanie nazwy ikony ze słownika na komponent lucide-react. */
 const iconMap: Record<string, LucideIcon> = {
   Sparkles,
   Baby,
@@ -38,16 +39,10 @@ const iconMap: Record<string, LucideIcon> = {
 
 const TOTAL_STEPS = 5;
 
-const stepTitles = [
-  "Jaki rodzaj przyjęcia planujesz?",
-  "Ile osób spodziewasz się gościć?",
-  "Gdzie ma się odbyć?",
-  "Jaki termin bierzesz pod uwagę?",
-  "Podsumowanie",
-] as const;
-
-export function EventConfigurator() {
+export function EventConfigurator({ lang, dict }: { lang: LocaleCode; dict: Dictionary["configurator"] }) {
   const router = useRouter();
+
+  const stepTitles = dict.stepTitles;
 
   const [step, setStep] = useState(1);
   const [eventTypeId, setEventTypeId] = useState<string | null>(null);
@@ -55,7 +50,7 @@ export function EventConfigurator() {
   const [place, setPlace] = useState<string | null>(null);
   const [eventDate, setEventDate] = useState("");
 
-  const selectedType = eventTypes.find((t) => t.id === eventTypeId) ?? null;
+  const selectedType = dict.eventTypes.find((t) => t.id === eventTypeId) ?? null;
 
   /** Czy bieżący krok ma wybraną wartość (krok 5 = zawsze gotowy do wysyłki). */
   function isStepValid(s: number): boolean {
@@ -94,7 +89,7 @@ export function EventConfigurator() {
     if (place) params.set("miejsce", place);
     if (eventDate) params.set("data", eventDate);
 
-    router.push(`/kontakt?${params.toString()}#formularz`);
+    router.push(`${localizedPath(lang, "/kontakt")}?${params.toString()}#formularz`);
   }
 
   const progressPct = (step / TOTAL_STEPS) * 100;
@@ -102,18 +97,17 @@ export function EventConfigurator() {
   return (
     <section id="konfigurator" className="section-y bg-linen/40">
       <div className="container-x">
-        <h2 className="text-3xl sm:text-4xl">Zaplanuj przyjęcie</h2>
-        <p className="mt-3 max-w-2xl text-ink/70">
-          W kilku krokach zbierz najważniejsze informacje o swoim wydarzeniu. Na końcu
-          przekażemy je do formularza kontaktowego — odezwiemy się z propozycją.
-        </p>
+        <h2 className="text-3xl sm:text-4xl">{dict.heading}</h2>
+        <p className="mt-3 max-w-2xl text-ink/70">{dict.intro}</p>
 
         <div className="mt-8 rounded-card bg-cream p-6 shadow-soft sm:p-8">
           {/* Pasek postępu */}
           <div className="mb-8">
             <div className="flex items-center justify-between text-sm text-ink/70">
               <span>
-                Krok {step} z {TOTAL_STEPS}
+                {dict.progress.stepLabel
+                  .replace("{step}", String(step))
+                  .replace("{total}", String(TOTAL_STEPS))}
               </span>
               <span className="font-medium text-forest">{stepTitles[step - 1]}</span>
             </div>
@@ -123,7 +117,7 @@ export function EventConfigurator() {
               aria-valuenow={step}
               aria-valuemin={1}
               aria-valuemax={TOTAL_STEPS}
-              aria-label="Postęp konfiguratora przyjęcia"
+              aria-label={dict.progress.barAria}
             >
               {/* „rosnący kłos": gradient olive→wheat + ziarnista główka na końcu */}
               <div
@@ -146,7 +140,7 @@ export function EventConfigurator() {
                     {stepTitles[0]}
                   </legend>
                   <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                    {eventTypes.map((t) => {
+                    {dict.eventTypes.map((t) => {
                       const Icon = iconMap[t.icon] ?? Sparkles;
                       const selected = eventTypeId === t.id;
                       return (
@@ -191,7 +185,7 @@ export function EventConfigurator() {
                     {stepTitles[1]}
                   </legend>
                   <div className="mt-5 flex flex-wrap gap-3">
-                    {guestRanges.map((range) => {
+                    {dict.guestRanges.map((range) => {
                       const selected = guests === range;
                       return (
                         <button
@@ -224,7 +218,7 @@ export function EventConfigurator() {
                     {stepTitles[2]}
                   </legend>
                   <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                    {eventPlaces.map((p) => {
+                    {dict.places.map((p) => {
                       const selected = place === p;
                       return (
                         <button
@@ -260,7 +254,7 @@ export function EventConfigurator() {
                     {stepTitles[3]}
                   </label>
                   <p className="mt-2 text-sm text-ink/60">
-                    Termin jest orientacyjny — wspólnie potwierdzimy dostępność.
+                    {dict.dateHint}
                   </p>
                   <div className="mt-5 flex max-w-xs items-center gap-3 rounded-card border border-linen bg-white px-4 py-3 focus-within:border-olive">
                     <CalendarDays size={20} className="shrink-0 text-olive" aria-hidden="true" />
@@ -281,23 +275,23 @@ export function EventConfigurator() {
                   <h3 className="text-lg font-medium text-forest">{stepTitles[4]}</h3>
                   <dl className="mt-5 divide-y divide-linen rounded-card border border-linen bg-cream/50">
                     <div className="flex items-center justify-between px-4 py-3">
-                      <dt className="text-sm text-ink/60">Rodzaj przyjęcia</dt>
+                      <dt className="text-sm text-ink/60">{dict.summary.eventType}</dt>
                       <dd className="font-medium text-ink">
-                        {selectedType?.label ?? "—"}
+                        {selectedType?.label ?? dict.summary.empty}
                       </dd>
                     </div>
                     <div className="flex items-center justify-between px-4 py-3">
-                      <dt className="text-sm text-ink/60">Liczba gości</dt>
-                      <dd className="font-medium text-ink">{guests ?? "—"}</dd>
+                      <dt className="text-sm text-ink/60">{dict.summary.guests}</dt>
+                      <dd className="font-medium text-ink">{guests ?? dict.summary.empty}</dd>
                     </div>
                     <div className="flex items-center justify-between px-4 py-3">
-                      <dt className="text-sm text-ink/60">Miejsce</dt>
-                      <dd className="font-medium text-ink">{place ?? "—"}</dd>
+                      <dt className="text-sm text-ink/60">{dict.summary.place}</dt>
+                      <dd className="font-medium text-ink">{place ?? dict.summary.empty}</dd>
                     </div>
                     <div className="flex items-center justify-between px-4 py-3">
-                      <dt className="text-sm text-ink/60">Preferowany termin</dt>
+                      <dt className="text-sm text-ink/60">{dict.summary.preferredDate}</dt>
                       <dd className="font-medium text-ink">
-                        {eventDate || "Do ustalenia"}
+                        {eventDate || dict.summary.dateTbd}
                       </dd>
                     </div>
                   </dl>
@@ -308,7 +302,7 @@ export function EventConfigurator() {
                     className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-wheat px-6 py-3 font-medium text-forest transition-transform hover:scale-[1.03] sm:w-auto"
                   >
                     <Send size={18} aria-hidden="true" />
-                    Wyślij zapytanie o przyjęcie
+                    {dict.summary.submit}
                   </button>
                 </div>
               )}
@@ -329,7 +323,7 @@ export function EventConfigurator() {
                 )}
               >
                 <ChevronLeft size={18} aria-hidden="true" />
-                Wstecz
+                {dict.nav.back}
               </button>
               <button
                 type="button"
@@ -342,7 +336,7 @@ export function EventConfigurator() {
                     : "cursor-not-allowed bg-linen text-ink/40"
                 )}
               >
-                Dalej
+                {dict.nav.next}
                 <ChevronRight size={18} aria-hidden="true" />
               </button>
             </div>
@@ -350,8 +344,7 @@ export function EventConfigurator() {
         </div>
 
         <p className="mt-4 max-w-2xl text-sm text-ink/60">
-          Po wysłaniu zapytania restauracja potwierdzi dostępność terminu i przygotuje
-          propozycję menu.
+          {dict.footnote}
         </p>
       </div>
     </section>

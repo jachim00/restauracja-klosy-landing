@@ -1,18 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, CheckCircle2, AlertCircle } from "lucide-react";
-import { leadSchema, type LeadFormValues } from "@/components/forms/lead-schema";
+import { makeLeadSchema, type LeadFormValues } from "@/components/forms/lead-schema";
 import { eventTypes, guestRanges, eventPlaces } from "@/content/event-types";
 import { restaurant } from "@/content/restaurant-data";
 import { pushDataLayerEvent, track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
 type SubmitStatus = "idle" | "loading" | "success" | "error";
 
 type LeadFormProps = {
+  lang: LocaleCode;
+  dict: Dictionary["forms"];
   defaultValues?: Partial<LeadFormValues>;
   formName?: string;
 };
@@ -22,14 +26,19 @@ const fieldBase =
 const labelBase = "mb-1.5 block text-sm font-medium text-forest";
 const errorTextBase = "mt-1 text-sm text-clay";
 
-export default function LeadForm({
+export function LeadForm({
+  lang,
+  dict,
   defaultValues,
   formName = "event_inquiry",
 }: LeadFormProps) {
+  const t = dict.lead;
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const startedRef = useRef(false);
   const successRef = useRef<HTMLDivElement>(null);
+
+  const schema = useMemo(() => makeLeadSchema(dict), [dict]);
 
   const {
     register,
@@ -38,7 +47,7 @@ export default function LeadForm({
     setValue,
     formState: { errors },
   } = useForm<LeadFormValues>({
-    resolver: zodResolver(leadSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       imieNazwisko: "",
       telefon: "",
@@ -55,6 +64,8 @@ export default function LeadForm({
 
   // Prefill z parametrów URL (handoff z mini-konfiguratora) — po stronie klienta,
   // bo strona jest statyczna (GitHub Pages, brak serwerowych searchParams).
+  // Klucze query (typ / goscie / miejsce / data) muszą pozostać niezmienione —
+  // używa ich EventConfigurator do przekazania wyboru.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const sp = new URLSearchParams(window.location.search);
@@ -90,16 +101,14 @@ export default function LeadForm({
     setErrorMessage("");
     pushDataLayerEvent("form_submit", { form_name: formName });
 
-    // Strona statyczna (GitHub Pages) — wysyłka e-maila na marketing@restauracjadifferent.pl:
-    //  • Web3Forms (zalecane): ustaw NEXT_PUBLIC_WEB3FORMS_KEY (klucz zarejestrowany na ten e-mail),
+    // Strona statyczna (GitHub Pages) — wysyłka e-maila:
+    //  • Web3Forms (zalecane): ustaw NEXT_PUBLIC_WEB3FORMS_KEY,
     //  • albo własny webhook (Make/Zapier): NEXT_PUBLIC_LEAD_WEBHOOK_URL.
     const web3key = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
     const webhook = process.env.NEXT_PUBLIC_LEAD_WEBHOOK_URL;
     if (!web3key && !webhook) {
       setStatus("error");
-      setErrorMessage(
-        "Formularz nie jest jeszcze podłączony do odbioru zgłoszeń. Prosimy o kontakt telefoniczny lub e-mailowy. (Konfiguracja: NEXT_PUBLIC_WEB3FORMS_KEY lub NEXT_PUBLIC_LEAD_WEBHOOK_URL)"
-      );
+      setErrorMessage(t.errors.noEndpoint);
       track.formSubmitError("no_endpoint");
       return;
     }
@@ -114,8 +123,8 @@ export default function LeadForm({
             headers: { "Content-Type": "application/json", Accept: "application/json" },
             body: JSON.stringify({
               access_key: web3key,
-              subject: `Zapytanie ze strony KŁOSY — ${values.typWydarzenia}`,
-              from_name: `Restauracja KŁOSY — formularz (${values.imieNazwisko})`,
+              subject: `${t.mail.subjectPrefix} ${values.typWydarzenia}`,
+              from_name: `${t.mail.fromNamePrefix} (${values.imieNazwisko})`,
               ...payload,
             }),
           })
@@ -127,9 +136,7 @@ export default function LeadForm({
 
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage(
-          "Nie udało się wysłać zgłoszenia. Spróbuj ponownie lub zadzwoń do nas."
-        );
+        setErrorMessage(t.errors.http);
         track.formSubmitError(`http_${res.status}`);
         return;
       }
@@ -144,9 +151,7 @@ export default function LeadForm({
       requestAnimationFrame(() => successRef.current?.focus());
     } catch {
       setStatus("error");
-      setErrorMessage(
-        "Wystąpił błąd połączenia. Sprawdź internet i spróbuj ponownie."
-      );
+      setErrorMessage(t.errors.network);
       track.formSubmitError("network_error");
     }
   }
@@ -161,10 +166,9 @@ export default function LeadForm({
         className="rounded-card border border-olive/30 bg-cream p-8 text-center shadow-soft outline-none"
       >
         <CheckCircle2 className="mx-auto mb-4 h-12 w-12 text-olive" aria-hidden="true" />
-        <h3 className="font-serif text-2xl text-forest">Dziękujemy za zapytanie!</h3>
+        <h3 className="font-serif text-2xl text-forest">{t.success.heading}</h3>
         <p className="mt-2 text-ink/80">
-          Odezwiemy się tak szybko, jak to możliwe, aby omówić szczegóły Państwa
-          wydarzenia. Jeśli sprawa jest pilna, prosimy o telefon:{" "}
+          {t.success.bodyBefore}{" "}
           <a
             href={`tel:${restaurant.contact.phone}`}
             className="font-medium text-brown underline decoration-wheat underline-offset-4"
@@ -182,7 +186,7 @@ export default function LeadForm({
           }}
           className="mt-6 rounded-card bg-olive px-5 py-2.5 font-medium text-cream transition hover:bg-forest"
         >
-          Wyślij kolejne zapytanie
+          {t.success.again}
         </button>
       </div>
     );
@@ -194,14 +198,14 @@ export default function LeadForm({
       onSubmit={handleSubmit(onSubmit)}
       onFocusCapture={handleFirstFocus}
       className="space-y-5"
-      aria-label="Formularz zapytania o wydarzenie"
+      aria-label={t.ariaLabel}
     >
       {/* Honeypot — ukryte off-screen, niewidoczne dla użytkownika i czytników. */}
       <div
         aria-hidden="true"
         className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden"
       >
-        <label htmlFor="hp">Nie wypełniaj tego pola</label>
+        <label htmlFor="hp">{t.honeypotLabel}</label>
         <input
           id="hp"
           type="text"
@@ -215,7 +219,7 @@ export default function LeadForm({
         {/* Imię i nazwisko */}
         <div className="sm:col-span-2">
           <label htmlFor="imieNazwisko" className={labelBase}>
-            Imię i nazwisko <span className="text-clay">*</span>
+            {t.fields.imieNazwisko.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <input
             id="imieNazwisko"
@@ -236,7 +240,7 @@ export default function LeadForm({
         {/* Telefon */}
         <div>
           <label htmlFor="telefon" className={labelBase}>
-            Telefon <span className="text-clay">*</span>
+            {t.fields.telefon.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <input
             id="telefon"
@@ -258,7 +262,7 @@ export default function LeadForm({
         {/* E-mail */}
         <div>
           <label htmlFor="email" className={labelBase}>
-            E-mail <span className="text-clay">*</span>
+            {t.fields.email.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <input
             id="email"
@@ -280,7 +284,7 @@ export default function LeadForm({
         {/* Typ wydarzenia */}
         <div>
           <label htmlFor="typWydarzenia" className={labelBase}>
-            Typ wydarzenia <span className="text-clay">*</span>
+            {t.fields.typWydarzenia.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <select
             id="typWydarzenia"
@@ -291,14 +295,13 @@ export default function LeadForm({
             {...register("typWydarzenia")}
           >
             <option value="" disabled>
-              Wybierz…
+              {t.selectPlaceholder}
             </option>
-            {eventTypes.map((e) => (
-              <option key={e.id} value={e.id}>
-                {e.label}
+            {t.eventTypeOptions.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
               </option>
             ))}
-            <option value="inne">Inne</option>
           </select>
           {errors.typWydarzenia && (
             <p id="typWydarzenia-error" className={errorTextBase} role="alert">
@@ -310,7 +313,7 @@ export default function LeadForm({
         {/* Data */}
         <div>
           <label htmlFor="data" className={labelBase}>
-            Preferowana data <span className="text-ink/50">(opcjonalnie)</span>
+            {t.fields.data.label} <span className="text-ink/50">{t.optionalSuffix}</span>
           </label>
           <input
             id="data"
@@ -330,7 +333,7 @@ export default function LeadForm({
         {/* Liczba gości */}
         <div>
           <label htmlFor="liczbaGosci" className={labelBase}>
-            Liczba gości <span className="text-clay">*</span>
+            {t.fields.liczbaGosci.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <select
             id="liczbaGosci"
@@ -341,11 +344,11 @@ export default function LeadForm({
             {...register("liczbaGosci")}
           >
             <option value="" disabled>
-              Wybierz…
+              {t.selectPlaceholder}
             </option>
-            {guestRanges.map((g) => (
-              <option key={g} value={g}>
-                {g}
+            {t.guestRangeOptions.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
               </option>
             ))}
           </select>
@@ -359,7 +362,7 @@ export default function LeadForm({
         {/* Miejsce */}
         <div>
           <label htmlFor="miejsce" className={labelBase}>
-            Miejsce <span className="text-clay">*</span>
+            {t.fields.miejsce.label} <span className="text-clay">{t.requiredMark}</span>
           </label>
           <select
             id="miejsce"
@@ -370,11 +373,11 @@ export default function LeadForm({
             {...register("miejsce")}
           >
             <option value="" disabled>
-              Wybierz…
+              {t.selectPlaceholder}
             </option>
-            {eventPlaces.map((p) => (
-              <option key={p} value={p}>
-                {p}
+            {t.placeOptions.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
               </option>
             ))}
           </select>
@@ -388,12 +391,12 @@ export default function LeadForm({
         {/* Budżet */}
         <div>
           <label htmlFor="budzet" className={labelBase}>
-            Orientacyjny budżet <span className="text-ink/50">(opcjonalnie)</span>
+            {t.fields.budzet.label} <span className="text-ink/50">{t.optionalSuffix}</span>
           </label>
           <input
             id="budzet"
             type="text"
-            placeholder="np. do 5000 zł / na osobę"
+            placeholder={t.fields.budzet.placeholder}
             className={cn(fieldBase, errors.budzet && "border-clay")}
             aria-invalid={errors.budzet ? "true" : "false"}
             aria-describedby={errors.budzet ? "budzet-error" : undefined}
@@ -409,12 +412,12 @@ export default function LeadForm({
         {/* Preferencje menu */}
         <div className="sm:col-span-2">
           <label htmlFor="preferencjeMenu" className={labelBase}>
-            Preferencje menu <span className="text-ink/50">(opcjonalnie)</span>
+            {t.fields.preferencjeMenu.label} <span className="text-ink/50">{t.optionalSuffix}</span>
           </label>
           <input
             id="preferencjeMenu"
             type="text"
-            placeholder="np. menu dla dzieci, dania wegetariańskie"
+            placeholder={t.fields.preferencjeMenu.placeholder}
             className={cn(fieldBase, errors.preferencjeMenu && "border-clay")}
             aria-invalid={errors.preferencjeMenu ? "true" : "false"}
             aria-describedby={errors.preferencjeMenu ? "preferencjeMenu-error" : undefined}
@@ -430,13 +433,13 @@ export default function LeadForm({
         {/* Alergie */}
         <div className="sm:col-span-2">
           <label htmlFor="alergie" className={labelBase}>
-            Alergie / wymagania dietetyczne{" "}
-            <span className="text-ink/50">(opcjonalnie)</span>
+            {t.fields.alergie.label}{" "}
+            <span className="text-ink/50">{t.optionalSuffix}</span>
           </label>
           <input
             id="alergie"
             type="text"
-            placeholder="np. bezglutenowe, bez orzechów"
+            placeholder={t.fields.alergie.placeholder}
             className={cn(fieldBase, errors.alergie && "border-clay")}
             aria-invalid={errors.alergie ? "true" : "false"}
             aria-describedby={errors.alergie ? "alergie-error" : undefined}
@@ -452,12 +455,12 @@ export default function LeadForm({
         {/* Wiadomość */}
         <div className="sm:col-span-2">
           <label htmlFor="wiadomosc" className={labelBase}>
-            Dodatkowe informacje <span className="text-ink/50">(opcjonalnie)</span>
+            {t.fields.wiadomosc.label} <span className="text-ink/50">{t.optionalSuffix}</span>
           </label>
           <textarea
             id="wiadomosc"
             rows={4}
-            placeholder="Opowiedz nam o swoim wydarzeniu — czego potrzebujesz?"
+            placeholder={t.fields.wiadomosc.placeholder}
             className={cn(fieldBase, "resize-y", errors.wiadomosc && "border-clay")}
             aria-invalid={errors.wiadomosc ? "true" : "false"}
             aria-describedby={errors.wiadomosc ? "wiadomosc-error" : undefined}
@@ -484,8 +487,7 @@ export default function LeadForm({
               {...register("zgodaKontakt")}
             />
             <span>
-              Wyrażam zgodę na kontakt telefoniczny lub e-mailowy w celu omówienia
-              mojego zapytania. <span className="text-clay">*</span>
+              {t.consents.kontakt.text} <span className="text-clay">{t.requiredMark}</span>
             </span>
           </label>
           {errors.zgodaKontakt && (
@@ -506,15 +508,15 @@ export default function LeadForm({
               {...register("zgodaRodo")}
             />
             <span>
-              Zapoznałem(-am) się z{" "}
+              {t.consents.rodo.before}{" "}
               <a
-                href={restaurant.privacyPolicyUrl}
+                href={localizedPath(lang, restaurant.privacyPolicyUrl)}
                 className="font-medium text-brown underline decoration-wheat underline-offset-4"
               >
-                polityką prywatności
+                {t.consents.rodo.linkText}
               </a>{" "}
-              i akceptuję przetwarzanie moich danych w celu obsługi zapytania.{" "}
-              <span className="text-clay">*</span>
+              {t.consents.rodo.after}{" "}
+              <span className="text-clay">{t.requiredMark}</span>
             </span>
           </label>
           {errors.zgodaRodo && (
@@ -545,16 +547,18 @@ export default function LeadForm({
         {status === "loading" ? (
           <>
             <Loader2 className="h-5 w-5 animate-spin" aria-hidden="true" />
-            Wysyłanie…
+            {t.submit.loading}
           </>
         ) : (
-          "Wyślij zapytanie"
+          t.submit.idle
         )}
       </button>
 
       <p className="text-xs text-ink/60">
-        Pola oznaczone <span className="text-clay">*</span> są wymagane.
+        {t.requiredHintPrefix} <span className="text-clay">{t.requiredMark}</span> {t.requiredHint}
       </p>
     </form>
   );
 }
+
+export default LeadForm;

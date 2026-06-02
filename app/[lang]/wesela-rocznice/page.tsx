@@ -10,14 +10,22 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbSchema, serviceSchema, faqSchema } from "@/lib/schema";
 import { faqItems } from "@/content/faq";
 import { restaurant, TODO } from "@/content/restaurant-data";
-
-export const metadata: Metadata = {
-  title: "Wesela kameralne i rocznice Warszawa | Restauracja KŁOSY",
-  description:
-    "Kameralne wesela i przyjęcia rocznicowe w Warszawie (Al. Jerozolimskie 123a, Ochota). Indywidualne menu, spokojna obsługa, sala dla bliskiego grona. Zapytaj o termin w Restauracji KŁOSY.",
-};
+import { getDictionary } from "@/content/i18n";
+import { isLocale, DEFAULT_LOCALE, localizedPath, type LocaleCode } from "@/content/i18n/locales";
 
 const HREF = "/wesela-rocznice";
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const m = getDictionary(lang).meta.wesela;
+  return {
+    title: m.title,
+    description: m.description,
+    alternates: { canonical: localizedPath(lang, HREF) },
+    openGraph: { title: m.title, description: m.ogDescription, url: localizedPath(lang, HREF) },
+  };
+}
 
 // Podzbiór FAQ pasujący tematycznie do wesel i rocznic.
 const pageFaq = faqItems.filter((f) =>
@@ -26,24 +34,29 @@ const pageFaq = faqItems.filter((f) =>
   )
 );
 
-export default function WeselaRocznicePage() {
+export default async function Page({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(lang);
+  const t = dict.wesela;
+
   return (
     <>
       <PageHero
         image="/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp"
-        alt="Sala rustykalna przygotowana na kameralne przyjęcie weselne w Restauracji KŁOSY"
-        eyebrow="Wesela i rocznice"
-        title="Kameralne wesela i rocznice w Warszawie"
-        subtitle="Bliskie grono, domowa kuchnia i spokojna obsługa — bez gwaru sal na setki osób. Przyjęcia weselne, rocznicowe i jubileuszowe przy Al. Jerozolimskich 123a na Ochocie."
-        cta={{ label: "Zapytaj o termin", href: "/kontakt#formularz" }}
+        alt={t.hero.alt}
+        eyebrow={t.hero.eyebrow}
+        title={t.hero.title}
+        subtitle={t.hero.subtitle}
+        cta={{ label: t.hero.ctaLabel, href: localizedPath(lang, "/kontakt#formularz") }}
       />
 
       <FactsBand
         items={[
-          { value: "Kameralne wesela", label: "Dla bliskiego grona, jedno przyjęcie w terminie" },
-          { value: "Rocznice i jubileusze", label: "Okrągłe rocznice, jubileusze i spotkania po latach" },
-          { value: "Indywidualne menu", label: "Układane pod charakter przyjęcia i preferencje gości" },
-          { value: TODO + " pakiety", label: "Propozycje pakietów potwierdzamy w odpowiedzi na zapytanie" },
+          { value: t.facts.weselaValue, label: t.facts.weselaLabel },
+          { value: t.facts.roczniceValue, label: t.facts.roczniceLabel },
+          { value: t.facts.menuValue, label: t.facts.menuLabel },
+          { value: TODO + t.facts.pakietyValueAfter, label: t.facts.pakietyLabel },
         ]}
       />
 
@@ -51,11 +64,9 @@ export default function WeselaRocznicePage() {
       <section className="section-y bg-white">
         <div className="container-x max-w-3xl">
           <p className="text-lg text-ink/75">
-            Restauracja KŁOSY przy Al. Jerozolimskich 123a (Ochota, budynek Atlas Tower)
-            organizuje kameralne wesela oraz przyjęcia rocznicowe i jubileuszowe. Stawiamy
-            na bliskie grono, domową kuchnię i spokojną obsługę — bez gwaru sal na setki
-            osób. Restauracja działa przy {restaurant.foundation.name}, a zysk wspiera cele
-            statutowe Fundacji.
+            {t.intro.before}
+            {restaurant.foundation.name}
+            {t.intro.after}
           </p>
         </div>
       </section>
@@ -64,39 +75,30 @@ export default function WeselaRocznicePage() {
 
       <EditorialSplit
         image="/assets/restauracja-klosy/events/stol-bankietowy.webp"
-        alt="Nakryty stół bankietowy przygotowany na kameralne wesele w Restauracji KŁOSY"
-        eyebrow="Wesele kameralne"
-        title="Wesele kameralne — dla bliskiego grona"
+        alt={t.wesele.alt}
+        eyebrow={t.wesele.eyebrow}
+        title={t.wesele.title}
       >
+        <p>{t.wesele.p1}</p>
+        <p>{t.wesele.p2}</p>
         <p>
-          Nie każde wesele musi być wielkim przyjęciem. Coraz więcej par wybiera
-          kameralną formę: najbliższa rodzina i przyjaciele, jedna sala, spokojny przebieg
-          dnia i menu, które naprawdę smakuje. Taki format pasuje do KŁOSÓW — gotujemy na
-          miejscu, znamy każdy stół z imienia i nie rozpraszamy się na kilka imprez naraz.
-        </p>
-        <p>
-          Kameralne wesele sprawdza się przy ślubie cywilnym w okolicy, przyjęciu po
-          ceremonii w wąskim gronie albo „drugim dniu” w rodzinnej atmosferze. Zamiast
-          sztywnego scenariusza ustalamy z Wami przebieg: powitanie, obiad, toast,
-          deser i tyle przestrzeni, ile potrzebujecie na rozmowy.
-        </p>
-        <p>
-          Liczbę gości, układ sali i godziny przyjęcia ustalamy indywidualnie po Waszym
-          zapytaniu. Maksymalną liczbę miejsc potwierdzamy w kontakcie — {restaurant.capacity}.
+          {t.wesele.p3Before}
+          {restaurant.capacity}
+          {t.wesele.p3After}
         </p>
         <ul className="grid gap-3">
           {[
-            { icon: Heart, t: "Kameralność", d: "Jedno przyjęcie w danym terminie, pełna uwaga obsługi dla Waszych gości." },
-            { icon: Utensils, t: "Domowa kuchnia", d: "Dania gotowane na miejscu, dopasowane do menu weselnego i preferencji gości." },
-            { icon: Users, t: "Bliskie grono", d: "Format dla rodziny i przyjaciół, bez hucznej sali na setki osób." },
-            { icon: CalendarCheck, t: "Spokojny przebieg", d: "Ustalamy harmonogram dnia razem z Wami — bez pośpiechu i chaosu." },
-          ].map(({ icon: Icon, t, d }) => (
-            <li key={t} className="flex gap-3">
+            { icon: Heart, t: t.wesele.points[0].t, d: t.wesele.points[0].d },
+            { icon: Utensils, t: t.wesele.points[1].t, d: t.wesele.points[1].d },
+            { icon: Users, t: t.wesele.points[2].t, d: t.wesele.points[2].d },
+            { icon: CalendarCheck, t: t.wesele.points[3].t, d: t.wesele.points[3].d },
+          ].map(({ icon: Icon, t: pt, d }) => (
+            <li key={pt} className="flex gap-3">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-wheat/30 text-olive">
                 <Icon size={18} />
               </span>
               <span>
-                <span className="font-serif text-forest">{t}.</span>{" "}
+                <span className="font-serif text-forest">{pt}.</span>{" "}
                 <span className="text-ink/70">{d}</span>
               </span>
             </li>
@@ -108,25 +110,15 @@ export default function WeselaRocznicePage() {
 
       <EditorialSplit
         image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp"
-        alt="Kameralna sala z dekoracją kwiatową na przyjęcie rocznicowe w Restauracji KŁOSY"
-        eyebrow="Rocznice i jubileusze"
-        title="Rocznice i jubileusze"
+        alt={t.rocznice.alt}
+        eyebrow={t.rocznice.eyebrow}
+        title={t.rocznice.title}
         reverse
       >
-        <p>
-          Okrągła rocznica ślubu, jubileusz pary, urodziny seniora rodziny czy spotkanie
-          po latach — rocznice rządzą się tym, że najważniejsi są ludzie przy stole.
-          Dlatego organizujemy je tak, by nikt nie musiał biegać między stoiskami:
-          siadacie, a my zajmujemy się resztą.
-        </p>
-        <h3 className="font-serif text-xl text-forest">Jakie rocznice organizujemy</h3>
+        <p>{t.rocznice.p1}</p>
+        <h3 className="font-serif text-xl text-forest">{t.rocznice.listHeading}</h3>
         <ul className="grid gap-2">
-          {[
-            "rocznice ślubu i jubileusze par",
-            "okrągłe urodziny i imieniny",
-            "spotkania rodzinne po latach",
-            "jubileusze i spotkania firmowe w kameralnym gronie",
-          ].map((x) => (
+          {t.rocznice.items.map((x) => (
             <li key={x} className="flex items-start gap-2">
               <Cake size={18} className="mt-1 shrink-0 text-olive" />
               <span>{x}</span>
@@ -134,9 +126,9 @@ export default function WeselaRocznicePage() {
           ))}
         </ul>
         <p>
-          Każde przyjęcie wyceniamy i układamy indywidualnie po zapytaniu. Gotowe pakiety
-          weselne oraz przykładowe menu rocznicowe: {TODO} — przygotujemy je w odpowiedzi na
-          Wasze zapytanie, wraz z propozycją menu i terminu.
+          {t.rocznice.p2Before}
+          {TODO}
+          {t.rocznice.p2After}
         </p>
       </EditorialSplit>
 
@@ -144,21 +136,17 @@ export default function WeselaRocznicePage() {
 
       <EditorialSplit
         image="/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp"
-        alt="Słodki stół z ciastami i deserami przygotowany na przyjęcie w Restauracji KŁOSY"
-        eyebrow="Menu i personalizacja"
-        title="Indywidualne menu na wesele i rocznicę"
+        alt={t.menu.alt}
+        eyebrow={t.menu.eyebrow}
+        title={t.menu.title}
       >
-        <p>
-          Nie podajemy jednego, sztywnego zestawu. Menu układamy pod charakter przyjęcia,
-          porę dnia i preferencje gości. Wystarczy, że w zapytaniu napiszecie, ile osób
-          planujecie i czego oczekujecie — resztę dopracujemy wspólnie.
-        </p>
+        <p>{t.menu.p1}</p>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
-            { t: "Dopasowanie do gości", d: "Uwzględniamy dania wegetariańskie oraz informacje o alergiach podane w zapytaniu." },
-            { t: "Forma przyjęcia", d: "Obiad zasiadany, dania serwowane lub forma bufetowa — ustalamy razem z Wami." },
-            { t: "Toast i deser", d: "Tort, deser i oprawa słodkiego stołu po stronie restauracji lub w wybranej formie. Szczegóły: " + TODO + "." },
-            { t: "Napoje", d: "Zakres napojów i ewentualny serwis ustalamy indywidualnie. Szczegóły i ceny: " + TODO + "." },
+            { t: t.menu.cards[0].t, d: t.menu.cards[0].d },
+            { t: t.menu.cards[1].t, d: t.menu.cards[1].d },
+            { t: t.menu.cards[2].t, d: t.menu.cards[2].dBefore + TODO + t.menu.cards[2].dAfter },
+            { t: t.menu.cards[3].t, d: t.menu.cards[3].dBefore + TODO + t.menu.cards[3].dAfter },
           ].map((x) => (
             <div key={x.t} className="rounded-card border border-linen bg-cream p-5">
               <p className="font-serif text-lg text-forest">{x.t}</p>
@@ -167,62 +155,49 @@ export default function WeselaRocznicePage() {
           ))}
         </div>
         <p className="text-sm text-ink/60">
-          Aktualne menu i przykładowe propozycje: {restaurant.menuPdf}. Ceny pakietów i menu
-          potwierdzamy w odpowiedzi na zapytanie.
+          {t.menu.noteBefore}
+          {restaurant.menuPdf}
+          {t.menu.noteAfter}
         </p>
       </EditorialSplit>
 
       <WheatDivider />
 
-      <PhotoStrip
-        heading="Zobacz nasze realizacje"
-        images={[
-          { src: "/assets/restauracja-klosy/events/stol-bankietowy.webp", alt: "Nakryty stół bankietowy na przyjęcie w Restauracji KŁOSY" },
-          { src: "/assets/restauracja-klosy/events/sala-rustykalna-przyjecie.webp", alt: "Sala rustykalna przygotowana na kameralne przyjęcie" },
-          { src: "/assets/restauracja-klosy/interior/sala-nakryta-przyjecie.webp", alt: "Sala nakryta do uroczystego przyjęcia rodzinnego" },
-          { src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp", alt: "Słodki stół z ciastami i deserami" },
-          { src: "/assets/restauracja-klosy/food/tagliatelle-krewetki.webp", alt: "Tagliatelle z krewetkami — danie z menu Restauracji KŁOSY" },
-        ]}
-      />
+      <PhotoStrip heading={t.realizacje.heading} images={t.realizacje.images} />
 
       {/* Jak organizujemy */}
       <section className="section-y bg-linen/40">
         <div className="container-x">
-          <h2 className="text-3xl sm:text-4xl">Jak organizujemy przyjęcie krok po kroku</h2>
+          <h2 className="text-3xl sm:text-4xl">{t.kroki.heading}</h2>
           <ol className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              ["1", "Zapytanie", "Wysyłasz formularz lub dzwonisz — podajesz datę i liczbę gości."],
-              ["2", "Termin", "Potwierdzamy dostępność wybranej daty."],
-              ["3", "Menu", "Dobieramy menu pod wesele lub rocznicę i preferencje gości."],
-              ["4", "Ustalenia", "Doprecyzowujemy salę, harmonogram dnia i szczegóły obsługi."],
-              ["5", "Wydarzenie", "Obsługujemy przyjęcie w dniu uroczystości."],
-            ].map(([n, t, d]) => (
+            {t.kroki.steps.map(([n, st, d]) => (
               <li key={n} className="rounded-card bg-white p-5 shadow-soft">
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-wheat font-serif text-forest">
                   {n}
                 </span>
-                <p className="mt-3 font-medium text-forest">{t}</p>
+                <p className="mt-3 font-medium text-forest">{st}</p>
                 <p className="mt-1 text-sm text-ink/70">{d}</p>
               </li>
             ))}
           </ol>
-          <p className="mt-6 text-sm text-ink/60">
-            Po wysłaniu zapytania restauracja potwierdzi dostępność terminu i przygotuje
-            propozycję menu oraz wyceny.
-          </p>
+          <p className="mt-6 text-sm text-ink/60">{t.kroki.note}</p>
         </div>
       </section>
 
       {/* Lokalizacja / NAP */}
       <section className="section-y bg-white">
         <div className="container-x max-w-3xl">
-          <h2 className="text-3xl sm:text-4xl">Gdzie się odbywa</h2>
+          <h2 className="text-3xl sm:text-4xl">{t.lokalizacja.heading}</h2>
           <p className="mt-4 text-ink/75">
-            Restauracja KŁOSY mieści się przy {restaurant.address.street},{" "}
-            {restaurant.address.postalCode} {restaurant.address.city} (dzielnica{" "}
-            {restaurant.address.district}), w budynku {restaurant.address.building}{" "}
-            <span className="text-ink/50">(do potwierdzenia)</span>. Dokładny dojazd,
-            parking i dostępność piętra potwierdzamy w kontakcie.
+            {t.lokalizacja.p1Before}
+            {restaurant.address.street}, {restaurant.address.postalCode} {restaurant.address.city}{" "}
+            {t.lokalizacja.districtBefore}
+            {restaurant.address.district}
+            {t.lokalizacja.districtAfter}
+            {restaurant.address.building}
+            {t.lokalizacja.p1AfterBuilding}
+            <span className="text-ink/50">{t.lokalizacja.p1Confirm}</span>
+            {t.lokalizacja.p1End}
           </p>
           <ul className="mt-5 space-y-2 text-ink/80">
             <li>
@@ -248,7 +223,7 @@ export default function WeselaRocznicePage() {
       {/* FAQ — podzbiór tematyczny */}
       <section id="faq" className="section-y bg-cream">
         <div className="container-x max-w-3xl">
-          <h2 className="text-3xl sm:text-4xl">Najczęstsze pytania o wesela i rocznice</h2>
+          <h2 className="text-3xl sm:text-4xl">{t.faq.heading}</h2>
           <div className="mt-8 divide-y divide-linen rounded-card border border-linen bg-white">
             {pageFaq.map((item) => (
               <details key={item.q} className="group px-5 py-4">
@@ -268,16 +243,12 @@ export default function WeselaRocznicePage() {
       {/* Linki wewnętrzne */}
       <section className="section-y bg-white">
         <div className="container-x">
-          <h2 className="text-2xl sm:text-3xl">Zobacz też</h2>
+          <h2 className="text-2xl sm:text-3xl">{t.next.heading}</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
-            {[
-              { href: "/komunie-chrzciny", t: "Komunie i chrzciny", d: "Kameralne przyjęcia rodzinne." },
-              { href: "/imprezy-okolicznosciowe", t: "Imprezy okolicznościowe", d: "Urodziny, spotkania, jubileusze." },
-              { href: "/catering", t: "Catering", d: "Firmowy i prywatny, także z dostawą." },
-            ].map((x) => (
+            {t.next.cards.map((x) => (
               <Link
                 key={x.href}
-                href={x.href}
+                href={localizedPath(lang, x.href)}
                 className="rounded-card border border-linen bg-cream p-5 transition-colors hover:border-wheat"
               >
                 <p className="font-serif text-lg text-forest">{x.t}</p>
@@ -292,16 +263,14 @@ export default function WeselaRocznicePage() {
       <section className="bg-forest text-cream">
         <div className="container-x flex flex-col items-start gap-6 py-16 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-3xl text-cream">Planujecie kameralne wesele lub rocznicę?</h2>
-            <p className="mt-2 text-cream/80">
-              Napiszcie, ile osób i jaki termin Was interesuje — odpowiemy z propozycją menu i wyceny.
-            </p>
+            <h2 className="text-3xl text-cream">{t.cta.title}</h2>
+            <p className="mt-2 text-cream/80">{t.cta.text}</p>
           </div>
           <Link
-            href="/kontakt#formularz"
+            href={localizedPath(lang, "/kontakt#formularz")}
             className="rounded-full bg-wheat px-7 py-3 font-medium text-forest transition-transform hover:scale-[1.03]"
           >
-            Wyślij zapytanie
+            {t.cta.button}
           </Link>
         </div>
       </section>
@@ -309,13 +278,10 @@ export default function WeselaRocznicePage() {
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: "Strona główna", url: "/" },
-            { name: "Wesela i rocznice", url: HREF },
+            { name: t.schema.breadcrumbHome, url: "/" },
+            { name: t.schema.breadcrumbCurrent, url: HREF },
           ]),
-          serviceSchema(
-            "Kameralne wesela i przyjęcia rocznicowe",
-            "Organizacja kameralnych wesel oraz przyjęć rocznicowych i jubileuszowych w Restauracji KŁOSY w Warszawie (Al. Jerozolimskie 123a, Ochota). Indywidualne menu i obsługa dla bliskiego grona."
-          ),
+          serviceSchema(t.schema.serviceName, t.schema.serviceDescription),
           faqSchema(pageFaq),
         ]}
       />

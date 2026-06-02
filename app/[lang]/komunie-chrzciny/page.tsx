@@ -10,15 +10,26 @@ import { FactsBand } from "@/components/sections/FactsBand";
 import { EditorialSplit } from "@/components/sections/EditorialSplit";
 import { PhotoStrip } from "@/components/sections/PhotoStrip";
 import { WheatDivider } from "@/components/ui/WheatDivider";
+import { getDictionary } from "@/content/i18n";
+import { isLocale, DEFAULT_LOCALE, localizedPath, type LocaleCode } from "@/content/i18n/locales";
 
 const HREF = "/komunie-chrzciny";
 
-export const metadata: Metadata = {
-  title: "Komunie i chrzciny Warszawa | Kameralne przyjęcia rodzinne",
-  description:
-    "Przyjęcia komunijne i chrzcinowe w Warszawie (Al. Jerozolimskie 123a, Ochota). Kameralna sala, menu dla dzieci i dorosłych, obsługa na miejscu. Restauracja KŁOSY — Fundacja „Człowiek w Potrzebie”.",
-  alternates: { canonical: HREF },
-};
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const m = getDictionary(lang).meta.komunie;
+  return {
+    title: m.title,
+    description: m.description,
+    alternates: { canonical: localizedPath(lang, HREF) },
+    openGraph: {
+      title: m.title,
+      description: m.ogDescription,
+      url: localizedPath(lang, HREF),
+    },
+  };
+}
 
 // Podzbiór FAQ pasujący tematycznie do komunii / chrzcin / przyjęć rodzinnych.
 const faqSubset = faqItems.filter((f) =>
@@ -27,100 +38,61 @@ const faqSubset = faqItems.filter((f) =>
   ),
 );
 
-const checklist = [
-  "Przybliżona data oraz godzina, o której skończy się msza / uroczystość w kościele.",
-  "Liczba dorosłych i liczba dzieci (osobno) — to wpływa na układ menu i sali.",
-  "Informacje o alergiach, nietolerancjach oraz potrzebie dań wegetariańskich.",
-  "Czy zapewniacie własny tort, czy ma się nim zająć restauracja.",
-  "Ewentualne dekoracje lub elementy okolicznościowe, które chcecie przynieść.",
-  "Czy wśród gości będą małe dzieci wymagające wygodnego, spokojnego miejsca.",
-];
-
 const phoneHref = `tel:+48${restaurant.contact.phone}`;
 const mailHref = `mailto:${restaurant.contact.email}`;
 
-export default function KomunieChrzcinyPage() {
+export default async function KomunieChrzcinyPage({ params }: { params: Promise<{ lang: string }> }) {
+  const { lang: raw } = await params;
+  const lang: LocaleCode = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const dict = getDictionary(lang);
+  const t = dict.komunie;
+
   return (
     <main className="bg-cream text-ink">
       <PageHero
         image="/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp"
-        alt="Nakryty stół przygotowany na kameralne przyjęcie komunijne w Restauracji KŁOSY"
-        eyebrow="Przyjęcia rodzinne w Warszawie"
-        title="Komunie i chrzciny w Restauracji KŁOSY"
-        subtitle="Kameralna sala na Ochocie, kilka minut od centrum Warszawy. Przyjęcia po Pierwszej Komunii i po chrzcie — z menu dla dzieci i dorosłych oraz obsługą na miejscu."
-        cta={{ label: "Zapytaj o termin", href: "/kontakt#formularz" }}
+        alt={t.hero.alt}
+        eyebrow={t.hero.eyebrow}
+        title={t.hero.title}
+        subtitle={t.hero.subtitle}
+        cta={{ label: t.hero.ctaLabel, href: localizedPath(lang, "/kontakt") + "#formularz" }}
       />
 
-      <FactsBand
-        items={[
-          { value: "Kameralne", label: "Kameralne przyjęcia" },
-          { value: "Dla wszystkich", label: "Menu dla dzieci i dorosłych" },
-          { value: "Na miejscu", label: "Obsługa na miejscu" },
-          { value: "Ochota", label: "Warszawa, Ochota" },
-        ]}
-      />
+      <FactsBand items={t.facts} />
 
       <EditorialSplit
         image="/assets/restauracja-klosy/communions/stol-komunijny-balony.webp"
-        alt="Stół komunijny z dekoracją balonową w Restauracji KŁOSY"
-        eyebrow="Charakter miejsca"
-        title="Kameralne miejsce na rodzinną uroczystość"
+        alt={t.charakter.alt}
+        eyebrow={t.charakter.eyebrow}
+        title={t.charakter.title}
       >
+        <p>{t.charakter.p1}</p>
         <p>
-          Komunia i chrzciny to uroczystości rodzinne, a nie wielkie eventy — i tak właśnie
-          do nich podchodzimy. KŁOSY to spokojna, kameralna restauracja, w której łatwo
-          porozmawiać przy stole, a dzieci mają miejsce, żeby pobyć obok dorosłych.
-          Stawiamy na domową, polską kuchnię i prostą, ciepłą oprawę zamiast hałaśliwej sali
-          bankietowej.
+          {t.charakter.p2Before}
+          {restaurant.address.building.includes(TODO) ? TODO : t.charakter.p2Fallback}
+          {t.charakter.p2After}
         </p>
-        <p>
-          Mieścimy się przy Al. Jerozolimskich 123a w warszawskiej dzielnicy Ochota, w budynku
-          Atlas Tower. To dobrze skomunikowana lokalizacja blisko centrum — wygodna dla gości
-          przyjeżdżających z różnych części Warszawy oraz spoza miasta. Dokładny dojazd i piętro
-          potwierdzamy w kontakcie ({restaurant.address.building.includes(TODO) ? TODO : "do potwierdzenia"}).
-        </p>
-        <p>
-          Ponieważ przyjmujemy ograniczoną liczbę przyjęć, każdej rodzinie poświęcamy uwagę:
-          menu układamy pod konkretną uroczystość, a w dniu przyjęcia dbamy o obsługę, żeby
-          gospodarze mogli być gośćmi u siebie. Restaurację prowadzi Fundacja Pomocy Rodzinie
-          „Człowiek w Potrzebie”, więc każde przyjęcie wspiera też jej cele statutowe.
-        </p>
+        <p>{t.charakter.p3}</p>
       </EditorialSplit>
 
       <WheatDivider />
 
       <EditorialSplit
         image="/assets/restauracja-klosy/events/obsluga-kelnerska.webp"
-        alt="Obsługa kelnerska przy stole podczas przyjęcia w Restauracji KŁOSY"
-        eyebrow="Komunie i chrzciny"
-        title="Dwie różne uroczystości, jedno miejsce"
+        alt={t.uroczystosci.alt}
+        eyebrow={t.uroczystosci.eyebrow}
+        title={t.uroczystosci.title}
         reverse
       >
-        <p>
-          Pierwsza Komunia Święta to dzień dziecka i całej rodziny. Przygotujemy obiad
-          komunijny z menu, które smakuje zarówno dzieciom, jak i dorosłym, znajdziemy
-          miejsce na tort, a po mszy wystarczy przyjść prosto do nas. Sezon komunijny
-          (zwykle maj) bywa intensywny, dlatego o terminy najlepiej pytać z wyprzedzeniem.
-        </p>
-        <p>
-          Chrzciny organizujemy przez cały rok i zwykle w gronie najbliższych — chrzestni,
-          dziadkowie, rodzina. To często spokojniejsze, jeszcze bardziej kameralne spotkanie.
-          Zadbamy o ciche, wygodne miejsce, w którym maluch i rodzice czują się dobrze,
-          oraz o menu na spokojny, rodzinny obiad.
-        </p>
+        <p>{t.uroczystosci.p1}</p>
+        <p>{t.uroczystosci.p2}</p>
         <ul className="space-y-2 text-ink/75">
-          <li className="flex gap-2">
-            <CheckCircle2 size={18} className="mt-1 shrink-0 text-olive" aria-hidden="true" />
-            Menu obiadowe dla dzieci i dorosłych, miejsce na tort
-          </li>
-          <li className="flex gap-2">
-            <CheckCircle2 size={18} className="mt-1 shrink-0 text-olive" aria-hidden="true" />
-            Kameralny układ stołu dla najbliższych
-          </li>
-          <li className="flex gap-2">
-            <CheckCircle2 size={18} className="mt-1 shrink-0 text-olive" aria-hidden="true" />
-            Obsługa, by rodzice mogli być z dzieckiem
-          </li>
+          {t.uroczystosci.bullets.map((b) => (
+            <li key={b} className="flex gap-2">
+              <CheckCircle2 size={18} className="mt-1 shrink-0 text-olive" aria-hidden="true" />
+              {b}
+            </li>
+          ))}
         </ul>
       </EditorialSplit>
 
@@ -128,88 +100,46 @@ export default function KomunieChrzcinyPage() {
 
       <EditorialSplit
         image="/assets/restauracja-klosy/interior/sala-kameralna-kwiaty.webp"
-        alt="Kameralna sala restauracyjna z kwiatami w Restauracji KŁOSY"
-        eyebrow="Menu"
-        title="Menu dla dzieci i dla dorosłych"
+        alt={t.menu.alt}
+        eyebrow={t.menu.eyebrow}
+        title={t.menu.title}
       >
-        <p>
-          Na przyjęciu komunijnym czy chrzcinowym przy jednym stole siedzą dziadkowie
-          i kilkulatki — dlatego menu układamy dwutorowo. Dla dorosłych proponujemy domową,
-          polską kuchnię w wersji obiadowej; dla dzieci dobieramy dania prostsze i pewne, takie,
-          które faktycznie zjedzą. Uwzględniamy dania wegetariańskie oraz alergie
-          i nietolerancje zgłoszone wcześniej w zapytaniu.
-        </p>
-        <p>
-          Konkretne pozycje menu i wycenę przygotowujemy indywidualnie po poznaniu liczby gości
-          i charakteru uroczystości — nie publikujemy tu sztywnego cennika ani gotowych zestawów,
-          bo każde przyjęcie układamy osobno. Aktualną kartę dań możesz też pobrać poniżej.
-        </p>
+        <p>{t.menu.p1}</p>
+        <p>{t.menu.p2}</p>
         <div className="flex flex-wrap gap-3">
           <Link
-            href="/menu-dnia"
+            href={localizedPath(lang, "/menu-dnia")}
             className="rounded-card border border-olive/40 px-6 py-3 font-medium text-forest transition hover:bg-linen"
           >
-            Zobacz menu dnia
+            {t.menu.seeMenu}
           </Link>
           {restaurant.menuPdf.includes(TODO) ? (
             <span className="rounded-card border border-dashed border-olive/40 px-6 py-3 text-sm text-ink/50">
-              [DO UZUPEŁNIENIA: link do aktualnego menu PDF]
+              {t.menu.pdfTodo}
             </span>
           ) : (
             <a
               href={restaurant.menuPdf}
               className="rounded-card bg-wheat px-6 py-3 font-medium text-forest shadow-soft transition hover:brightness-95"
             >
-              Pobierz menu (PDF)
+              {t.menu.pdfDownload}
             </a>
           )}
         </div>
-        <p className="text-sm text-ink/50">
-          Ceny i dostępność: [DO UZUPEŁNIENIA: pakiety / ceny przyjęć komunijnych i chrzcinowych] —
-          ustalane indywidualnie po zapytaniu.
-        </p>
+        <p className="text-sm text-ink/50">{t.menu.pricingNote}</p>
       </EditorialSplit>
 
       <WheatDivider />
 
-      <PhotoStrip
-        heading="Zobacz nasze realizacje"
-        images={[
-          {
-            src: "/assets/restauracja-klosy/communions/stol-komunijny-girlanda.webp",
-            alt: "Stół komunijny z girlandą kwiatową w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/communions/stol-komunijny-balony.webp",
-            alt: "Stół komunijny z dekoracją balonową w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/events/obsluga-kelnerska.webp",
-            alt: "Obsługa kelnerska podczas przyjęcia w Restauracji KŁOSY",
-          },
-          {
-            src: "/assets/restauracja-klosy/catering/slodki-stol-ciasta.webp",
-            alt: "Słodki stół z ciastami na przyjęcie rodzinne",
-          },
-          {
-            src: "/assets/restauracja-klosy/food/pieczona-kaczka.webp",
-            alt: "Pieczona kaczka — danie z domowej, polskiej kuchni",
-          },
-        ]}
-      />
+      <PhotoStrip heading={t.realizacje.heading} images={t.realizacje.images} />
 
       {/* CO PRZYGOTOWAĆ */}
       <section className="section-y">
         <div className="container-x max-w-4xl">
-          <h2 className="font-serif text-3xl text-forest sm:text-4xl">
-            Co warto przygotować przed zapytaniem
-          </h2>
-          <p className="mt-3 text-ink/70">
-            Im więcej szczegółów podasz na starcie, tym szybciej przygotujemy trafną propozycję
-            menu i terminu. Nie musisz mieć wszystkiego dopięte — wystarczą przybliżone informacje.
-          </p>
+          <h2 className="font-serif text-3xl text-forest sm:text-4xl">{t.checklist.title}</h2>
+          <p className="mt-3 text-ink/70">{t.checklist.intro}</p>
           <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-            {checklist.map((item) => (
+            {t.checklist.items.map((item) => (
               <li
                 key={item}
                 className="flex gap-3 rounded-card border border-linen bg-white p-4 shadow-soft"
@@ -225,17 +155,14 @@ export default function KomunieChrzcinyPage() {
       {/* LOKALIZACJA / NAP */}
       <section className="section-y bg-white">
         <div className="container-x max-w-3xl">
-          <h2 className="font-serif text-3xl text-forest sm:text-4xl">Dojazd i kontakt</h2>
-          <p className="mt-4 text-ink/80">
-            Restauracja KŁOSY mieści się w centrum Warszawy, na Ochocie — dobrze skomunikowanym
-            punkcie dla gości z całego miasta i okolic.
-          </p>
+          <h2 className="font-serif text-3xl text-forest sm:text-4xl">{t.lokalizacja.title}</h2>
+          <p className="mt-4 text-ink/80">{t.lokalizacja.intro}</p>
           <ul className="mt-6 space-y-3 text-ink/80">
             <li className="flex gap-3">
               <MapPin size={20} className="mt-0.5 shrink-0 text-olive" aria-hidden="true" />
               <span>
                 {restaurant.address.street}, {restaurant.address.postalCode}{" "}
-                {restaurant.address.city} ({restaurant.address.building} — do potwierdzenia)
+                {restaurant.address.city} ({restaurant.address.building} — {t.lokalizacja.addressSuffix})
               </span>
             </li>
             <li className="flex gap-3">
@@ -258,9 +185,7 @@ export default function KomunieChrzcinyPage() {
       {/* FAQ */}
       <section id="faq" className="section-y">
         <div className="container-x max-w-3xl">
-          <h2 className="font-serif text-3xl text-forest sm:text-4xl">
-            Komunie i chrzciny — najczęstsze pytania
-          </h2>
+          <h2 className="font-serif text-3xl text-forest sm:text-4xl">{t.faq.title}</h2>
           <div className="mt-8 divide-y divide-linen rounded-card border border-linen bg-white">
             {faqSubset.map((item) => (
               <details key={item.q} className="group px-5 py-4">
@@ -277,41 +202,36 @@ export default function KomunieChrzcinyPage() {
       {/* CTA + LINKI WEWNĘTRZNE */}
       <section className="section-y bg-forest text-cream">
         <div className="container-x max-w-3xl text-center">
-          <h2 className="font-serif text-3xl sm:text-4xl">
-            Zaplanujmy razem komunię lub chrzciny
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-cream/80">
-            Napisz, kiedy planujecie uroczystość i ilu spodziewacie się gości — odezwiemy się
-            z propozycją terminu i menu. Bez zobowiązań.
-          </p>
+          <h2 className="font-serif text-3xl sm:text-4xl">{t.cta.title}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-cream/80">{t.cta.text}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              href="/kontakt#formularz"
+              href={localizedPath(lang, "/kontakt") + "#formularz"}
               className="rounded-card bg-wheat px-6 py-3 font-medium text-forest shadow-soft transition hover:brightness-95"
             >
-              Wyślij zapytanie
+              {t.cta.sendLabel}
             </Link>
             <a
               href={phoneHref}
               className="rounded-card border border-cream/40 px-6 py-3 font-medium text-cream transition hover:bg-cream/10"
             >
-              Zadzwoń: {restaurant.contact.phoneDisplay}
+              {t.cta.callLabel} {restaurant.contact.phoneDisplay}
             </a>
           </div>
 
           <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-cream/70">
-            <span>Zobacz też:</span>
-            <Link href="/wesela-rocznice" className="underline hover:text-cream">
-              Wesela i rocznice
+            <span>{t.cta.seeAlso}</span>
+            <Link href={localizedPath(lang, "/wesela-rocznice")} className="underline hover:text-cream">
+              {t.cta.links.wesela}
             </Link>
-            <Link href="/imprezy-okolicznosciowe" className="underline hover:text-cream">
-              Imprezy okolicznościowe
+            <Link href={localizedPath(lang, "/imprezy-okolicznosciowe")} className="underline hover:text-cream">
+              {t.cta.links.imprezy}
             </Link>
-            <Link href="/catering" className="underline hover:text-cream">
-              Catering
+            <Link href={localizedPath(lang, "/catering")} className="underline hover:text-cream">
+              {t.cta.links.catering}
             </Link>
-            <Link href="/menu-dnia" className="underline hover:text-cream">
-              Menu dnia
+            <Link href={localizedPath(lang, "/menu-dnia")} className="underline hover:text-cream">
+              {t.cta.links.menuDnia}
             </Link>
           </div>
         </div>
@@ -320,13 +240,10 @@ export default function KomunieChrzcinyPage() {
       <JsonLd
         data={[
           breadcrumbSchema([
-            { name: "Strona główna", url: "/" },
-            { name: "Komunie i chrzciny", url: HREF },
+            { name: t.schema.breadcrumbHome, url: localizedPath(lang, "/") },
+            { name: t.schema.breadcrumbCurrent, url: localizedPath(lang, HREF) },
           ]),
-          serviceSchema(
-            "Przyjęcia komunijne i chrzcinowe",
-            "Organizacja kameralnych przyjęć komunijnych i chrzcinowych w Restauracji KŁOSY w Warszawie — menu dla dzieci i dorosłych, sala i obsługa na miejscu.",
-          ),
+          serviceSchema(t.schema.serviceName, t.schema.serviceDescription),
           faqSchema(faqSubset),
         ]}
       />
