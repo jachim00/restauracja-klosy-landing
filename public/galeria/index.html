@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restauracja KŁOSY</title>
+    <meta name="robots" content="noindex,follow" />
+    <link rel="canonical" href="../pl/galeria/" />
+    <script>
+      (function () {
+        var s = ["pl","en","uk","de","cs","sk","fr","hu","ar"];
+        var p = null; try { p = localStorage.getItem("klosy:lang"); } catch (e) {}
+        if (!p) { var n = (navigator.language || "pl").slice(0,2).toLowerCase(); p = s.indexOf(n) >= 0 ? n : "pl"; }
+        if (s.indexOf(p) < 0) p = "pl";
+        location.replace("../" + p + "/galeria/");
+      })();
+    </script>
+    <meta http-equiv="refresh" content="0; url=../pl/galeria/" />
+  </head>
+  <body><p>Przekierowanie… <a href="../pl/galeria/">Restauracja KŁOSY</a></p></body>
+</html>
