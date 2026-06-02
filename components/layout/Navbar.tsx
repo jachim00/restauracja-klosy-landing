@@ -3,27 +3,37 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
-import { navLinks } from "@/lib/constants";
 import { restaurant } from "@/content/restaurant-data";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 import { WheatMark } from "@/components/ui/WheatMark";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
-export function Navbar() {
+type Props = {
+  lang: LocaleCode;
+  dict: Dictionary["common"];
+};
+
+export function Navbar({ lang, dict }: Props) {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b border-linen/60 bg-cream/90 backdrop-blur">
-      <nav className="container-x flex h-16 items-center justify-between" aria-label="Główna nawigacja">
-        <Link href="/" className="inline-flex items-center gap-2 font-serif text-xl font-semibold text-forest">
+      <nav className="container-x flex h-16 items-center justify-between" aria-label={dict.nav.ariaLabel}>
+        <Link
+          href={localizedPath(lang, "/")}
+          className="inline-flex items-center gap-2 font-serif text-xl font-semibold text-forest"
+        >
           <WheatMark className="h-5 w-5 text-wheat" />
-          KŁOSY
+          {dict.brand}
         </Link>
 
         <ul className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((l) => (
-            <li key={l.href}>
+          {dict.nav.links.map((l) => (
+            <li key={l.key}>
               <Link
-                href={l.href}
+                href={localizedPath(lang, l.href)}
                 className="whitespace-nowrap rounded-full px-3 py-1.5 text-sm text-ink/80 transition-colors hover:bg-linen/60 hover:text-forest"
               >
                 {l.short}
@@ -32,7 +42,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LanguageSwitcher lang={lang} label={dict.langSwitcher.label} />
           <span aria-hidden className="hidden h-6 w-px bg-linen lg:block" />
           <a
             href={`tel:+48${restaurant.contact.phone}`}
@@ -44,7 +55,7 @@ export function Navbar() {
           <button
             type="button"
             className="lg:hidden"
-            aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+            aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
@@ -55,10 +66,10 @@ export function Navbar() {
 
       <div className={cn("lg:hidden", open ? "block" : "hidden")}>
         <ul className="container-x flex flex-col gap-1 pb-4">
-          {navLinks.map((l) => (
-            <li key={l.href}>
+          {dict.nav.links.map((l) => (
+            <li key={l.key}>
               <Link
-                href={l.href}
+                href={localizedPath(lang, l.href)}
                 onClick={() => setOpen(false)}
                 className="block rounded-lg px-3 py-2 text-ink/90 hover:bg-linen/50"
               >

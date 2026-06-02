@@ -50,13 +50,13 @@ export function localBusinessSchema() {
   return { ...restaurantSchema(), "@type": ["Restaurant", "LocalBusiness"] };
 }
 
-export function websiteSchema() {
+export function websiteSchema(lang: string = "pl-PL") {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: restaurant.name,
     url: SITE,
-    inLanguage: "pl-PL",
+    inLanguage: lang,
   };
 }
 

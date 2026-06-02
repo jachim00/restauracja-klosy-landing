@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Restauracja KŁOSY</title>
+    <meta name="robots" content="noindex,follow" />
+    <link rel="canonical" href="./pl/" />
+    <script>
+      // Przekierowanie z "/" do wersji językowej: zapamiętany wybór -> język przeglądarki -> PL.
+      (function () {
+        var supported = ["pl", "en", "uk", "de", "cs", "sk", "fr", "hu", "ar"];
+        var pref = null;
+        try { pref = localStorage.getItem("klosy:lang"); } catch (e) {}
+        if (!pref) {
+          var nav = (navigator.language || "pl").slice(0, 2).toLowerCase();
+          pref = supported.indexOf(nav) >= 0 ? nav : "pl";
+        }
+        if (supported.indexOf(pref) < 0) pref = "pl";
+        location.replace("./" + pref + "/");
+      })();
+    </script>
+    <meta http-equiv="refresh" content="0; url=./pl/" />
+  </head>
+  <body>
+    <p>Przekierowanie… <a href="./pl/">Restauracja KŁOSY / Restaurant KŁOSY</a></p>
+  </body>
+</html>

@@ -1,18 +1,25 @@
 import Link from "next/link";
 import { restaurant } from "@/content/restaurant-data";
-import { navLinks } from "@/lib/constants";
+import { localizedPath, type LocaleCode } from "@/content/i18n/locales";
+import type { Dictionary } from "@/content/i18n";
 
-export function Footer() {
+type Props = {
+  lang: LocaleCode;
+  dict: Dictionary["common"];
+};
+
+export function Footer({ lang, dict }: Props) {
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-forest text-cream/90">
       <div className="container-x grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <p className="font-serif text-2xl text-cream">Restauracja KŁOSY</p>
-          <p className="mt-3 text-sm text-cream/70">{restaurant.legalNote}</p>
+          <p className="font-serif text-2xl text-cream">{dict.brandFull}</p>
+          <p className="mt-3 text-sm text-cream/70">{dict.footer.tagline}</p>
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-wheat">Kontakt</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-wheat">{dict.footer.contactHeading}</h2>
           <ul className="mt-3 space-y-1 text-sm">
             <li>{restaurant.address.street}</li>
             <li>{restaurant.address.postalCode} {restaurant.address.city}</li>
@@ -31,21 +38,18 @@ export function Footer() {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-wheat">Nawigacja</h2>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-wheat">{dict.footer.navHeading}</h2>
           <ul className="mt-3 space-y-1 text-sm">
-            {navLinks.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} className="hover:text-wheat">{l.label}</Link>
+            {dict.nav.links.map((l) => (
+              <li key={l.key}>
+                <Link href={localizedPath(lang, l.href)} className="hover:text-wheat">{l.label}</Link>
               </li>
             ))}
           </ul>
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-wheat">Misja</h2>
-          <p className="mt-3 text-sm text-cream/70">
-            Restauracja działa przy {restaurant.foundation.name}. Zysk wspiera cele statutowe Fundacji.
-          </p>
+          <p className="mt-0 text-sm text-cream/70">{dict.footer.foundationNote}</p>
           <p className="mt-2 text-xs text-cream/50">KRS {restaurant.foundation.krs}</p>
         </div>
       </div>
@@ -53,7 +57,7 @@ export function Footer() {
       <div className="border-t border-cream/15">
         <div className="container-x flex flex-col items-center justify-between gap-2 py-4 text-xs text-cream/60 sm:flex-row">
           <p>
-            © {new Date().getFullYear()} Copyright by{" "}
+            © {year} Copyright by{" "}
             <a
               href="https://www.pflgroup.pl"
               target="_blank"
@@ -62,10 +66,10 @@ export function Footer() {
             >
               PFL Group
             </a>
-            . Wszelkie prawa zastrzeżone.
+            . {dict.footer.copyright}
           </p>
-          <Link href={restaurant.privacyPolicyUrl} className="hover:text-wheat">
-            Polityka prywatności
+          <Link href={localizedPath(lang, "/polityka-prywatnosci")} className="hover:text-wheat">
+            {dict.footer.privacy}
           </Link>
         </div>
       </div>
