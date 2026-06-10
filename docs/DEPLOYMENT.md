@@ -2,7 +2,7 @@
 
 ## A. GitHub (repo: `restauracja-klosy-landing`)
 
-Konto GitHub na tym VPS: `jachim00` (gh CLI zalogowany).
+Konto GitHub na tym VPS: `PFLGroup` (gh CLI zalogowany).
 
 ```bash
 cd "D:/Automatyzacje/Landing Page/Projekty/restauracja-klosy"

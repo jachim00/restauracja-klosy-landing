@@ -7,7 +7,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind CSS · Framer Motion · React 
 
 ## Mapowanie struktury
 - Repo root (lokalnie): `D:\Automatyzacje\Landing Page\Projekty\restauracja-klosy\`
-- Repo GitHub: `restauracja-klosy-landing` (konto `jachim00`)
+- Repo GitHub: `restauracja-klosy-landing` (konto `PFLGroup`)
 - Brief mówił `/landing-pages/restauracja-klosy/` — na tym VPS odpowiednik to ścieżka wyżej.
 
 ## Kolejność prac (milestones)

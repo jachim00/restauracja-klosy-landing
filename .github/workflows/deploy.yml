@@ -20,7 +20,7 @@ jobs:
     env:
       # Project Pages -> strona pod /<repo>. Zmień jeśli podłączysz własną domenę.
       NEXT_PUBLIC_BASE_PATH: /restauracja-klosy-landing
-      NEXT_PUBLIC_SITE_URL: https://jachim00.github.io/restauracja-klosy-landing
+      NEXT_PUBLIC_SITE_URL: https://pflgroup.github.io/restauracja-klosy-landing
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

@@ -7,7 +7,7 @@ const HREFLANG = {
 module.exports = {
   siteUrl:
     process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://jachim00.github.io/restauracja-klosy-landing",
+    "https://pflgroup.github.io/restauracja-klosy-landing",
   generateRobotsTxt: true,
   generateIndexSitemap: false,
   outDir: "./out", // statyczny eksport
